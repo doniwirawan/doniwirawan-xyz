@@ -18,8 +18,8 @@
       doniwirawan.xyz
     </a>
     <div class="nav-links">
-      <a href="#apps">Apps</a>
-      <a href="#work">Work</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
       <a href="#cycling">Cycling</a>
       <a href="#connect">Connect</a>
       <a href="/terms">Terms</a>
@@ -37,7 +37,7 @@
     are free, and none of them upload what you put into them.
   </p>
   <div class="hero-actions">
-    <a class="btn primary" href="#apps">See the apps</a>
+    <a class="btn primary" href="#projects">See the apps</a>
     <a class="btn" href="https://github.com/doniwirawan" target="_blank" rel="noopener">
       <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
       GitHub
@@ -50,8 +50,15 @@
 </header>
 
 <main>
-  <section class="section wrap" id="apps">
-    <h2>Apps</h2>
+  <section class="section wrap" id="projects">
+    <h2>Projects</h2>
+
+    <div class="tabs" role="tablist">
+      <button class="tab is-active" id="tab-apps" role="tab" aria-selected="true" aria-controls="panel-apps">Apps</button>
+      <button class="tab" id="tab-work" role="tab" aria-selected="false" aria-controls="panel-work">Work</button>
+    </div>
+
+    <div class="tab-panel" id="panel-apps" role="tabpanel" aria-labelledby="tab-apps">
     <p class="section-sub">Everything here is free to use and runs client-side.</p>
 
     <div class="apps">
@@ -104,10 +111,9 @@
       </article>
 
     </div>
-  </section>
+    </div>
 
-  <section class="section wrap" id="work">
-    <h2>Work</h2>
+    <div class="tab-panel" id="panel-work" role="tabpanel" aria-labelledby="tab-work" hidden>
     <p class="section-sub">Client-facing sites and internal tools I have built for Studio Five Media Group.</p>
 
     <div class="apps">
@@ -144,6 +150,21 @@
       </article>
 
       <article class="app-card">
+        <img class="app-logo" src="images/studiofive-logo.png" alt="Studio Five logo" width="56" height="56">
+        <div class="app-body">
+          <h3 class="app-name">Chapter5 <span class="app-tag">Studio Five</span></h3>
+          <p class="app-desc">
+            A wedding website builder for Singapore couples — RSVPs, guest lists, galleries and gift
+            registries behind one link. It ships with 37 templates, including themes for Malay,
+            Chinese, Indian, Sikh, Eurasian and Peranakan weddings.
+          </p>
+          <div class="app-links">
+            <a class="btn primary" href="https://chapter5.studiofiveweddings.com" target="_blank" rel="noopener">Open Chapter5</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="app-card">
         <img class="app-logo" src="images/beforethewin-logo.svg" alt="Before The Win Summit logo" width="56" height="56">
         <div class="app-body">
           <h3 class="app-name">Before The Win Summit <span class="app-tag">Event</span></h3>
@@ -157,6 +178,30 @@
         </div>
       </article>
 
+    </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="about">
+    <h2>About</h2>
+    <p class="section-sub">The short version.</p>
+
+    <div class="about">
+      <img class="about-photo" src="images/portrait.jpg" alt="Portrait of Doni Wirawan" width="600" height="600" loading="lazy">
+      <div>
+        <p class="prose">
+          I am Doni Wirawan. By day I build the client-facing sites and internal tools that keep
+          Studio Five Media Group's wedding work moving — planning dashboards, delivery trackers,
+          and the website builder couples send to their guests.
+        </p>
+        <p class="prose">
+          The rest of the time I build small free tools for the things I care about: my own riding
+          data, my own bike fit, and the Balinese script I grew up around. They all run in the
+          browser, they are all free, and none of them upload what you put into them. That is a
+          deliberate choice, not a limitation — I would rather ship something small that respects
+          you than something big that does not.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -202,9 +247,17 @@
         <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/></svg>
         Instagram
       </a>
+      <a class="btn" href="https://www.threads.com/@doniwirawans" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6.321 6.016c-.27-.18-1.166-.802-1.166-.802.756-1.081 1.753-1.502 3.132-1.502.975 0 1.803.327 2.394.948s.928 1.509 1.005 2.644q.492.207.905.484c1.109.745 1.719 1.86 1.719 3.137 0 2.716-2.226 5.075-6.256 5.075C4.594 16 1 13.987 1 7.994 1 2.034 4.482 0 8.044 0 9.69 0 13.55.243 15 5.036l-1.36.353C12.516 1.974 10.163 1.43 8.006 1.43c-3.565 0-5.582 2.171-5.582 6.79 0 4.143 2.254 6.343 5.63 6.343 2.777 0 4.847-1.443 4.847-3.556 0-1.438-1.208-2.127-1.27-2.127-.236 1.234-.868 3.31-3.644 3.31-1.618 0-3.013-1.118-3.013-2.582 0-2.09 1.984-2.847 3.55-2.847.586 0 1.294.04 1.663.114 0-.637-.54-1.728-1.9-1.728-1.25 0-1.566.405-1.967.868ZM8.716 8.19c-2.04 0-2.304.87-2.304 1.416 0 .878 1.043 1.168 1.6 1.168 1.02 0 2.067-.282 2.232-2.423a6.2 6.2 0 0 0-1.528-.161"/></svg>
+        Threads
+      </a>
       <a class="btn" href="https://twitter.com/doni_wirawans" target="_blank" rel="noopener">
         <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg>
         Twitter
+      </a>
+      <a class="btn" href="https://www.tiktok.com/@doniwirawans" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/></svg>
+        TikTok
       </a>
       <a class="btn" href="https://www.strava.com/athletes/124436743" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066M8.378 0L2.83 10.928h3.244L8.378 6.4l2.301 4.528h3.234z"/></svg>
@@ -232,7 +285,20 @@
   </div>
 </footer>
 
-<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+document.querySelectorAll('.tab').forEach(function (tab) {
+  tab.addEventListener('click', function () {
+    document.querySelectorAll('.tab').forEach(function (t) {
+      var selected = t === tab;
+      t.classList.toggle('is-active', selected);
+      t.setAttribute('aria-selected', selected);
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !selected;
+    });
+  });
+});
+</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

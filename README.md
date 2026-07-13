@@ -21,6 +21,7 @@ Sites and internal tools built for Studio Five Media Group.
 |---|---|---|
 | **Studio Five Suite** | Wedding planning dashboard — checklists, contracts, payments, vendors | [suite.studiofiveweddings.com](https://suite.studiofiveweddings.com) |
 | **Deliverables Tracker** | Client portal for live photo/video editing progress | [tracker.studiofiveweddings.com](https://tracker.studiofiveweddings.com) |
+| **Chapter5** | Wedding website builder — RSVPs, guest lists, galleries, registries | [chapter5.studiofiveweddings.com](https://chapter5.studiofiveweddings.com) |
 | **Before The Win Summit** | Event site for a one-day business summit in Singapore | [beforethewinsummit.com](https://www.beforethewinsummit.com/) |
 
 ## Elsewhere

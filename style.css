@@ -81,6 +81,21 @@ a:hover { text-decoration: underline; }
 }
 .section .section-sub { color: var(--muted); font-size: 15px; margin: 0 0 28px; }
 
+/* ── tabs ── */
+.tabs {
+  display: inline-flex; gap: 4px; margin: 14px 0 24px; padding: 4px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+}
+.tab {
+  font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+  padding: 8px 18px; border-radius: 8px; border: 0;
+  background: transparent; color: var(--muted);
+  transition: background .15s, color .15s;
+}
+.tab:hover { color: var(--text); }
+.tab.is-active { background: var(--surface-2); color: var(--text); }
+.tab-panel[hidden] { display: none; }
+
 /* ── app cards ── */
 .apps { display: grid; gap: 16px; }
 .app-card {
@@ -103,6 +118,15 @@ a:hover { text-decoration: underline; }
 }
 .app-desc { color: var(--muted); font-size: 14.5px; margin: 0 0 16px; }
 .app-links { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* ── about ── */
+.about { display: flex; gap: 28px; align-items: flex-start; flex-wrap: wrap; }
+.about-photo {
+  flex: 0 0 auto; width: 180px; height: 180px; object-fit: cover;
+  border-radius: var(--radius); border: 1px solid var(--border);
+}
+.about > div { flex: 1 1 320px; min-width: 0; }
+.about .prose:last-child { margin-bottom: 0; }
 
 /* ── cycling ── */
 .prose { color: var(--muted); font-size: 15px; max-width: 620px; margin: 0 0 16px; }
