@@ -13,6 +13,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="robots" content="noindex, nofollow">
 <title>Admin — Doni Wirawan</title>
 <link rel="icon" href="/images/icon.png">
+<link rel="stylesheet" href="https://unpkg.com/easymde@2.18.0/dist/easymde.min.css">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -71,8 +72,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <label>Source<input type="text" id="source" placeholder="Medium">
         <span class="hint">Shown as a tag on the blog index, e.g. Medium.</span>
       </label>
-      <label>Body<textarea id="body" rows="16" required></textarea>
-        <span class="hint">Markdown.</span>
+      <label>Body<textarea id="body" rows="16"></textarea>
+        <span class="hint">Markdown, with live preview. Raw HTML works too. Drag an image in, or use the picture button, to upload it.</span>
       </label>
       <label class="check"><input type="checkbox" id="published"> Published</label>
       <div class="app-links">
@@ -106,6 +107,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 <script src="/js/config.js"></script>
+<script src="https://unpkg.com/easymde@2.18.0/dist/easymde.min.js"></script>
 <script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
@@ -118,6 +120,35 @@ const slugify = (s) => s.toLowerCase().trim()
   .replace(/[^a-z0-9\s-]/g, '')
   .replace(/\s+/g, '-')
   .replace(/-+/g, '-');
+
+// Markdown editor with live preview. Raw HTML in the body still works.
+const mde = new EasyMDE({
+  element: el('body'),
+  spellChecker: false,
+  autoDownloadFontAwesome: true,
+  placeholder: 'Write in markdown. Drag an image in to upload it.',
+  uploadImage: true,
+  imageUploadFunction: uploadImage,
+  toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list',
+            '|', 'link', 'upload-image', 'code', '|', 'preview', 'side-by-side', 'guide'],
+});
+
+async function uploadImage(file, onSuccess, onError) {
+  const ext = (file.name.split('.').pop() || 'png').toLowerCase();
+  const path = `${Date.now()}-${slugify(file.name.replace(/\.[^.]+$/, '')) || 'image'}.${ext}`;
+
+  const { error } = await db.storage.from('blog').upload(path, file, {
+    cacheControl: '31536000',
+    contentType: file.type || undefined,
+  });
+
+  if (error) {
+    onError('Upload failed: ' + error.message);
+    return;
+  }
+  const { data } = db.storage.from('blog').getPublicUrl(path);
+  onSuccess(data.publicUrl);
+}
 
 async function render() {
   const { data: { session } } = await db.auth.getSession();
@@ -224,7 +255,7 @@ async function load(id) {
   el('excerpt').value = data.excerpt || '';
   el('canonical_url').value = data.canonical_url || '';
   el('source').value = data.source || '';
-  el('body').value = data.body || '';
+  mde.value(data.body || '');
   el('published').checked = data.published;
   el('post-msg').textContent = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -233,6 +264,7 @@ async function load(id) {
 el('reset').onclick = () => {
   el('post-form').reset();
   el('post-id').value = '';
+  mde.value('');
   el('post-msg').textContent = '';
 };
 
@@ -260,6 +292,13 @@ el('signout').addEventListener('click', async (e) => {
 el('post-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const msg = el('post-msg');
+
+  // The textarea is hidden by EasyMDE, so a `required` attribute on it would
+  // block submit with an unfocusable-field error. Check the editor instead.
+  if (!mde.value().trim()) {
+    msg.textContent = 'The body is empty.';
+    return;
+  }
   msg.textContent = 'Saving…';
 
   const published = el('published').checked;
@@ -269,7 +308,7 @@ el('post-form').addEventListener('submit', async (e) => {
     excerpt: el('excerpt').value.trim() || null,
     canonical_url: el('canonical_url').value.trim() || null,
     source: el('source').value.trim() || null,
-    body: el('body').value,
+    body: mde.value(),
     published
   };
 
@@ -293,6 +332,7 @@ el('post-form').addEventListener('submit', async (e) => {
   msg.textContent = 'Saved.';
   el('post-form').reset();
   el('post-id').value = '';
+  mde.value('');
   render();
 });
 
