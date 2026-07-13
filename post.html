@@ -75,7 +75,7 @@ if (!slug) {
 } else {
   const { data, error } = await db
     .from('posts')
-    .select('title, excerpt, body, published_at, canonical_url, source')
+    .select('title, excerpt, body, published_at, canonical_url, source, cover_url')
     .eq('slug', slug)
     .eq('published', true)
     .maybeSingle();
@@ -112,7 +112,25 @@ if (!slug) {
     body.className = 'post-body';
     body.innerHTML = DOMPurify.sanitize(marked.parse(data.body || ''));
 
-    const parts = [h1, date, body];
+    const parts = [h1, date];
+
+    if (data.cover_url) {
+      const hero = document.createElement('img');
+      hero.className = 'post-hero';
+      hero.src = data.cover_url;
+      hero.alt = '';
+      // A dead cover should not leave a broken-image icon in the middle of the post.
+      hero.onerror = () => hero.remove();
+      parts.push(hero);
+
+      // Give link previews something to show.
+      const og = document.createElement('meta');
+      og.setAttribute('property', 'og:image');
+      og.content = data.cover_url;
+      document.head.append(og);
+    }
+
+    parts.push(body);
 
     if (data.canonical_url) {
       const note = document.createElement('p');
