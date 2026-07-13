@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms &amp; Privacy — Doni Wirawan</title>
+<meta name="description" content="Combined terms of use and privacy policy covering Ascent, Bike Fit Analyzer and Aksara Bali.">
+<link rel="icon" href="images/ascent-logo.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-name" href="/">doniwirawan.xyz</a>
+    <div class="nav-links">
+      <a href="/#apps">Apps</a>
+      <a href="/terms">Terms</a>
+      <a href="https://github.com/doniwirawan" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap doc">
+  <h1>Terms &amp; Privacy</h1>
+  <p class="meta">Last updated 13 July 2026 · Covers Ascent, Bike Fit Analyzer and Aksara Bali</p>
+
+  <div class="callout">
+    <p>
+      <strong>The short version:</strong> every app on this site is free, unofficial, and provided
+      as-is with no warranty. They run in your browser — your videos, your text and your activity
+      data are not uploaded to a server I control. Nothing here is professional, medical or legal
+      advice, and what you do with the output is your own decision and your own risk.
+    </p>
+  </div>
+
+  <h2>1. Who you are dealing with</h2>
+  <p>
+    Ascent, Bike Fit Analyzer and Aksara Bali (each an “App”) are personal projects built and
+    operated by one individual, Doni Wirawan (“I”, “me”, the “Operator”). They are not companies,
+    not commercial products, and not affiliated with, endorsed by or certified by any organisation
+    whose data or platform they interoperate with. By using an App you agree to these terms and to
+    the privacy terms below. If you do not agree, do not use it.
+  </p>
+
+  <h2>2. Free, as-is, no warranty</h2>
+  <p>
+    Each App is offered free of charge and “as is”, without warranty of any kind, express or
+    implied, including any warranty of accuracy, fitness for a particular purpose, or uninterrupted
+    availability. Features are experimental and may change, break or disappear without notice. To
+    the fullest extent permitted by law, the Operator accepts no liability for any injury, damage,
+    loss or cost arising out of your use of an App.
+  </p>
+
+  <h2>3. Not professional advice</h2>
+  <p>
+    Nothing produced by these Apps is professional advice. In particular, Bike Fit Analyzer is not
+    a professional bike fit and not medical advice: a 2D side-on video cannot see depth and cannot
+    see you, and a qualified fitter can. If you have pain, numbness or an injury, see a doctor or
+    physiotherapist. Any change you make to your bike, your training, or your riding position is
+    your own decision and your own risk — change one thing at a time, and stop if something hurts.
+  </p>
+
+  <h2>4. Your data, in general</h2>
+  <p>
+    These Apps are static sites. There is no application database holding your personal content on
+    a server I control. As a rule:
+  </p>
+  <ul>
+    <li>What you feed an App — a video, a block of text, your activity history — is processed in your browser, on your device.</li>
+    <li>What is remembered between visits (preferences, saved results, tokens) lives in your browser's own local storage, and clearing your browser data deletes it.</li>
+    <li>Page views are counted with Vercel Web Analytics, which is cookieless, does not profile you, and does not follow you across other sites. It records things like which page was opened, the referrer, and a coarse country and device type.</li>
+    <li>I do not sell, rent or trade your data, and I do not use it for advertising.</li>
+  </ul>
+
+  <h2>5. Ascent (Strava dashboard)</h2>
+  <p>
+    Ascent is an independent, unofficial, free analytics tool for viewing your own Strava data. It
+    is <strong>not affiliated with, endorsed, sponsored, certified or approved by Strava, Inc.</strong>
+    “Strava” and its logos are trademarks of Strava, Inc., used only to describe interoperability.
+    Your use of Strava data through Ascent remains subject to Strava's own Terms of Service, API
+    Agreement, Brand Guidelines and Privacy Policy.
+  </p>
+  <h3>What it accesses</h3>
+  <p>
+    With your authorisation through Strava's OAuth, Ascent can read your profile (name, photo,
+    athlete ID, gear, totals), your activities (distance, time, speed, elevation, heart rate, power,
+    cadence, GPS routes, photos, names, dates) and your segments and efforts. It requests the
+    <code>read</code>, <code>activity:read_all</code>, <code>profile:read_all</code> and
+    <code>activity:write</code> scopes. Write access is used <em>only</em> when you explicitly choose
+    to reassign gear on activities you select — it is never used to post, edit or delete anything else.
+  </p>
+  <h3>Where it goes</h3>
+  <p>
+    Your OAuth tokens, preferences and a copy of your recent activities are stored on your device in
+    browser <code>localStorage</code>. Activity data may be cached to speed up loading. You can
+    disconnect at any time by revoking Ascent's access in your Strava settings and clearing your
+    browser storage. Consent is the legal basis for this processing, and you may withdraw it at any time.
+  </p>
+  <p>
+    Full text: <a href="https://ascent-analytics.doniwirawan.xyz/terms" target="_blank" rel="noopener">Ascent Terms of Service</a>
+    · <a href="https://ascent-analytics.doniwirawan.xyz/privacy" target="_blank" rel="noopener">Ascent Privacy Policy</a>
+  </p>
+
+  <h2>6. Bike Fit Analyzer</h2>
+  <p>
+    Bike Fit Analyzer measures joint angles from a video of you pedalling and grades them against
+    ranges taken from bike-fitting research. It is a proof of concept, and there is no guarantee the
+    numbers are right for your body. Camera angle, clothing, lighting and the pose model all
+    introduce error, and the front/rear readings are explicitly experimental. See section 3 above —
+    this is not a bike fit and not medical advice.
+  </p>
+  <h3>Your video</h3>
+  <p>
+    Your video is never uploaded. It is read and analysed by your own browser, on your own device,
+    and no copy is kept after you leave the page. Camera access is requested only at the moment you
+    press Record. Saved results and your language choice are stored in your browser's local storage
+    only. The one thing that does leave your device is the download of the pose-detection model and
+    runtime (MediaPipe, from jsDelivr and Google's storage servers) — those servers see your IP and
+    browser, as any file download would, and receive nothing about your video.
+  </p>
+  <h3>Source licence</h3>
+  <p>
+    The source is published so anyone can audit the privacy claims. It is
+    <strong>source-available, not open source</strong>: it is licensed under the PolyForm Shield
+    License 1.0.0, which permits essentially any use except building a competing product. The
+    LICENSE file governs, not this summary. Pose detection uses Google's MediaPipe under its own
+    Apache 2.0 licence.
+  </p>
+  <p>
+    Full text: <a href="https://bikefit.doniwirawan.xyz/terms" target="_blank" rel="noopener">Bike Fit Terms</a>
+    · <a href="https://bikefit.doniwirawan.xyz/privacy" target="_blank" rel="noopener">Bike Fit Privacy</a>
+  </p>
+
+  <h2>7. Aksara Bali</h2>
+  <p>
+    Aksara Bali converts Latin text into Balinese script in your browser. It is an educational tool
+    offered free of charge to help people read, write and preserve Aksara Bali. Transliteration is
+    imperfect: it may not match every scholarly or regional convention, and you should not rely on
+    it for ceremonial, legal or published text without review by someone who knows the script.
+    The text you type is converted on your device; it is not sent to a server, and there are no
+    accounts.
+  </p>
+
+  <h2>8. Acceptable use</h2>
+  <p>
+    Use the Apps for your own personal, non-commercial purposes. Do not use them to access data that
+    is not yours, do not attempt to break, overload or circumvent them or the third-party APIs they
+    rely on, and do not use them to build a competing product where the licence forbids it. Access
+    may be withdrawn at any time.
+  </p>
+
+  <h2>9. Third parties</h2>
+  <p>
+    The Apps depend on third-party services — Strava's API, Google's MediaPipe, jsDelivr, Vercel
+    hosting and analytics, and Supabase caching for Ascent. Those services have their own terms and
+    privacy policies, which govern their own handling of any data they receive. I am not responsible
+    for how third parties operate their services.
+  </p>
+
+  <h2>10. Changes</h2>
+  <p>
+    These are active projects, so these terms may change. The date at the top says when they last
+    did. Where an individual App publishes its own, more detailed terms or privacy policy, that
+    document is the authoritative one for that App and prevails over this summary in the event of a
+    conflict.
+  </p>
+
+  <h2>11. Contact</h2>
+  <p>
+    Questions, corrections and privacy requests:
+    <a href="mailto:doniwirawan166@gmail.com">doniwirawan166@gmail.com</a>, or open an issue on
+    <a href="https://github.com/doniwirawan" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+
+  <p style="margin-top:36px;"><a href="/">← Back to home</a></p>
+</main>
+
+<footer class="wrap footer">
+  <div>© <span id="yr">2026</span> Doni Wirawan</div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="https://github.com/doniwirawan" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
