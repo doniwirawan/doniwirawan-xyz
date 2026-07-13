@@ -33,9 +33,30 @@ Sites and internal tools built for Studio Five Media Group.
 [GitHub](https://github.com/doniwirawan) ·
 [Ko-fi](https://ko-fi.com/doniwirawan)
 
+## Blog
+
+`/blog` and `/blog/<slug>` render posts from Supabase. `/admin` is a login-gated editor for writing
+them. Posts are markdown, rendered client-side.
+
+**Setup (once):**
+
+1. Create a project at [supabase.com](https://supabase.com).
+2. SQL editor → paste `supabase/schema.sql` → change the admin email at the bottom → run it.
+3. Authentication → Users → **Add user**, with that same email and a password. This is the only
+   account that can write posts. Leave signups disabled.
+4. Project Settings → API → copy the **Project URL** and the **anon / publishable** key into
+   `js/config.js`.
+5. Deploy. Log in at `/admin` and write.
+
+The anon key is public by design — it ships to every visitor. The database is protected by Row Level
+Security: anyone can read posts where `published = true`, and only the admin email can read drafts or
+write anything. **Never put the `service_role` key in `js/config.js`** — it bypasses RLS and would be
+readable by anyone viewing source.
+
 ## Stack
 
-Static HTML and CSS. No build step, no framework, no dependencies. Deployed on Vercel.
+Static HTML and CSS, no build step. The blog pages pull `@supabase/supabase-js`, `marked` and
+`dompurify` from a CDN at runtime. Deployed on Vercel.
 
 ```bash
 vercel --prod

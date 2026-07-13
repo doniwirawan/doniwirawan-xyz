@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog — Doni Wirawan</title>
+<link rel="icon" href="images/icon.png">
+<link rel="apple-touch-icon" href="images/icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-name" href="/">
+      <img class="nav-avatar" src="images/avatar.png" alt="" width="26" height="26">
+      doniwirawan.xyz
+    </a>
+    <div class="nav-links">
+      <a href="/#projects">Projects</a>
+      <a href="/#about">About</a>
+      <a href="/blog">Blog</a>
+      <a href="/#connect">Connect</a>
+      <a href="/terms">Terms</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap doc">
+  <article id="post"><p class="prose">Loading…</p></article>
+  <p style="margin-top:36px;"><a href="/blog">← All posts</a></p>
+</main>
+
+<footer class="wrap footer">
+  <div>© <span id="yr">2026</span> Doni Wirawan</div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/blog">Blog</a>
+    <a href="https://github.com/doniwirawan" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script src="js/config.js"></script>
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { marked } from 'https://esm.sh/marked@12';
+import DOMPurify from 'https://esm.sh/dompurify@3';
+
+const db = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+const article = document.getElementById('post');
+const slug = decodeURIComponent(location.pathname.replace(/^\/blog\/?/, '').replace(/\/$/, ''));
+
+const fmt = (d) => new Date(d).toLocaleDateString('en-GB', {
+  day: 'numeric', month: 'long', year: 'numeric'
+});
+
+if (!slug) {
+  location.replace('/blog');
+} else {
+  const { data, error } = await db
+    .from('posts')
+    .select('title, excerpt, body, published_at')
+    .eq('slug', slug)
+    .eq('published', true)
+    .maybeSingle();
+
+  if (error) {
+    article.innerHTML = '<p class="prose">Could not load this post right now.</p>';
+    console.error(error);
+  } else if (!data) {
+    article.innerHTML = '<h1>Not found</h1><p class="prose">There is no published post at this address.</p>';
+  } else {
+    document.title = data.title + ' — Doni Wirawan';
+    if (data.excerpt) {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = data.excerpt;
+      document.head.append(meta);
+    }
+
+    const h1 = document.createElement('h1');
+    h1.textContent = data.title;
+
+    const date = document.createElement('p');
+    date.className = 'meta';
+    date.textContent = data.published_at ? fmt(data.published_at) : '';
+
+    const body = document.createElement('div');
+    body.className = 'post-body';
+    body.innerHTML = DOMPurify.sanitize(marked.parse(data.body || ''));
+
+    article.replaceChildren(h1, date, body);
+  }
+}
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

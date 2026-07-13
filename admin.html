@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin — Doni Wirawan</title>
+<link rel="icon" href="images/icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-name" href="/">
+      <img class="nav-avatar" src="images/avatar.png" alt="" width="26" height="26">
+      doniwirawan.xyz
+    </a>
+    <div class="nav-links">
+      <a href="/blog">Blog</a>
+      <a href="#" id="signout" hidden>Sign out</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap doc">
+
+  <section id="login">
+    <h1>Sign in</h1>
+    <p class="meta">Admin only.</p>
+    <form class="form" id="login-form">
+      <label>Email<input type="email" id="email" autocomplete="username" required></label>
+      <label>Password<input type="password" id="password" autocomplete="current-password" required></label>
+      <button class="btn primary" type="submit">Sign in</button>
+      <p class="form-msg" id="login-msg"></p>
+    </form>
+  </section>
+
+  <section id="editor" hidden>
+    <h1>Posts</h1>
+    <p class="meta" id="who"></p>
+
+    <form class="form" id="post-form">
+      <input type="hidden" id="post-id">
+      <label>Title<input type="text" id="title" required></label>
+      <label>Slug<input type="text" id="slug" pattern="[a-z0-9-]+" required>
+        <span class="hint">Lowercase, numbers and dashes. The post lives at /blog/&lt;slug&gt;.</span>
+      </label>
+      <label>Excerpt<input type="text" id="excerpt">
+        <span class="hint">One line, shown on the blog index and in link previews.</span>
+      </label>
+      <label>Body<textarea id="body" rows="16" required></textarea>
+        <span class="hint">Markdown.</span>
+      </label>
+      <label class="check"><input type="checkbox" id="published"> Published</label>
+      <div class="app-links">
+        <button class="btn primary" type="submit">Save</button>
+        <button class="btn" type="button" id="reset">New post</button>
+      </div>
+      <p class="form-msg" id="post-msg"></p>
+    </form>
+
+    <h2>All posts</h2>
+    <div id="list"></div>
+  </section>
+
+</main>
+
+<script src="js/config.js"></script>
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+const db = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+
+const el = (id) => document.getElementById(id);
+const login = el('login'), editor = el('editor'), list = el('list');
+
+const slugify = (s) => s.toLowerCase().trim()
+  .replace(/[^a-z0-9\s-]/g, '')
+  .replace(/\s+/g, '-')
+  .replace(/-+/g, '-');
+
+async function render() {
+  const { data: { session } } = await db.auth.getSession();
+  login.hidden = !!session;
+  editor.hidden = !session;
+  el('signout').hidden = !session;
+  if (!session) return;
+
+  el('who').textContent = 'Signed in as ' + session.user.email;
+
+  const { data, error } = await db
+    .from('posts')
+    .select('id, slug, title, published, published_at, updated_at')
+    .order('updated_at', { ascending: false });
+
+  if (error) {
+    list.textContent = 'Could not load posts: ' + error.message;
+    return;
+  }
+  if (!data.length) {
+    list.innerHTML = '<p class="prose">No posts yet.</p>';
+    return;
+  }
+
+  list.replaceChildren(...data.map((post) => {
+    const row = document.createElement('div');
+    row.className = 'post-row';
+
+    const title = document.createElement('span');
+    title.className = 'post-row-title';
+    title.textContent = post.title;
+
+    const tag = document.createElement('span');
+    tag.className = 'app-tag';
+    tag.textContent = post.published ? 'Live' : 'Draft';
+
+    const edit = document.createElement('button');
+    edit.className = 'btn';
+    edit.type = 'button';
+    edit.textContent = 'Edit';
+    edit.onclick = () => load(post.id);
+
+    const del = document.createElement('button');
+    del.className = 'btn';
+    del.type = 'button';
+    del.textContent = 'Delete';
+    del.onclick = async () => {
+      if (!confirm('Delete "' + post.title + '"? This cannot be undone.')) return;
+      const { error } = await db.from('posts').delete().eq('id', post.id);
+      if (error) alert('Could not delete: ' + error.message);
+      render();
+    };
+
+    row.append(title, tag, edit, del);
+    return row;
+  }));
+}
+
+async function load(id) {
+  const { data, error } = await db.from('posts').select('*').eq('id', id).single();
+  if (error) return;
+  el('post-id').value = data.id;
+  el('title').value = data.title;
+  el('slug').value = data.slug;
+  el('excerpt').value = data.excerpt || '';
+  el('body').value = data.body || '';
+  el('published').checked = data.published;
+  el('post-msg').textContent = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+el('reset').onclick = () => {
+  el('post-form').reset();
+  el('post-id').value = '';
+  el('post-msg').textContent = '';
+};
+
+el('title').addEventListener('blur', () => {
+  if (!el('slug').value) el('slug').value = slugify(el('title').value);
+});
+
+el('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  el('login-msg').textContent = 'Signing in…';
+  const { error } = await db.auth.signInWithPassword({
+    email: el('email').value,
+    password: el('password').value
+  });
+  el('login-msg').textContent = error ? error.message : '';
+  if (!error) { el('login-form').reset(); render(); }
+});
+
+el('signout').addEventListener('click', async (e) => {
+  e.preventDefault();
+  await db.auth.signOut();
+  render();
+});
+
+el('post-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msg = el('post-msg');
+  msg.textContent = 'Saving…';
+
+  const published = el('published').checked;
+  const row = {
+    title: el('title').value.trim(),
+    slug: el('slug').value.trim(),
+    excerpt: el('excerpt').value.trim() || null,
+    body: el('body').value,
+    published
+  };
+
+  const id = el('post-id').value;
+  let error;
+
+  if (id) {
+    // Stamp published_at the first time a post goes live, and leave it alone after.
+    const { data: current } = await db.from('posts').select('published_at').eq('id', id).single();
+    if (published && !current?.published_at) row.published_at = new Date().toISOString();
+    ({ error } = await db.from('posts').update(row).eq('id', id));
+  } else {
+    if (published) row.published_at = new Date().toISOString();
+    ({ error } = await db.from('posts').insert(row));
+  }
+
+  if (error) {
+    msg.textContent = error.message;
+    return;
+  }
+  msg.textContent = 'Saved.';
+  el('post-form').reset();
+  el('post-id').value = '';
+  render();
+});
+
+db.auth.onAuthStateChange(render);
+render();
+</script>
+</body>
+</html>

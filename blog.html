@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog — Doni Wirawan</title>
+<meta name="description" content="Notes on the tools I build, cycling, and the occasional thing I got wrong.">
+<link rel="icon" href="images/icon.png">
+<link rel="apple-touch-icon" href="images/icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-name" href="/">
+      <img class="nav-avatar" src="images/avatar.png" alt="" width="26" height="26">
+      doniwirawan.xyz
+    </a>
+    <div class="nav-links">
+      <a href="/#projects">Projects</a>
+      <a href="/#about">About</a>
+      <a href="/blog">Blog</a>
+      <a href="/#connect">Connect</a>
+      <a href="/terms">Terms</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap doc">
+  <h1>Blog</h1>
+  <p class="meta">Notes on the tools I build, cycling, and the occasional thing I got wrong.</p>
+
+  <div id="posts"><p class="prose">Loading…</p></div>
+
+  <p style="margin-top:36px;"><a href="/">← Back to home</a></p>
+</main>
+
+<footer class="wrap footer">
+  <div>© <span id="yr">2026</span> Doni Wirawan</div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/terms">Terms &amp; Privacy</a>
+    <a href="https://github.com/doniwirawan" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script src="js/config.js"></script>
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+const db = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+const list = document.getElementById('posts');
+
+const fmt = (d) => new Date(d).toLocaleDateString('en-GB', {
+  day: 'numeric', month: 'long', year: 'numeric'
+});
+
+const { data, error } = await db
+  .from('posts')
+  .select('slug, title, excerpt, published_at')
+  .eq('published', true)
+  .order('published_at', { ascending: false });
+
+if (error) {
+  list.innerHTML = '<p class="prose">Could not load posts right now.</p>';
+  console.error(error);
+} else if (!data.length) {
+  list.innerHTML = '<p class="prose">No posts yet.</p>';
+} else {
+  list.replaceChildren(...data.map((post) => {
+    const card = document.createElement('a');
+    card.className = 'post-card';
+    card.href = '/blog/' + post.slug;
+
+    const h3 = document.createElement('h3');
+    h3.textContent = post.title;
+
+    const meta = document.createElement('p');
+    meta.className = 'post-date';
+    meta.textContent = post.published_at ? fmt(post.published_at) : '';
+
+    card.append(h3, meta);
+
+    if (post.excerpt) {
+      const p = document.createElement('p');
+      p.className = 'post-excerpt';
+      p.textContent = post.excerpt;
+      card.append(p);
+    }
+    return card;
+  }));
+}
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
