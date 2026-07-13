@@ -496,25 +496,15 @@ document.getElementById('yr').textContent = new Date().getFullYear();
     // Bots fill in every field they find, including the hidden one.
     if (document.getElementById('c-website').value) { msg.textContent = 'Thanks.'; return; }
 
-    if (!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
-      msg.textContent = 'The form is misconfigured. Email me instead: doniwirawan166@gmail.com';
-      console.error('config.js did not load: SUPABASE_URL is undefined');
-      return;
-    }
-
     msg.textContent = 'Sending…';
-    fetch(window.SUPABASE_URL + '/rest/v1/messages', {
+    fetch('/api/contact', {
       method: 'POST',
-      headers: {
-        'apikey': window.SUPABASE_ANON_KEY,
-        'Authorization': 'Bearer ' + window.SUPABASE_ANON_KEY,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: document.getElementById('c-name').value.trim(),
         email: document.getElementById('c-email').value.trim(),
         message: document.getElementById('c-message').value.trim(),
+        website: document.getElementById('c-website').value,
       }),
     }).then(function (r) {
       if (!r.ok) return r.text().then(function (t) { throw new Error(r.status + ' ' + t); });
