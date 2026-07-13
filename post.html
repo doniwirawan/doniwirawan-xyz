@@ -75,7 +75,7 @@ if (!slug) {
 } else {
   const { data, error } = await db
     .from('posts')
-    .select('title, excerpt, body, published_at')
+    .select('title, excerpt, body, published_at, canonical_url, source')
     .eq('slug', slug)
     .eq('published', true)
     .maybeSingle();
@@ -93,6 +93,13 @@ if (!slug) {
       meta.content = data.excerpt;
       document.head.append(meta);
     }
+    // Point search engines at the original when the post was first published elsewhere.
+    if (data.canonical_url) {
+      const canon = document.createElement('link');
+      canon.rel = 'canonical';
+      canon.href = data.canonical_url;
+      document.head.append(canon);
+    }
 
     const h1 = document.createElement('h1');
     h1.textContent = data.title;
@@ -105,7 +112,22 @@ if (!slug) {
     body.className = 'post-body';
     body.innerHTML = DOMPurify.sanitize(marked.parse(data.body || ''));
 
-    article.replaceChildren(h1, date, body);
+    const parts = [h1, date, body];
+
+    if (data.canonical_url) {
+      const note = document.createElement('p');
+      note.className = 'post-origin';
+      note.append('Originally published on ' + (data.source || 'another site') + '. ');
+      const a = document.createElement('a');
+      a.href = data.canonical_url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = 'Read it there';
+      note.append(a, '.');
+      parts.push(note);
+    }
+
+    article.replaceChildren(...parts);
   }
 }
 </script>

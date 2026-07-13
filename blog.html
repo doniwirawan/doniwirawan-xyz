@@ -74,7 +74,7 @@ const fmt = (d) => new Date(d).toLocaleDateString('en-GB', {
 
 const { data, error } = await db
   .from('posts')
-  .select('slug, title, excerpt, published_at')
+  .select('slug, title, excerpt, published_at, source')
   .eq('published', true)
   .order('published_at', { ascending: false });
 
@@ -91,6 +91,13 @@ if (error) {
 
     const h3 = document.createElement('h3');
     h3.textContent = post.title;
+
+    if (post.source) {
+      const tag = document.createElement('span');
+      tag.className = 'app-tag';
+      tag.textContent = post.source;
+      h3.append(tag);
+    }
 
     const meta = document.createElement('p');
     meta.className = 'post-date';

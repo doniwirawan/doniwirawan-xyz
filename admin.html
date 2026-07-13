@@ -65,6 +65,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <label>Excerpt<input type="text" id="excerpt">
         <span class="hint">One line, shown on the blog index and in link previews.</span>
       </label>
+      <label>Originally published at<input type="url" id="canonical_url" placeholder="https://…">
+        <span class="hint">Only for posts first published elsewhere. Sets the canonical link so search engines credit the original.</span>
+      </label>
+      <label>Source<input type="text" id="source" placeholder="Medium">
+        <span class="hint">Shown as a tag on the blog index, e.g. Medium.</span>
+      </label>
       <label>Body<textarea id="body" rows="16" required></textarea>
         <span class="hint">Markdown.</span>
       </label>
@@ -75,6 +81,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <p class="form-msg" id="post-msg"></p>
     </form>
+
+    <h2>Stats</h2>
+    <div class="stats" id="stats"></div>
+    <p class="hint" id="stats-note"></p>
 
     <h2>All posts</h2>
     <div id="list"></div>
@@ -120,13 +130,16 @@ async function render() {
 
   const { data, error } = await db
     .from('posts')
-    .select('id, slug, title, published, published_at, updated_at')
+    .select('id, slug, title, published, published_at, updated_at, source, body')
     .order('updated_at', { ascending: false });
 
   if (error) {
     list.textContent = 'Could not load posts: ' + error.message;
     return;
   }
+
+  renderStats(data);
+
   if (!data.length) {
     list.innerHTML = '<p class="prose">No posts yet.</p>';
     return;
@@ -166,6 +179,42 @@ async function render() {
   }));
 }
 
+function renderStats(posts) {
+  const words = posts.reduce(
+    (n, p) => n + (p.body || '').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length, 0);
+  const live = posts.filter((p) => p.published);
+  const latest = live
+    .map((p) => p.published_at)
+    .filter(Boolean)
+    .sort()
+    .pop();
+
+  const cells = [
+    ['Posts', posts.length],
+    ['Published', live.length],
+    ['Drafts', posts.length - live.length],
+    ['Words', words.toLocaleString()],
+    ['Last published', latest ? new Date(latest).toLocaleDateString('en-GB',
+      { day: 'numeric', month: 'short', year: 'numeric' }) : '—'],
+  ];
+
+  document.getElementById('stats').replaceChildren(...cells.map(([label, value]) => {
+    const tile = document.createElement('div');
+    tile.className = 'stat';
+    const v = document.createElement('span');
+    v.className = 'stat-value';
+    v.textContent = value;
+    const l = document.createElement('span');
+    l.className = 'stat-label';
+    l.textContent = label;
+    tile.append(v, l);
+    return tile;
+  }));
+
+  document.getElementById('stats-note').textContent =
+    'These count what is in the database. Page views and visitors are not stored here — they live in Vercel Web Analytics.';
+}
+
 async function load(id) {
   const { data, error } = await db.from('posts').select('*').eq('id', id).single();
   if (error) return;
@@ -173,6 +222,8 @@ async function load(id) {
   el('title').value = data.title;
   el('slug').value = data.slug;
   el('excerpt').value = data.excerpt || '';
+  el('canonical_url').value = data.canonical_url || '';
+  el('source').value = data.source || '';
   el('body').value = data.body || '';
   el('published').checked = data.published;
   el('post-msg').textContent = '';
@@ -216,6 +267,8 @@ el('post-form').addEventListener('submit', async (e) => {
     title: el('title').value.trim(),
     slug: el('slug').value.trim(),
     excerpt: el('excerpt').value.trim() || null,
+    canonical_url: el('canonical_url').value.trim() || null,
+    source: el('source').value.trim() || null,
     body: el('body').value,
     published
   };
