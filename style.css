@@ -139,8 +139,11 @@ a:hover { text-decoration: underline; }
 }
 .app-desc { color: var(--muted); font-size: 14.5px; margin: 0 0 16px; }
 .app-links { display: flex; flex-wrap: wrap; gap: 10px; }
+/* Screenshots vary from 3.35:1 to 1.67:1. `contain` caps the height without ever
+   cropping the UI or stretching it — the image just letterboxes into the box. */
 .app-shot {
-  display: block; width: 100%; margin-top: 18px;
+  display: block; width: 100%; max-height: 300px;
+  object-fit: contain; object-position: center; margin-top: 18px;
   border-radius: 10px; border: 1px solid var(--border);
   background: var(--surface-2);
 }
@@ -192,8 +195,10 @@ a:hover { text-decoration: underline; }
   color: var(--text); transition: border-color .15s, transform .15s;
 }
 .post-card:hover { text-decoration: none; border-color: #363c45; transform: translateY(-2px); }
+/* The grid needs every card the same height, so covers crop to a uniform 3:2.
+   `cover` crops but never stretches, so proportions stay true. */
 .post-cover {
-  width: 100%; aspect-ratio: 3 / 2; object-fit: cover;
+  width: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: center;
   border-bottom: 1px solid var(--border); background: var(--surface-2);
 }
 .post-card-text { padding: 18px 20px 22px; }
@@ -203,10 +208,13 @@ a:hover { text-decoration: underline; }
 .post-date { margin: 0; color: var(--muted); font-size: 13px; }
 .post-excerpt { margin: 10px 0 0; color: var(--muted); font-size: 14.5px; }
 
+/* Covers range from portrait ride photos to a very wide dashboard crop, so cap
+   both axes and letterbox rather than crop a photo's subject out of frame. */
 .post-hero {
-  display: block; width: 100%; max-width: 680px; aspect-ratio: 3 / 2; object-fit: cover;
+  display: block; width: 100%; max-width: 680px; max-height: 440px;
+  object-fit: contain; object-position: center;
   border-radius: var(--radius); border: 1px solid var(--border);
-  background: var(--surface); margin: 24px 0 32px;
+  background: var(--surface); margin: 24px auto 32px 0;
 }
 
 .post-body { font-size: 17px; line-height: 1.75; color: #cfd3d9; max-width: 680px; }

@@ -114,7 +114,18 @@ if (!slug) {
 
     const parts = [h1, date];
 
-    if (data.cover_url) {
+    // When the cover was taken from the body's first image (imported posts, mostly),
+    // showing it as a hero as well would print the same picture twice.
+    const bodyFirstImage = (() => {
+      const md = (data.body || '').match(/!\[[^\]]*\]\(([^)\s]+)/);
+      if (md) return md[1];
+      const html = (data.body || '').match(/<img[^>]+src=["']([^"']+)["']/i);
+      return html ? html[1] : null;
+    })();
+    const heroIsDuplicate = data.cover_url && bodyFirstImage &&
+      data.cover_url.split('?')[0] === bodyFirstImage.split('?')[0];
+
+    if (data.cover_url && !heroIsDuplicate) {
       const hero = document.createElement('img');
       hero.className = 'post-hero';
       hero.src = data.cover_url;
@@ -122,8 +133,10 @@ if (!slug) {
       // A dead cover should not leave a broken-image icon in the middle of the post.
       hero.onerror = () => hero.remove();
       parts.push(hero);
+    }
 
-      // Give link previews something to show.
+    // Link previews still want the cover, even when it is not shown as a hero.
+    if (data.cover_url) {
       const og = document.createElement('meta');
       og.setAttribute('property', 'og:image');
       og.content = data.cover_url;
