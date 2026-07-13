@@ -60,7 +60,7 @@ a:hover { text-decoration: underline; }
 .nav-links a:hover { color: var(--text); text-decoration: none; }
 
 /* ── hero ── */
-.hero { padding: 84px 0 56px; }
+.hero { padding-top: 84px; padding-bottom: 56px; }
 .avatar {
   width: 80px; height: 80px; border-radius: 50%;
   border: 1px solid var(--border); display: block; margin: 0 0 22px;
@@ -85,7 +85,7 @@ a:hover { text-decoration: underline; }
 .btn svg { width: 15px; height: 15px; fill: currentColor; }
 
 /* ── sections ── */
-.section { padding: 56px 0; border-top: 1px solid var(--border); }
+.section { padding-top: 56px; padding-bottom: 56px; border-top: 1px solid var(--border); }
 .section h2 {
   font-size: 13px; text-transform: uppercase; letter-spacing: 1.4px;
   color: var(--muted); font-weight: 700; margin: 0 0 6px;
@@ -195,7 +195,7 @@ a:hover { text-decoration: underline; }
 }
 
 /* ── terms page ── */
-.doc { padding: 48px 0 80px; }
+.doc { padding-top: 48px; padding-bottom: 80px; }
 .doc h1 { font-size: 30px; letter-spacing: -.8px; margin: 0 0 6px; }
 .doc .meta { color: var(--muted); font-size: 13px; margin: 0 0 26px; }
 .doc h2 {
@@ -399,7 +399,7 @@ a:hover { text-decoration: underline; }
 
 /* ── footer ── */
 .footer {
-  border-top: 1px solid var(--border); padding: 32px 0 48px;
+  border-top: 1px solid var(--border); padding-top: 32px; padding-bottom: 48px;
   color: var(--muted); font-size: 13.5px;
   display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; align-items: center;
 }
@@ -435,11 +435,11 @@ img, svg, video { max-width: 100%; }
   }
   .nav-links a:last-child { border-bottom: 0; }
 
-  .hero { padding: 48px 0 36px; }
+  .hero { padding-top: 48px; padding-bottom: 36px; }
   .hero .lead { font-size: 16.5px; }
   .hero-actions { gap: 10px; margin-top: 22px; }
 
-  .section { padding: 40px 0; }
+  .section { padding-top: 40px; padding-bottom: 40px; }
   .section .section-sub { margin-bottom: 22px; }
 
   .app-card { padding: 18px; gap: 14px; }
@@ -463,7 +463,7 @@ img, svg, video { max-width: 100%; }
   .btn { padding: 10px 16px; }
   .app-links { gap: 8px; }
 
-  .doc { padding: 36px 0 56px; }
+  .doc { padding-top: 36px; padding-bottom: 56px; }
   .doc h1 { font-size: 26px; }
   .doc h2 { font-size: 18px; margin-top: 32px; padding-top: 22px; }
 
@@ -474,7 +474,7 @@ img, svg, video { max-width: 100%; }
   /* Footer reads better stacked than squeezed onto one line. */
   .footer {
     flex-direction: column; align-items: flex-start; gap: 16px;
-    padding: 28px 0 40px;
+    padding-top: 28px; padding-bottom: 40px;
   }
   .footer-links { gap: 14px 18px; }
 
@@ -489,7 +489,7 @@ img, svg, video { max-width: 100%; }
 }
 
 @media (max-width: 400px) {
-  .wrap, .nav-inner { padding-left: 14px; padding-right: 14px; }
+  .wrap, .nav-inner { padding-left: 20px; padding-right: 20px; }
   .stats { grid-template-columns: 1fr; }
   .hero-actions .btn, .contact button { width: 100%; justify-content: center; }
 }
