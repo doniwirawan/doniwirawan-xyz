@@ -43,7 +43,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h1>Blog</h1>
   <p class="meta">Notes on the tools I build, cycling, and the occasional thing I got wrong.</p>
 
-  <div id="posts"><p class="prose">Loading…</p></div>
+  <div class="posts-grid" id="posts"><p class="prose">Loading…</p></div>
 
   <p style="margin-top:36px;"><a href="/">← Back to home</a></p>
 </main>
@@ -89,15 +89,15 @@ if (error) {
     card.className = 'post-card';
     card.href = '/blog/' + post.slug;
 
-    if (post.cover_url) {
-      const cover = document.createElement('img');
-      cover.className = 'post-cover';
-      cover.src = post.cover_url;
-      cover.alt = '';
-      cover.loading = 'lazy';
-      card.classList.add('has-cover');
-      card.append(cover);
-    }
+    // Every card carries an image. Fall back to the site mark if a post has no
+    // cover, or if the cover URL is dead — a broken image would wreck the grid.
+    const cover = document.createElement('img');
+    cover.className = 'post-cover';
+    cover.src = post.cover_url || '/images/icon.png';
+    cover.alt = '';
+    cover.loading = 'lazy';
+    cover.onerror = () => { cover.onerror = null; cover.src = '/images/icon.png'; };
+    card.append(cover);
 
     const text = document.createElement('div');
     text.className = 'post-card-text';

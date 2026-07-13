@@ -139,6 +139,11 @@ a:hover { text-decoration: underline; }
 }
 .app-desc { color: var(--muted); font-size: 14.5px; margin: 0 0 16px; }
 .app-links { display: flex; flex-wrap: wrap; gap: 10px; }
+.app-shot {
+  display: block; width: 100%; margin-top: 18px;
+  border-radius: 10px; border: 1px solid var(--border);
+  background: var(--surface-2);
+}
 
 /* ── about ── */
 .about { display: flex; gap: 28px; align-items: flex-start; flex-wrap: wrap; }
@@ -179,23 +184,22 @@ a:hover { text-decoration: underline; }
 .callout strong { color: var(--text); }
 
 /* ── blog ── */
+.posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .post-card {
-  display: block; background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 22px 24px; margin-bottom: 14px;
+  display: flex; flex-direction: column;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
   color: var(--text); transition: border-color .15s, transform .15s;
 }
 .post-card:hover { text-decoration: none; border-color: #363c45; transform: translateY(-2px); }
-.post-card h3 { margin: 0 0 4px; font-size: 18px; letter-spacing: -.2px; }
-.post-card.has-cover { display: flex; gap: 20px; align-items: flex-start; padding: 16px; }
 .post-cover {
-  flex: 0 0 auto; width: 160px; aspect-ratio: 3 / 2; object-fit: cover;
-  border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2);
+  width: 100%; aspect-ratio: 3 / 2; object-fit: cover;
+  border-bottom: 1px solid var(--border); background: var(--surface-2);
 }
-.post-card-text { min-width: 0; }
-@media (max-width: 600px) {
-  .post-card.has-cover { flex-direction: column; gap: 14px; }
-  .post-cover { width: 100%; }
-}
+.post-card-text { padding: 18px 20px 22px; }
+.post-card h3 { margin: 0 0 4px; font-size: 17px; line-height: 1.35; letter-spacing: -.2px; }
+@media (max-width: 900px) { .posts-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .posts-grid { grid-template-columns: 1fr; } }
 .post-date { margin: 0; color: var(--muted); font-size: 13px; }
 .post-excerpt { margin: 10px 0 0; color: var(--muted); font-size: 14.5px; }
 
