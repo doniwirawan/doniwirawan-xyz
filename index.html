@@ -33,6 +33,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="#about">About</a>
       <a href="/blog">Blog</a>
       <a href="#cycling">Cycling</a>
+      <a href="#reading">Reading</a>
       <a href="#connect">Connect</a>
     </div>
   </div>
@@ -405,6 +406,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+  <section class="section wrap" id="reading" hidden>
+    <h2>Reading</h2>
+    <p class="section-sub">Pulled from my Goodreads shelves.</p>
+    <div id="now"></div>
+    <div class="books" id="books"></div>
+  </section>
+
   <section class="section wrap" id="connect">
     <h2>Connect</h2>
     <p class="section-sub">Say hello, or tell me what to fix.</p>
@@ -518,6 +526,77 @@ document.getElementById('yr').textContent = new Date().getFullYear();
     });
   });
 })();
+
+// Books, via a serverless function: Goodreads RSS has no CORS headers, so the
+// browser cannot fetch it directly.
+fetch('/api/reading')
+  .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+  .then(function (d) {
+    if (!d.read.length && !d.current.length) return;
+
+    var stars = function (n) { return '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n); };
+
+    var card = function (b, isCurrent) {
+      var a = document.createElement('a');
+      a.className = 'book' + (isCurrent ? ' is-current' : '');
+      a.href = b.link;
+      a.target = '_blank';
+      a.rel = 'noopener';
+
+      if (b.cover) {
+        var img = document.createElement('img');
+        img.className = 'book-cover';
+        img.src = b.cover;
+        img.alt = '';
+        img.loading = 'lazy';
+        a.append(img);
+      }
+
+      var meta = document.createElement('span');
+      meta.className = 'book-meta';
+
+      var t = document.createElement('span');
+      t.className = 'book-title';
+      t.textContent = b.title;
+
+      var au = document.createElement('span');
+      au.className = 'book-author';
+      au.textContent = b.author;
+
+      meta.append(t, au);
+
+      if (b.rating) {
+        var st = document.createElement('span');
+        st.className = 'book-stars';
+        st.textContent = stars(b.rating);
+        meta.append(st);
+      }
+
+      a.append(meta);
+      return a;
+    };
+
+    if (d.current.length) {
+      var now = document.getElementById('now');
+      var label = document.createElement('p');
+      label.className = 'group-title';
+      label.textContent = 'Currently reading';
+      var wrap = document.createElement('div');
+      wrap.className = 'books';
+      d.current.forEach(function (b) { wrap.append(card(b, true)); });
+      now.append(label, wrap);
+
+      var done = document.createElement('p');
+      done.className = 'group-title';
+      done.textContent = 'Recently finished';
+      now.append(done);
+    }
+
+    var grid = document.getElementById('books');
+    d.read.forEach(function (b) { grid.append(card(b, false)); });
+    document.getElementById('reading').hidden = false;
+  })
+  .catch(function () { /* leave the section hidden if Goodreads is unreachable */ });
 
 // Strava totals, fetched from a serverless function so the token stays server-side.
 fetch('/api/strava')
