@@ -296,6 +296,11 @@ a:hover { text-decoration: underline; }
 .more summary:hover { color: var(--text); }
 .more-body { display: grid; gap: 14px; padding: 4px 16px 16px; }
 
+/* The social links are a wall of self-promotion if you lead with them. Fold them
+   away so the contact form is what people see first. */
+.elsewhere { max-width: 720px; }
+.elsewhere .more-body { display: flex; flex-wrap: wrap; gap: 10px; }
+
 .save-bar {
   position: sticky; bottom: 0; z-index: 5;
   display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
