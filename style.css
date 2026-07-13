@@ -279,6 +279,33 @@ a:hover { text-decoration: underline; }
 .EasyMDEContainer .CodeMirror-fullscreen,
 .EasyMDEContainer .editor-toolbar.fullscreen { z-index: 20; }
 
+/* honeypot: real people never see it, bots fill it in */
+.trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.contact { margin: 0 0 28px; }
+
+.bulk {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin: 16px 0; font-size: 13px;
+}
+.bulk .btn { padding: 6px 12px; cursor: pointer; }
+.bulk .btn:disabled { opacity: .45; cursor: not-allowed; }
+.post-pick { flex: 0 0 auto; width: 15px; height: 15px; }
+
+.msg {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px; margin-bottom: 10px;
+}
+.msg.is-unread { border-left: 3px solid var(--accent); }
+.msg-head {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  font-size: 13px; margin-bottom: 8px;
+}
+.msg-who { font-weight: 700; font-size: 14px; }
+.msg-mail { color: var(--accent); }
+.msg-when { color: var(--muted); margin-left: auto; }
+.msg-head .btn { padding: 5px 10px; cursor: pointer; }
+.msg-body { margin: 0; font-size: 14.5px; color: #cfd3d9; white-space: pre-wrap; }
+
 .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 24px 0 8px; }
 .stats[hidden] { display: none; }
 .stat {

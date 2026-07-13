@@ -83,11 +83,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="form-msg" id="post-msg"></p>
     </form>
 
+    <h2>Inbox <span class="app-tag" id="unread" hidden></span></h2>
+    <div id="inbox"></div>
+
     <h2>Stats</h2>
     <div class="stats" id="stats"></div>
     <p class="hint" id="stats-note"></p>
 
     <h2>All posts</h2>
+    <div class="bulk">
+      <label class="check"><input type="checkbox" id="select-all"> Select all</label>
+      <button class="btn" type="button" id="bulk-publish" disabled>Publish selected</button>
+      <button class="btn" type="button" id="bulk-unpublish" disabled>Unpublish selected</button>
+      <span class="hint" id="bulk-count"></span>
+    </div>
     <div id="list"></div>
   </section>
 
@@ -178,6 +187,7 @@ async function render() {
   }
 
   renderStats(data);
+  renderInbox();
 
   if (!data.length) {
     list.innerHTML = '<p class="prose">No posts yet.</p>';
@@ -188,6 +198,12 @@ async function render() {
     const row = document.createElement('div');
     row.className = 'post-row';
 
+    const pick = document.createElement('input');
+    pick.type = 'checkbox';
+    pick.className = 'post-pick';
+    pick.value = post.id;
+    pick.onchange = syncBulk;
+
     const title = document.createElement('span');
     title.className = 'post-row-title';
     title.textContent = post.title;
@@ -195,6 +211,12 @@ async function render() {
     const tag = document.createElement('span');
     tag.className = 'app-tag';
     tag.textContent = post.published ? 'Live' : 'Draft';
+
+    const toggle = document.createElement('button');
+    toggle.className = 'btn';
+    toggle.type = 'button';
+    toggle.textContent = post.published ? 'Unpublish' : 'Publish';
+    toggle.onclick = () => setPublished([post.id], !post.published);
 
     const view = document.createElement('a');
     view.className = 'btn';
@@ -221,8 +243,115 @@ async function render() {
       render();
     };
 
-    row.append(title, tag, view, edit, del);
+    row.append(pick, title, tag, view, edit, toggle, del);
     return row;
+  }));
+
+  el('select-all').checked = false;
+  syncBulk();
+}
+
+const picked = () =>
+  [...document.querySelectorAll('.post-pick:checked')].map((c) => c.value);
+
+function syncBulk() {
+  const n = picked().length;
+  el('bulk-publish').disabled = !n;
+  el('bulk-unpublish').disabled = !n;
+  el('bulk-count').textContent = n ? `${n} selected` : '';
+}
+
+async function setPublished(ids, published) {
+  const patch = { published };
+  // Stamp published_at the first time something goes live, and leave it alone after.
+  if (published) {
+    const { data } = await db.from('posts').select('id, published_at').in('id', ids);
+    const unstamped = (data || []).filter((p) => !p.published_at).map((p) => p.id);
+    if (unstamped.length) {
+      await db.from('posts')
+        .update({ published: true, published_at: new Date().toISOString() })
+        .in('id', unstamped);
+    }
+    const rest = ids.filter((id) => !unstamped.includes(id));
+    if (rest.length) await db.from('posts').update(patch).in('id', rest);
+  } else {
+    const { error } = await db.from('posts').update(patch).in('id', ids);
+    if (error) alert('Could not update: ' + error.message);
+  }
+  render();
+}
+
+el('select-all').onchange = (e) => {
+  document.querySelectorAll('.post-pick').forEach((c) => { c.checked = e.target.checked; });
+  syncBulk();
+};
+el('bulk-publish').onclick = () => setPublished(picked(), true);
+el('bulk-unpublish').onclick = () => setPublished(picked(), false);
+
+async function renderInbox() {
+  const box = el('inbox');
+  const { data, error } = await db
+    .from('messages')
+    .select('id, name, email, message, read, created_at')
+    .order('created_at', { ascending: false });
+
+  if (error) { box.textContent = 'Could not load messages: ' + error.message; return; }
+
+  const unread = data.filter((m) => !m.read).length;
+  const badge = el('unread');
+  badge.hidden = !unread;
+  badge.textContent = unread + ' new';
+
+  if (!data.length) { box.innerHTML = '<p class="prose">No messages yet.</p>'; return; }
+
+  box.replaceChildren(...data.map((m) => {
+    const card = document.createElement('div');
+    card.className = 'msg' + (m.read ? '' : ' is-unread');
+
+    const head = document.createElement('div');
+    head.className = 'msg-head';
+
+    const who = document.createElement('span');
+    who.className = 'msg-who';
+    who.textContent = m.name;
+
+    const mail = document.createElement('a');
+    mail.className = 'msg-mail';
+    mail.href = 'mailto:' + m.email + '?subject=' + encodeURIComponent('Re: your message');
+    mail.textContent = m.email;
+
+    const when = document.createElement('span');
+    when.className = 'msg-when';
+    when.textContent = new Date(m.created_at).toLocaleString('en-GB',
+      { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+    const mark = document.createElement('button');
+    mark.className = 'btn';
+    mark.type = 'button';
+    mark.textContent = m.read ? 'Mark unread' : 'Mark read';
+    mark.onclick = async () => {
+      await db.from('messages').update({ read: !m.read }).eq('id', m.id);
+      renderInbox();
+    };
+
+    const del = document.createElement('button');
+    del.className = 'btn';
+    del.type = 'button';
+    del.textContent = 'Delete';
+    del.onclick = async () => {
+      if (!confirm('Delete the message from ' + m.name + '?')) return;
+      await db.from('messages').delete().eq('id', m.id);
+      renderInbox();
+    };
+
+    head.append(who, mail, when, mark, del);
+
+    const body = document.createElement('p');
+    body.className = 'msg-body';
+    body.textContent = m.message;
+
+    card.append(head, body);
+    return card;
   }));
 }
 
