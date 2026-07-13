@@ -337,10 +337,81 @@ a:hover { text-decoration: underline; }
 .footer a { color: var(--muted); }
 .footer a:hover { color: var(--text); text-decoration: none; }
 
-@media (max-width: 600px) {
-  .nav-links { gap: 14px; }
-  .hero { padding: 56px 0 40px; }
-  .app-card { padding: 20px; gap: 16px; }
+/* ── mobile ── */
+
+/* Nothing should ever push the page sideways. */
+img, svg, video { max-width: 100%; }
+.post-body pre, .post-body table { max-width: 100%; overflow-x: auto; }
+
+@media (max-width: 760px) {
+  .wrap, .nav-inner { padding-left: 18px; padding-right: 18px; }
+
+  /* Six nav links will not fit. Let them scroll sideways instead of wrapping
+     into a second row that shoves the layout around. */
+  .nav-inner { gap: 12px; }
+  .nav-links {
+    gap: 16px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; white-space: nowrap;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a { flex: 0 0 auto; }
+  .nav-name { flex: 0 0 auto; font-size: 15px; }
+
+  .hero { padding: 48px 0 36px; }
+  .hero .lead { font-size: 16.5px; }
+  .hero-actions { gap: 10px; margin-top: 22px; }
+
+  .section { padding: 40px 0; }
+  .section .section-sub { margin-bottom: 22px; }
+
+  .app-card { padding: 18px; gap: 14px; }
+  .app-logo { width: 46px; height: 46px; }
+  .app-body { flex-basis: 100%; }
+  .app-name { font-size: 17px; }
   .sites { grid-template-columns: 1fr; }
+
+  .tabs { display: flex; width: 100%; }
+  .tab { flex: 1 1 0; text-align: center; padding: 9px 10px; }
+
+  .about { gap: 18px; }
+  .about-photo { width: 100%; max-width: 240px; height: auto; aspect-ratio: 1; }
+
   .photos { gap: 8px; }
+  .stats { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat { padding: 12px 14px; }
+  .stat-value { font-size: 19px; }
+
+  /* Buttons get thumb-sized and stop crowding each other. */
+  .btn { padding: 10px 16px; }
+  .app-links { gap: 8px; }
+
+  .doc { padding: 36px 0 56px; }
+  .doc h1 { font-size: 26px; }
+  .doc h2 { font-size: 18px; margin-top: 32px; padding-top: 22px; }
+
+  .post-body { font-size: 16px; }
+  .post-hero { max-height: 300px; margin: 20px 0 26px; }
+  .post-card-text { padding: 16px 18px 20px; }
+
+  /* Footer reads better stacked than squeezed onto one line. */
+  .footer {
+    flex-direction: column; align-items: flex-start; gap: 16px;
+    padding: 28px 0 40px;
+  }
+  .footer-links { gap: 14px 18px; }
+
+  /* Admin */
+  .form { gap: 14px; }
+  .post-row { gap: 8px; padding: 12px 14px; }
+  .post-row-title { flex: 1 1 100%; }
+  .bulk { gap: 8px; }
+  .msg-head { gap: 8px; }
+  .msg-when { margin-left: 0; flex: 1 1 100%; order: 3; }
+  .EasyMDEContainer .editor-toolbar { flex-wrap: wrap; }
+}
+
+@media (max-width: 400px) {
+  .wrap, .nav-inner { padding-left: 14px; padding-right: 14px; }
+  .stats { grid-template-columns: 1fr; }
+  .hero-actions .btn, .contact button { width: 100%; justify-content: center; }
 }
