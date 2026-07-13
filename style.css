@@ -43,6 +43,17 @@ a:hover { text-decoration: underline; }
   width: 26px; height: 26px; border-radius: 50%;
   border: 1px solid var(--border); flex: 0 0 auto;
 }
+/* Hidden on desktop; the mobile query turns it on. */
+.nav-toggle {
+  display: none; align-items: center; justify-content: center;
+  width: 38px; height: 38px; padding: 0; cursor: pointer;
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 9px; color: var(--text);
+}
+.nav-toggle:hover { background: var(--surface-2); }
+.nav-toggle svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.nav-toggle .close, .nav-toggle[aria-expanded="true"] .open { display: none; }
+.nav-toggle[aria-expanded="true"] .close { display: block; }
 .nav-name:hover { text-decoration: none; }
 .nav-links { display: flex; gap: 20px; font-size: 14px; }
 .nav-links a { color: var(--muted); }
@@ -260,7 +271,42 @@ a:hover { text-decoration: underline; }
 }
 
 /* ── admin ── */
-.form { display: grid; gap: 16px; max-width: 640px; margin: 24px 0 40px; }
+.admin-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap; margin-bottom: 8px;
+}
+.admin-head h1 { margin: 0 0 4px; }
+.admin-head .meta { margin: 0; }
+.admin-head .btn { flex: 0 0 auto; }
+
+.editing-flag {
+  background: var(--accent-soft); border: 1px solid var(--accent);
+  border-radius: 10px; padding: 10px 14px;
+  font-size: 13px; font-weight: 600; color: var(--text);
+}
+
+.more { border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+.more summary {
+  cursor: pointer; padding: 12px 16px; font-size: 13px; font-weight: 700;
+  color: var(--muted); list-style: none;
+}
+.more summary::-webkit-details-marker { display: none; }
+.more summary::before { content: '▸ '; }
+.more[open] summary::before { content: '▾ '; }
+.more summary:hover { color: var(--text); }
+.more-body { display: grid; gap: 14px; padding: 4px 16px 16px; }
+
+.save-bar {
+  position: sticky; bottom: 0; z-index: 5;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  background: rgba(11, 12, 14, .92); backdrop-filter: blur(8px);
+  border-top: 1px solid var(--border);
+  padding: 12px 0; margin-top: 4px;
+}
+.save-bar .form-msg { flex: 1 1 auto; min-height: 0; }
+.save-bar .btn { cursor: pointer; }
+
+.form { display: grid; gap: 16px; max-width: 720px; margin: 20px 0 40px; }
 .form label { display: grid; gap: 6px; font-size: 13px; font-weight: 600; color: var(--muted); }
 .form input:not([type=checkbox]):not([type=hidden]), .form textarea {
   font: inherit; font-size: 14.5px; font-weight: 400;
@@ -368,18 +414,26 @@ img, svg, video { max-width: 100%; }
 .post-body pre, .post-body table { max-width: 100%; overflow-x: auto; }
 
 @media (max-width: 760px) {
-  .wrap, .nav-inner { padding-left: 18px; padding-right: 18px; }
+  .wrap, .nav-inner { padding-left: 24px; padding-right: 24px; }
 
-  /* Six nav links will not fit. Let them scroll sideways instead of wrapping
-     into a second row that shoves the layout around. */
-  .nav-inner { gap: 12px; }
-  .nav-links {
-    gap: 16px; overflow-x: auto; -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; white-space: nowrap;
-  }
-  .nav-links::-webkit-scrollbar { display: none; }
-  .nav-links a { flex: 0 0 auto; }
+  /* Six links never fit on a phone. Collapse them behind a hamburger. */
+  .nav-inner { position: relative; gap: 12px; }
+  .nav-toggle { display: inline-flex; }
   .nav-name { flex: 0 0 auto; font-size: 15px; }
+
+  .nav-links {
+    display: none;
+    position: absolute; top: calc(100% + 1px); left: 0; right: 0;
+    flex-direction: column; gap: 0; align-items: stretch;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 6px 24px 14px;
+  }
+  .nav-links.is-open { display: flex; }
+  .nav-links a {
+    padding: 14px 0; font-size: 15px;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-links a:last-child { border-bottom: 0; }
 
   .hero { padding: 48px 0 36px; }
   .hero .lead { font-size: 16.5px; }

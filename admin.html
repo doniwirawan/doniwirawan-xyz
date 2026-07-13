@@ -28,7 +28,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <img class="nav-avatar" src="/images/avatar.png" alt="" width="26" height="26">
       Doni Wirawan
     </a>
-    <div class="nav-links">
+    <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+      <svg class="open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="nav-links" id="nav-links">
       <a href="/#projects">Projects</a>
       <a href="/#about">About</a>
       <a href="/blog">Blog</a>
@@ -53,53 +57,82 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
   <section id="editor" hidden>
-    <h1>Posts</h1>
-    <p class="meta" id="who"></p>
 
-    <form class="form" id="post-form">
-      <input type="hidden" id="post-id">
-      <label>Title<input type="text" id="title" required></label>
-      <label>Slug<input type="text" id="slug" pattern="[a-z0-9-]+" required>
-        <span class="hint">Lowercase, numbers and dashes. The post lives at /blog/&lt;slug&gt;.</span>
-      </label>
-      <label>Excerpt<input type="text" id="excerpt">
-        <span class="hint">One line, shown on the blog index and in link previews.</span>
-      </label>
-      <label>Originally published at<input type="url" id="canonical_url" placeholder="https://…">
-        <span class="hint">Only for posts first published elsewhere. Sets the canonical link so search engines credit the original.</span>
-      </label>
-      <label>Source<input type="text" id="source" placeholder="Medium">
-        <span class="hint">Shown as a tag on the blog index, e.g. Medium.</span>
-      </label>
-      <label>Cover image<input type="url" id="cover_url" placeholder="https://…">
-        <span class="hint">Shown on the blog index. Leave blank to use the first image in the body.</span>
-      </label>
-      <label>Body<textarea id="body" rows="16"></textarea>
-        <span class="hint">Markdown, with live preview. Raw HTML works too. Drag an image in, or use the picture button, to upload it.</span>
-      </label>
-      <label class="check"><input type="checkbox" id="published"> Published</label>
-      <div class="app-links">
-        <button class="btn primary" type="submit">Save</button>
-        <button class="btn" type="button" id="reset">New post</button>
+    <div class="admin-head">
+      <div>
+        <h1>Admin</h1>
+        <p class="meta" id="who"></p>
       </div>
-      <p class="form-msg" id="post-msg"></p>
-    </form>
+      <a class="btn" href="/blog" target="_blank" rel="noopener">View blog</a>
+    </div>
 
-    <h2>Inbox <span class="app-tag" id="unread" hidden></span></h2>
-    <div id="inbox"></div>
-
-    <h2>Stats</h2>
     <div class="stats" id="stats"></div>
     <p class="hint" id="stats-note"></p>
 
-    <h2>All posts</h2>
-    <div class="bulk">
-      <label class="check"><input type="checkbox" id="select-all"> Select all</label>
-      <button class="btn" type="button" id="bulk-publish" disabled>Publish selected</button>
-      <button class="btn" type="button" id="bulk-unpublish" disabled>Unpublish selected</button>
-      <span class="hint" id="bulk-count"></span>
+    <div class="tabs" role="tablist">
+      <button class="tab is-active" id="tab-write" role="tab" aria-selected="true" aria-controls="panel-write">Write</button>
+      <button class="tab" id="tab-posts" role="tab" aria-selected="false" aria-controls="panel-posts">Posts</button>
+      <button class="tab" id="tab-inbox" role="tab" aria-selected="false" aria-controls="panel-inbox">
+        Inbox <span class="app-tag" id="unread" hidden></span>
+      </button>
     </div>
-    <div id="list"></div>
+
+    <div class="tab-panel" id="panel-write" role="tabpanel" aria-labelledby="tab-write">
+      <form class="form" id="post-form">
+        <input type="hidden" id="post-id">
+
+        <div class="editing-flag" id="editing" hidden></div>
+
+        <label>Title<input type="text" id="title" required placeholder="What is this about?"></label>
+
+        <label>Body<textarea id="body" rows="16"></textarea>
+          <span class="hint">Markdown, with live preview. Raw HTML works too. Drag an image in, or use the picture button, to upload it.</span>
+        </label>
+
+        <details class="more">
+          <summary>Post settings</summary>
+          <div class="more-body">
+            <label>Slug<input type="text" id="slug" pattern="[a-z0-9-]+" required>
+              <span class="hint">Lowercase, numbers and dashes. Fills itself in from the title. The post lives at /blog/&lt;slug&gt;.</span>
+            </label>
+            <label>Excerpt<input type="text" id="excerpt">
+              <span class="hint">One line, shown on the blog index and in link previews.</span>
+            </label>
+            <label>Cover image<input type="url" id="cover_url" placeholder="https://…">
+              <span class="hint">Leave blank to use the first image in the body.</span>
+            </label>
+            <label>Originally published at<input type="url" id="canonical_url" placeholder="https://…">
+              <span class="hint">Only for posts first published elsewhere. Sets the canonical link so search engines credit the original.</span>
+            </label>
+            <label>Source<input type="text" id="source" placeholder="Medium">
+              <span class="hint">Shown as a tag on the blog index.</span>
+            </label>
+          </div>
+        </details>
+
+        <div class="save-bar">
+          <label class="check"><input type="checkbox" id="published"> Publish</label>
+          <span class="form-msg" id="post-msg"></span>
+          <button class="btn" type="button" id="reset">New post</button>
+          <button class="btn primary" type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="tab-panel" id="panel-posts" role="tabpanel" aria-labelledby="tab-posts" hidden>
+      <div class="bulk">
+        <label class="check"><input type="checkbox" id="select-all"> Select all</label>
+        <button class="btn" type="button" id="bulk-publish" disabled>Publish</button>
+        <button class="btn" type="button" id="bulk-unpublish" disabled>Unpublish</button>
+        <span class="hint" id="bulk-count"></span>
+      </div>
+      <div id="list"></div>
+    </div>
+
+    <div class="tab-panel" id="panel-inbox" role="tabpanel" aria-labelledby="tab-inbox" hidden>
+      <div id="inbox"></div>
+    </div>
+
   </section>
 
 </main>
@@ -394,9 +427,29 @@ function renderStats(posts) {
     'These count what is in the database. Page views and visitors are not stored here — they live in Vercel Web Analytics.';
 }
 
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach((t) => {
+    const on = t.id === id;
+    t.classList.toggle('is-active', on);
+    t.setAttribute('aria-selected', on);
+    document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+  });
+}
+document.querySelectorAll('.tab').forEach((t) => {
+  t.onclick = () => showTab(t.id);
+});
+
 async function load(id) {
   const { data, error } = await db.from('posts').select('*').eq('id', id).single();
   if (error) return;
+
+  // Editing is a different mode from writing. Say so, or it is easy to overwrite
+  // a post while thinking you are starting a new one.
+  const flag = el('editing');
+  flag.hidden = false;
+  flag.textContent = 'Editing "' + data.title + '". Press New post to start a fresh one instead.';
+  showTab('tab-write');
+
   el('post-id').value = data.id;
   el('title').value = data.title;
   el('slug').value = data.slug;
@@ -415,6 +468,8 @@ el('reset').onclick = () => {
   el('post-id').value = '';
   mde.value('');
   el('post-msg').textContent = '';
+  el('editing').hidden = true;
+  showTab('tab-write');
 };
 
 el('title').addEventListener('blur', () => {
@@ -484,11 +539,13 @@ el('post-form').addEventListener('submit', async (e) => {
   el('post-form').reset();
   el('post-id').value = '';
   mde.value('');
+  el('editing').hidden = true;
   render();
 });
 
 db.auth.onAuthStateChange(render);
 render();
 </script>
+<script src="/js/nav.js"></script>
 </body>
 </html>
