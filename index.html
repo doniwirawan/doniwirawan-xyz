@@ -472,6 +472,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
+<script src="/js/config.js"></script>
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
 
@@ -486,6 +487,12 @@ document.getElementById('yr').textContent = new Date().getFullYear();
 
     // Bots fill in every field they find, including the hidden one.
     if (document.getElementById('c-website').value) { msg.textContent = 'Thanks.'; return; }
+
+    if (!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
+      msg.textContent = 'The form is misconfigured. Email me instead: doniwirawan166@gmail.com';
+      console.error('config.js did not load: SUPABASE_URL is undefined');
+      return;
+    }
 
     msg.textContent = 'Sending…';
     fetch(window.SUPABASE_URL + '/rest/v1/messages', {
@@ -502,10 +509,11 @@ document.getElementById('yr').textContent = new Date().getFullYear();
         message: document.getElementById('c-message').value.trim(),
       }),
     }).then(function (r) {
-      if (!r.ok) throw new Error(r.status);
+      if (!r.ok) return r.text().then(function (t) { throw new Error(r.status + ' ' + t); });
       form.reset();
       msg.textContent = 'Sent. I will get back to you.';
-    }).catch(function () {
+    }).catch(function (err) {
+      console.error('contact form:', err);
       msg.textContent = 'That did not send. Email me instead: doniwirawan166@gmail.com';
     });
   });
