@@ -74,7 +74,7 @@ const fmt = (d) => new Date(d).toLocaleDateString('en-GB', {
 
 const { data, error } = await db
   .from('posts')
-  .select('slug, title, excerpt, published_at, source')
+  .select('slug, title, excerpt, published_at, source, cover_url')
   .eq('published', true)
   .order('published_at', { ascending: false });
 
@@ -88,6 +88,19 @@ if (error) {
     const card = document.createElement('a');
     card.className = 'post-card';
     card.href = '/blog/' + post.slug;
+
+    if (post.cover_url) {
+      const cover = document.createElement('img');
+      cover.className = 'post-cover';
+      cover.src = post.cover_url;
+      cover.alt = '';
+      cover.loading = 'lazy';
+      card.classList.add('has-cover');
+      card.append(cover);
+    }
+
+    const text = document.createElement('div');
+    text.className = 'post-card-text';
 
     const h3 = document.createElement('h3');
     h3.textContent = post.title;
@@ -103,14 +116,15 @@ if (error) {
     meta.className = 'post-date';
     meta.textContent = post.published_at ? fmt(post.published_at) : '';
 
-    card.append(h3, meta);
+    text.append(h3, meta);
 
     if (post.excerpt) {
       const p = document.createElement('p');
       p.className = 'post-excerpt';
       p.textContent = post.excerpt;
-      card.append(p);
+      text.append(p);
     }
+    card.append(text);
     return card;
   }));
 }

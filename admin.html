@@ -133,6 +133,14 @@ const mde = new EasyMDE({
             '|', 'link', 'upload-image', 'code', '|', 'preview', 'side-by-side', 'guide'],
 });
 
+// First image in the body becomes the card image on the blog index.
+function firstImage(body) {
+  const md = body.match(/!\[[^\]]*\]\(([^)\s]+)/);
+  if (md) return md[1];
+  const html = body.match(/<img[^>]+src=["']([^"']+)["']/i);
+  return html ? html[1] : null;
+}
+
 async function uploadImage(file, onSuccess, onError) {
   const ext = (file.name.split('.').pop() || 'png').toLowerCase();
   const path = `${Date.now()}-${slugify(file.name.replace(/\.[^.]+$/, '')) || 'image'}.${ext}`;
@@ -188,6 +196,14 @@ async function render() {
     tag.className = 'app-tag';
     tag.textContent = post.published ? 'Live' : 'Draft';
 
+    const view = document.createElement('a');
+    view.className = 'btn';
+    view.href = '/blog/' + post.slug;
+    view.target = '_blank';
+    view.rel = 'noopener';
+    view.textContent = 'View';
+    if (!post.published) view.title = 'Draft — only visible to you once published';
+
     const edit = document.createElement('button');
     edit.className = 'btn';
     edit.type = 'button';
@@ -205,7 +221,7 @@ async function render() {
       render();
     };
 
-    row.append(title, tag, edit, del);
+    row.append(title, tag, view, edit, del);
     return row;
   }));
 }
@@ -309,6 +325,7 @@ el('post-form').addEventListener('submit', async (e) => {
     canonical_url: el('canonical_url').value.trim() || null,
     source: el('source').value.trim() || null,
     body: mde.value(),
+    cover_url: firstImage(mde.value()),
     published
   };
 

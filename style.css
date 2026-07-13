@@ -186,6 +186,16 @@ a:hover { text-decoration: underline; }
 }
 .post-card:hover { text-decoration: none; border-color: #363c45; transform: translateY(-2px); }
 .post-card h3 { margin: 0 0 4px; font-size: 18px; letter-spacing: -.2px; }
+.post-card.has-cover { display: flex; gap: 20px; align-items: flex-start; padding: 16px; }
+.post-cover {
+  flex: 0 0 auto; width: 160px; aspect-ratio: 3 / 2; object-fit: cover;
+  border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2);
+}
+.post-card-text { min-width: 0; }
+@media (max-width: 600px) {
+  .post-card.has-cover { flex-direction: column; gap: 14px; }
+  .post-cover { width: 100%; }
+}
 .post-date { margin: 0; color: var(--muted); font-size: 13px; }
 .post-excerpt { margin: 10px 0 0; color: var(--muted); font-size: 14.5px; }
 
@@ -218,11 +228,13 @@ a:hover { text-decoration: underline; }
 /* ── admin ── */
 .form { display: grid; gap: 16px; max-width: 640px; margin: 24px 0 40px; }
 .form label { display: grid; gap: 6px; font-size: 13px; font-weight: 600; color: var(--muted); }
-.form input[type=text], .form input[type=email], .form input[type=password], .form textarea {
+.form input:not([type=checkbox]):not([type=hidden]), .form textarea {
   font: inherit; font-size: 14.5px; font-weight: 400;
   background: var(--surface); color: var(--text);
   border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px;
+  width: 100%;
 }
+.form input::placeholder, .form textarea::placeholder { color: var(--muted); opacity: .7; }
 .form textarea { resize: vertical; line-height: 1.6; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 .form input:focus, .form textarea:focus { outline: none; border-color: var(--accent); }
 .form .hint { font-size: 12px; font-weight: 400; color: var(--muted); }
