@@ -372,6 +372,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       If you ride too, both of them are free — and I would genuinely like to know what they get wrong.
     </p>
 
+    <div class="stats" id="strava" hidden></div>
+
     <div class="photos">
       <img src="/images/cycling-1.jpg" alt="Riding a road bike on a tree-lined road in Bali" width="900" height="1125" loading="lazy">
       <img src="/images/cycling-2.jpg" alt="On a gravel bike, throwing a peace sign at the camera" width="900" height="1125" loading="lazy">
@@ -440,6 +442,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
+
+// Strava totals, fetched from a serverless function so the token stays server-side.
+fetch('/api/strava')
+  .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+  .then(function (s) {
+    var tiles = [
+      [s.km.toLocaleString() + ' km', 'Ridden'],
+      [s.everests, 'Everests climbed'],
+      [s.rides.toLocaleString(), 'Rides'],
+      [s.hours.toLocaleString() + ' h', 'In the saddle'],
+      [s.longestRideKm + ' km', 'Longest ride'],
+    ];
+    var box = document.getElementById('strava');
+    box.replaceChildren.apply(box, tiles.map(function (t) {
+      var tile = document.createElement('div');
+      tile.className = 'stat';
+      var v = document.createElement('span');
+      v.className = 'stat-value';
+      v.textContent = t[0];
+      var l = document.createElement('span');
+      l.className = 'stat-label';
+      l.textContent = t[1];
+      tile.append(v, l);
+      return tile;
+    }));
+    box.hidden = false;
+  })
+  .catch(function () { /* leave the section hidden if Strava is unreachable */ });
 
 document.querySelectorAll('.tab').forEach(function (tab) {
   tab.addEventListener('click', function () {

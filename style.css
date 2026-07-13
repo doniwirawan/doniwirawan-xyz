@@ -279,7 +279,8 @@ a:hover { text-decoration: underline; }
 .EasyMDEContainer .CodeMirror-fullscreen,
 .EasyMDEContainer .editor-toolbar.fullscreen { z-index: 20; }
 
-.stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px 0 8px; }
+.stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 24px 0 8px; }
+.stats[hidden] { display: none; }
 .stat {
   display: flex; flex-direction: column; gap: 2px;
   background: var(--surface); border: 1px solid var(--border);
