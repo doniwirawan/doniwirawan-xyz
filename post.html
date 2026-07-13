@@ -73,11 +73,14 @@ const fmt = (d) => new Date(d).toLocaleDateString('en-GB', {
 if (!slug) {
   location.replace('/blog');
 } else {
+  // No published filter here on purpose: RLS decides. The public can only read
+  // published rows, while an admin session (set at /admin, same origin, so
+  // supabase-js reuses it) can also read its own drafts — which makes previewing
+  // a draft just work.
   const { data, error } = await db
     .from('posts')
-    .select('title, excerpt, body, published_at, canonical_url, source, cover_url')
+    .select('title, excerpt, body, published, published_at, canonical_url, source, cover_url')
     .eq('slug', slug)
-    .eq('published', true)
     .maybeSingle();
 
   if (error) {
@@ -113,6 +116,18 @@ if (!slug) {
     body.innerHTML = DOMPurify.sanitize(marked.parse(data.body || ''));
 
     const parts = [h1, date];
+
+    // Only an admin can see this at all — RLS hides drafts from everyone else.
+    if (!data.published) {
+      const flag = document.createElement('div');
+      flag.className = 'callout';
+      const p = document.createElement('p');
+      const strong = document.createElement('strong');
+      strong.textContent = 'Draft preview.';
+      p.append(strong, ' This post is not published. Nobody else can see it — you are seeing it because you are signed in.');
+      flag.append(p);
+      parts.push(flag);
+    }
 
     // When the cover was taken from the body's first image (imported posts, mostly),
     // showing it as a hero as well would print the same picture twice.
