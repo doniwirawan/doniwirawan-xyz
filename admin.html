@@ -72,6 +72,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <label>Source<input type="text" id="source" placeholder="Medium">
         <span class="hint">Shown as a tag on the blog index, e.g. Medium.</span>
       </label>
+      <label>Cover image<input type="url" id="cover_url" placeholder="https://…">
+        <span class="hint">Shown on the blog index. Leave blank to use the first image in the body.</span>
+      </label>
       <label>Body<textarea id="body" rows="16"></textarea>
         <span class="hint">Markdown, with live preview. Raw HTML works too. Drag an image in, or use the picture button, to upload it.</span>
       </label>
@@ -400,6 +403,7 @@ async function load(id) {
   el('excerpt').value = data.excerpt || '';
   el('canonical_url').value = data.canonical_url || '';
   el('source').value = data.source || '';
+  el('cover_url').value = data.cover_url || '';
   mde.value(data.body || '');
   el('published').checked = data.published;
   el('post-msg').textContent = '';
@@ -454,7 +458,8 @@ el('post-form').addEventListener('submit', async (e) => {
     canonical_url: el('canonical_url').value.trim() || null,
     source: el('source').value.trim() || null,
     body: mde.value(),
-    cover_url: firstImage(mde.value()),
+    // An explicit cover wins; otherwise fall back to the first image in the body.
+    cover_url: el('cover_url').value.trim() || firstImage(mde.value()),
     published
   };
 
