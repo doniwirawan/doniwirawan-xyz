@@ -32,7 +32,10 @@ export default async function handler(req, res) {
       }),
     });
 
-    if (!auth.ok) throw new Error('token refresh failed: ' + auth.status);
+    if (!auth.ok) {
+      const detail = await auth.text();
+      throw new Error(`token refresh failed (${auth.status}): ${detail.slice(0, 300)}`);
+    }
     const { access_token, athlete } = await auth.json();
     const headers = { Authorization: `Bearer ${access_token}` };
 
@@ -70,6 +73,7 @@ export default async function handler(req, res) {
     });
   } catch (err) {
     console.error(err);
-    return res.status(502).json({ error: 'Could not reach Strava.' });
+    // The message carries Strava's own status and error text — never credentials.
+    return res.status(502).json({ error: 'Could not reach Strava.', detail: String(err.message) });
   }
 }
