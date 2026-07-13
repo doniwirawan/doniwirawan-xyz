@@ -9,14 +9,14 @@
 //   STRAVA_CLIENT_ID
 //   STRAVA_CLIENT_SECRET
 //   STRAVA_REFRESH_TOKEN
-//   STRAVA_ATHLETE_ID
+//   STRAVA_ATHLETE_ID   (optional — looked up from the token if absent)
 
 const EVEREST_M = 8849;
 
 export default async function handler(req, res) {
   const { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_REFRESH_TOKEN, STRAVA_ATHLETE_ID } = process.env;
 
-  if (!STRAVA_CLIENT_ID || !STRAVA_CLIENT_SECRET || !STRAVA_REFRESH_TOKEN || !STRAVA_ATHLETE_ID) {
+  if (!STRAVA_CLIENT_ID || !STRAVA_CLIENT_SECRET || !STRAVA_REFRESH_TOKEN) {
     return res.status(503).json({ error: 'Strava is not configured.' });
   }
 
@@ -33,11 +33,20 @@ export default async function handler(req, res) {
     });
 
     if (!auth.ok) throw new Error('token refresh failed: ' + auth.status);
-    const { access_token } = await auth.json();
+    const { access_token, athlete } = await auth.json();
+    const headers = { Authorization: `Bearer ${access_token}` };
+
+    // The token knows who it belongs to, so the athlete ID is optional config.
+    let athleteId = STRAVA_ATHLETE_ID || athlete?.id;
+    if (!athleteId) {
+      const me = await fetch('https://www.strava.com/api/v3/athlete', { headers });
+      if (!me.ok) throw new Error('athlete lookup failed: ' + me.status);
+      athleteId = (await me.json()).id;
+    }
 
     const r = await fetch(
-      `https://www.strava.com/api/v3/athletes/${STRAVA_ATHLETE_ID}/stats`,
-      { headers: { Authorization: `Bearer ${access_token}` } }
+      `https://www.strava.com/api/v3/athletes/${athleteId}/stats`,
+      { headers }
     );
     if (!r.ok) throw new Error('stats failed: ' + r.status);
 
