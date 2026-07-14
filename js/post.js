@@ -1,67 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-N3FBDCFQ');</script>
-<!-- End Google Tag Manager -->
-<title>Blog — Doni Wirawan</title>
-<link rel="icon" href="/images/icon.png">
-<link rel="apple-touch-icon" href="/images/icon.png">
-<link rel="stylesheet" href="/style.css">
-</head>
-<body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3FBDCFQ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+// Client-side post renderer.
+//
+// Published posts are server-rendered by /api/post, so this file does not run for
+// them. It is the fallback for everything the server cannot see: an admin's own
+// drafts (RLS hides those from the anonymous server fetch), and any moment when
+// Supabase is unreachable from the function. Same rendering, done in the browser
+// with the visitor's own session.
 
-<nav class="nav">
-  <div class="nav-inner">
-    <a class="nav-name" href="/">
-      <img class="nav-avatar" src="/images/avatar.png" alt="" width="26" height="26">
-      Doni Wirawan
-    </a>
-    <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
-      <svg class="open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      <svg class="close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
-    <div class="nav-links" id="nav-links">
-      <a href="/#projects">Projects</a>
-      <a href="/#about">About</a>
-      <a href="/blog">Blog</a>
-      <a href="/#cycling">Cycling</a>
-      <a href="/#connect">Connect</a>
-    </div>
-  </div>
-</nav>
-
-<main class="wrap doc">
-  <article id="post"><p class="prose">Loading…</p></article>
-  <p style="margin-top:36px;"><a href="/blog">← All posts</a></p>
-</main>
-
-<footer class="wrap footer">
-  <div>© <span id="yr">2026</span> Doni Wirawan</div>
-  <div class="footer-links">
-    <a href="/">Home</a>
-    <a href="/blog">Blog</a>
-    <a href="/terms">Terms</a>
-    <a href="/privacy">Privacy</a>
-    <a href="https://github.com/doniwirawan" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://www.linkedin.com/in/doniwirawan/" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://ko-fi.com/doniwirawan" target="_blank" rel="noopener">Ko-fi</a>
-  </div>
-</footer>
-
-<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
-<script src="/js/config.js"></script>
-<script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { marked } from 'https://esm.sh/marked@12';
 import DOMPurify from 'https://esm.sh/dompurify@3';
@@ -180,8 +124,3 @@ if (!slug) {
     article.replaceChildren(...parts);
   }
 }
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
-<script src="/js/nav.js"></script>
-</body>
-</html>

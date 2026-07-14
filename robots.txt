@@ -2,3 +2,23 @@ User-agent: *
 Disallow: /admin
 Disallow: /admin.html
 Allow: /
+
+# The AI crawlers are welcome, and are named here only to say so out loud — the
+# "User-agent: *" rule above already lets them in. Blog posts are server-rendered
+# (see api/post.js), so they get the actual article text rather than a blank shell.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://doniwirawan.xyz/sitemap.xml

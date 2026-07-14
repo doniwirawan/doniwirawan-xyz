@@ -1,0 +1,35 @@
+# Doni Wirawan
+
+> Doni Wirawan builds small, free, privacy-first web tools. The public ones run
+> entirely in the browser and upload nothing you put into them. He also builds and
+> maintains the sites and internal software for the Studio Five group and a set of
+> marine-fuel companies.
+
+Site: https://doniwirawan.xyz
+
+## Free tools
+
+- [Ascent](https://ascent-analytics.doniwirawan.xyz): a Strava analytics dashboard. [Source](https://github.com/doniwirawan/Ascent-Strava-Dashboard)
+- [Bike Fit Analyzer](https://bikefit.doniwirawan.xyz): browser-based bike fit analysis. [Source](https://github.com/doniwirawan/bike-fit-analyzer)
+- [Aksara Bali](https://aksarabali.doniwirawan.xyz): a Latin-to-Balinese script transliterator, and an educational tool for reading, writing and preserving Aksara Bali. [Source](https://github.com/doniwirawan/aksara-bali)
+- [SPMB Bali 2026](https://spmbbali.doniwirawan.xyz): Bali school-admission data, made searchable. [Source](https://github.com/doniwirawan/spmb-bali-2026)
+
+## Other work
+
+- [Terrafarms](https://terrafarms.id): agritech, built with his team at Bangkit Academy.
+- [Studio Five Suite](https://suite.studiofiveweddings.com), [Deliverables Tracker](https://tracker.studiofiveweddings.com) and [Chapter5](https://chapter5.studiofiveweddings.com): internal software for the Studio Five group.
+- [Before The Win Summit](https://www.beforethewinsummit.com/): event site.
+
+## Pages
+
+- [Home](https://doniwirawan.xyz/): projects, background, cycling and reading.
+- [Blog](https://doniwirawan.xyz/blog): notes on the tools he builds, cycling, and the occasional thing he got wrong. Individual posts live at /blog/<slug> and are server-rendered, so their full text is in the HTML.
+- [Sitemap](https://doniwirawan.xyz/sitemap.xml): every page, including every published post.
+- [Terms](https://doniwirawan.xyz/terms)
+- [Privacy](https://doniwirawan.xyz/privacy)
+
+## Elsewhere
+
+- [GitHub](https://github.com/doniwirawan)
+- [LinkedIn](https://www.linkedin.com/in/doniwirawan/)
+- [Strava](https://www.strava.com/athletes/124436743)
