@@ -13,15 +13,16 @@ const pick = (item, tag) => {
   return m ? m[1].trim() : '';
 };
 
-async function shelf(name, limit) {
+async function shelf(name) {
   const r = await fetch(FEED(name), {
     headers: { 'User-Agent': 'doniwirawan.xyz' },
   });
   if (!r.ok) throw new Error(`${name}: ${r.status}`);
   const xml = await r.text();
 
+  // Every item the feed gives us. Goodreads pages at 100, which is the real ceiling.
   const items = xml.match(/<item>[\s\S]*?<\/item>/g) || [];
-  return items.slice(0, limit).map((item) => ({
+  return items.map((item) => ({
     title: pick(item, 'title'),
     author: pick(item, 'author_name'),
     rating: Number(pick(item, 'user_rating')) || 0,
@@ -34,8 +35,8 @@ async function shelf(name, limit) {
 export default async function handler(req, res) {
   try {
     const [current, read] = await Promise.all([
-      shelf('currently-reading', 2),
-      shelf('read', 8),
+      shelf('currently-reading'),
+      shelf('read'),
     ]);
 
     // Goodreads moves slowly and rate-limits hard. Cache it.
