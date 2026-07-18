@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="SPMB Bali 2026">
-  <rect width="100" height="100" rx="22" fill="#2a78d6"/>
-  <rect x="21" y="54" width="14" height="25" rx="3" fill="#ffffff"/>
-  <rect x="43" y="40" width="14" height="39" rx="3" fill="#ffffff"/>
-  <rect x="65" y="24" width="14" height="55" rx="3" fill="#bfe0ff"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" aria-label="SPMB Bali 2026" role="img" viewBox="0 0 100 100"><rect width="100" height="100" fill="#2a78d6" rx="22"/><rect width="14" height="25" x="21" y="54" fill="#fff" rx="3"/><rect width="14" height="39" x="43" y="40" fill="#fff" rx="3"/><rect width="14" height="55" x="65" y="24" fill="#bfe0ff" rx="3"/></svg>
