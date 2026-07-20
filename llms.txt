@@ -11,7 +11,7 @@ Site: https://doniwirawan.xyz
 
 - [Ascent](https://ascent-analytics.doniwirawan.xyz): a Strava analytics dashboard. [Source](https://github.com/doniwirawan/Ascent-Strava-Dashboard)
 - [Bike Fit Analyzer](https://bikefit.doniwirawan.xyz): browser-based bike fit analysis. [Source](https://github.com/doniwirawan/bike-fit-analyzer)
-- [Aksara Bali](https://aksarabali.doniwirawan.xyz): a Latin-to-Balinese script transliterator, and an educational tool for reading, writing and preserving Aksara Bali. [Source](https://github.com/doniwirawan/aksara-bali)
+- [Aksara Bali](https://aksarabali.doniwirawan.xyz): a Latin-to-Balinese script transliterator, and an educational tool for reading, writing and preserving Aksara Bali. There is an offline Android app in Play Store testing — [join the test](https://play.google.com/apps/testing/xyz.doniwirawan.aksara_bali_mobile), then install from the [listing](https://play.google.com/store/apps/details?id=xyz.doniwirawan.aksara_bali_mobile). [Source](https://github.com/doniwirawan/aksara-bali)
 - [SPMB Bali 2026](https://spmbbali.doniwirawan.xyz): Bali school-admission data, made searchable. [Source](https://github.com/doniwirawan/spmb-bali-2026)
 
 ## Other work
