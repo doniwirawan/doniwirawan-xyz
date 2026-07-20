@@ -11,7 +11,7 @@ Live at **https://doniwirawan.xyz**
 |---|---|---|
 | **Ascent** | Strava analytics dashboard — stats, charts, heatmap, segments, story cards | [ascent-analytics.doniwirawan.xyz](https://ascent-analytics.doniwirawan.xyz) |
 | **Bike Fit Analyzer** | Joint-angle bike fit analysis from a phone video, in the browser | [bikefit.doniwirawan.xyz](https://bikefit.doniwirawan.xyz) |
-| **Aksara Bali** | Latin → Balinese script transliterator | [aksarabali.doniwirawan.xyz](https://aksarabali.doniwirawan.xyz) · [Android test](https://play.google.com/apps/testing/xyz.doniwirawan.aksara_bali_mobile) |
+| **Aksara Bali** | Latin → Balinese script transliterator | [aksarabali.doniwirawan.xyz](https://aksarabali.doniwirawan.xyz) · [Android app](https://play.google.com/store/apps/details?id=xyz.doniwirawan.aksara_bali_mobile) |
 
 ## Work
 
