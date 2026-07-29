@@ -169,6 +169,11 @@ function render(post, slug, recs = []) {
   // any static site generator treats its source.
   const article = marked.parse(post.body || '');
 
+  // The covers are SVG, which browsers render happily but no social crawler
+  // will: X, Facebook, LinkedIn and WhatsApp all need a raster, and fall back to
+  // showing the alt text. Every cover-*.svg has a 1200x630 PNG twin beside it.
+  const social = cover.endsWith('.svg') ? cover.replace(/\.svg$/, '.png') : cover;
+
   const lang = post.lang || 'en';
   // Words, not characters: what schema.org means by wordCount, and what a
   // reading-time estimate is built from.
@@ -180,7 +185,7 @@ function render(post, slug, recs = []) {
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt || undefined,
-    image: cover || undefined,
+    image: social || undefined,
     datePublished: post.published_at || undefined,
     dateModified: post.updated_at || post.published_at || undefined,
     author: { '@type': 'Person', name: AUTHOR, url: SITE },
@@ -214,15 +219,17 @@ function render(post, slug, recs = []) {
     `<meta property="og:title" content="${escapeHtml(post.title)}">`,
     post.excerpt ? `<meta property="og:description" content="${escapeHtml(post.excerpt)}">` : '',
     `<meta property="og:url" content="${escapeHtml(url)}">`,
-    cover ? `<meta property="og:image" content="${escapeHtml(cover)}">` : '',
+    cover ? `<meta property="og:image" content="${escapeHtml(social)}">` : '',
     cover ? `<meta property="og:image:alt" content="${escapeHtml(post.title)}">` : '',
+    cover ? `<meta property="og:image:width" content="1200">` : '',
+    cover ? `<meta property="og:image:height" content="630">` : '',
     `<meta property="article:author" content="${escapeHtml(SITE)}/">`,
     post.published_at ? `<meta property="article:published_time" content="${escapeHtml(post.published_at)}">` : '',
     post.updated_at ? `<meta property="article:modified_time" content="${escapeHtml(post.updated_at)}">` : '',
     `<meta name="twitter:card" content="${cover ? 'summary_large_image' : 'summary'}">`,
     `<meta name="twitter:title" content="${escapeHtml(post.title)}">`,
     post.excerpt ? `<meta name="twitter:description" content="${escapeHtml(post.excerpt)}">` : '',
-    cover ? `<meta name="twitter:image" content="${escapeHtml(cover)}">` : '',
+    cover ? `<meta name="twitter:image" content="${escapeHtml(social)}">` : '',
     cover ? `<meta name="twitter:image:alt" content="${escapeHtml(post.title)}">` : '',
     `<script type="application/ld+json">${JSON.stringify(ld)}</script>`,
     `<script type="application/ld+json">${JSON.stringify(breadcrumbs)}</script>`,
