@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="The Hidden Cost of Owning a Bicycle">
+  <defs>
+    <linearGradient id="bgHidden" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1016"/>
+      <stop offset="1" stop-color="#070a0e"/>
+    </linearGradient>
+    <linearGradient id="steelHidden" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8fc0f0"/>
+      <stop offset="1" stop-color="#3a6ea8"/>
+    </linearGradient>
+    <!-- Everything below the line is the part nobody quotes you -->
+    <clipPath id="aboveLine"><rect x="0" y="0" width="1200" height="252"/></clipPath>
+    <clipPath id="belowLine"><rect x="0" y="252" width="1200" height="548"/></clipPath>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bgHidden)"/>
+
+  <!-- The price you are told: one short, bright line above the waterline. -->
+  <rect x="120" y="150" width="248" height="24" rx="6" fill="url(#steelHidden)" opacity="0.95"/>
+
+  <!-- The waterline itself -->
+  <line x1="120" y1="252" x2="1080" y2="252" stroke="#8fc0f0" stroke-width="2" opacity="0.45"/>
+
+  <!-- Everything under it: upgrades, maintenance, tools, small parts, shipping,
+       kit. Each one modest, and there is always another one. -->
+  <g fill="url(#steelHidden)">
+    <rect x="120" y="286" width="470" height="18" rx="5" opacity="0.5"/>
+    <rect x="120" y="318" width="392" height="18" rx="5" opacity="0.42"/>
+    <rect x="120" y="350" width="556" height="18" rx="5" opacity="0.34"/>
+    <rect x="120" y="382" width="322" height="18" rx="5" opacity="0.26"/>
+  </g>
+
+  <!-- A wheel breaking the surface. The same wheel is drawn twice — bright
+       above the line, faint below — and each copy is clipped to its side. -->
+  <g clip-path="url(#aboveLine)">
+    <g transform="translate(1000 252)" opacity="0.95">
+      <circle cx="0" cy="0" r="86" fill="none" stroke="url(#steelHidden)" stroke-width="9"/>
+      <g stroke="#6f9fd0" stroke-width="4" stroke-linecap="round" opacity="0.75">
+        <line x1="0" y1="0" x2="0" y2="-82"/>
+        <line x1="0" y1="0" x2="0" y2="-82" transform="rotate(45)"/>
+        <line x1="0" y1="0" x2="0" y2="-82" transform="rotate(90)"/>
+        <line x1="0" y1="0" x2="0" y2="-82" transform="rotate(135)"/>
+        <line x1="0" y1="0" x2="0" y2="-82" transform="rotate(180)"/>
+        <line x1="0" y1="0" x2="0" y2="-82" transform="rotate(225)"/>
+        <line x1="0" y1="0" x2="0" y2="-82" transform="rotate(270)"/>
+        <line x1="0" y1="0" x2="0" y2="-82" transform="rotate(315)"/>
+      </g>
+    </g>
+  </g>
+  <g clip-path="url(#belowLine)">
+    <g transform="translate(1000 252)" opacity="0.3">
+      <circle cx="0" cy="0" r="86" fill="none" stroke="url(#steelHidden)" stroke-width="9"/>
+      <g stroke="#6f9fd0" stroke-width="4" stroke-linecap="round" opacity="0.75">
+        <line x1="0" y1="0" x2="0" y2="-82"/>
+        <line x1="0" y1="0" x2="0" y2="-82" transform="rotate(45)"/>
+        <line x1="0" y1="0" x2="0" y2="-82" transform="rotate(90)"/>
+        <line x1="0" y1="0" x2="0" y2="-82" transform="rotate(135)"/>
+        <line x1="0" y1="0" x2="0" y2="-82" transform="rotate(180)"/>
+        <line x1="0" y1="0" x2="0" y2="-82" transform="rotate(225)"/>
+        <line x1="0" y1="0" x2="0" y2="-82" transform="rotate(270)"/>
+        <line x1="0" y1="0" x2="0" y2="-82" transform="rotate(315)"/>
+      </g>
+    </g>
+  </g>
+
+  <text x="120" y="500" fill="#eaf1f8"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="82" font-weight="800" letter-spacing="-2">The Hidden Cost</text>
+  <text x="120" y="586" fill="#eaf1f8"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="82" font-weight="800" letter-spacing="-2">of Owning a Bicycle</text>
+
+  <text x="122" y="662" fill="#8fc0f0"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="42" font-weight="700" letter-spacing="-1">The receipt is only the beginning.</text>
+</svg>

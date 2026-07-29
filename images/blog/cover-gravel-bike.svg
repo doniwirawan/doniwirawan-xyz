@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Building My Dream Gravel Bike From Scratch (and Every Rupiah I Spent)">
+  <defs>
+    <linearGradient id="bgGravel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#151109"/>
+      <stop offset="1" stop-color="#0b0906"/>
+    </linearGradient>
+    <linearGradient id="amberGravel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f2be6d"/>
+      <stop offset="1" stop-color="#c8842c"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bgGravel)"/>
+
+  <!-- The bill, drawn to scale: groupset, frame, cockpit, wheelset. The first
+       bar is the story — half the bike's value sits in the groupset alone. -->
+  <g fill="url(#amberGravel)">
+    <rect x="120" y="132" width="800" height="26" rx="6" opacity="0.95"/>
+    <rect x="120" y="186" width="376" height="26" rx="6" opacity="0.72"/>
+    <rect x="120" y="240" width="298" height="26" rx="6" opacity="0.5"/>
+    <rect x="120" y="294" width="94"  height="26" rx="6" opacity="0.32"/>
+  </g>
+
+  <!-- A chainring: the part that cost the most, and the reason for the workshop -->
+  <g transform="translate(1012 224)">
+    <circle cx="0" cy="0" r="72" fill="none" stroke="url(#amberGravel)" stroke-width="11" opacity="0.92"/>
+    <!-- Five arms, evenly spaced by rotation rather than by hand -->
+    <g stroke="#d9a052" stroke-width="9" stroke-linecap="round" opacity="0.8">
+      <line x1="0" y1="0" x2="0" y2="-60"/>
+      <line x1="0" y1="0" x2="0" y2="-60" transform="rotate(72)"/>
+      <line x1="0" y1="0" x2="0" y2="-60" transform="rotate(144)"/>
+      <line x1="0" y1="0" x2="0" y2="-60" transform="rotate(216)"/>
+      <line x1="0" y1="0" x2="0" y2="-60" transform="rotate(288)"/>
+    </g>
+    <circle cx="0" cy="0" r="15" fill="#151109" stroke="url(#amberGravel)" stroke-width="7"/>
+  </g>
+
+  <text x="120" y="470" fill="#f6f1e8"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="78" font-weight="800" letter-spacing="-2">Building My Dream</text>
+  <text x="120" y="556" fill="#f6f1e8"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="78" font-weight="800" letter-spacing="-2">Gravel Bike From Scratch</text>
+
+  <text x="122" y="636" fill="#f2be6d"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="42" font-weight="700" letter-spacing="-1">Every rupiah of it: Rp25,314,508.</text>
+</svg>
