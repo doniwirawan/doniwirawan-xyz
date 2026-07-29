@@ -104,7 +104,7 @@ These tools will continue to be useful long after this bike build, making future
 The most expensive part of the build wasn't the frame. It was the groupset.
 
 * Groupset: approximately 51% of the bike's value
-* Frame: approximately 24%
+* Frame: approximately 23%
 * Wheelset: approximately 6%
 * Cockpit and finishing kit: the remainder
 
