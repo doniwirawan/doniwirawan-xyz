@@ -293,6 +293,16 @@ a:hover { text-decoration: underline; }
 .post-body h3 { font-size: 17px; margin: 28px 0 8px; color: var(--text); }
 .post-body h4 { font-size: 15px; margin: 24px 0 8px; color: var(--text); }
 .post-body figure { margin: 28px 0; }
+/* Drop cap on the opening paragraph. :first-of-type rather than :first-child so
+   a post that opens with an image still gets it on the first real paragraph. */
+.post-body > p:first-of-type::first-letter {
+  float: left; font-size: 3.4em; line-height: 0.82; font-weight: 800;
+  color: var(--text); padding: 4px 10px 0 0; margin-top: 2px;
+}
+/* Safari lifts the glyph slightly higher than the others do. */
+@supports (-webkit-hyphens: none) {
+  .post-body > p:first-of-type::first-letter { margin-top: 6px; }
+}
 .post-body figcaption { font-size: 13px; color: var(--muted); text-align: center; margin-top: 8px; }
 .post-body hr { border: 0; border-top: 1px solid var(--border); margin: 36px 0; }
 .post-body li { margin-bottom: 6px; }

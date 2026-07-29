@@ -91,8 +91,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script defer src="/js/tables.js"></script>`,
 };
 
-const page = ({ title, head = '', body }) => `<!DOCTYPE html>
-<html lang="en">
+const page = ({ title, head = '', body, lang = 'en' }) => `<!DOCTYPE html>
+<html lang="${escapeHtml(lang)}">
 <head>
 ${chrome.head}
 <title>${escapeHtml(title)}</title>
@@ -169,6 +169,12 @@ function render(post, slug, recs = []) {
   // any static site generator treats its source.
   const article = marked.parse(post.body || '');
 
+  const lang = post.lang || 'en';
+  // Words, not characters: what schema.org means by wordCount, and what a
+  // reading-time estimate is built from.
+  const wordCount = (post.body || '').replace(/[#*_>`\[\]()|-]/g, ' ')
+    .split(/\s+/).filter(Boolean).length;
+
   const ld = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -180,23 +186,46 @@ function render(post, slug, recs = []) {
     author: { '@type': 'Person', name: AUTHOR, url: SITE },
     publisher: { '@type': 'Person', name: AUTHOR, url: SITE },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    inLanguage: lang,
+    wordCount,
+    isPartOf: { '@type': 'Blog', '@id': `${SITE}/blog`, name: `${AUTHOR} — Blog` },
+  };
+
+  // Where this page sits, so search results can show the path rather than a
+  // bare URL.
+  const breadcrumbs = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog` },
+      { '@type': 'ListItem', position: 3, name: post.title, item: url },
+    ],
   };
 
   const head = [
     post.excerpt ? `<meta name="description" content="${escapeHtml(post.excerpt)}">` : '',
     // A post that ran somewhere else first should credit that copy as the original.
     `<link rel="canonical" href="${escapeHtml(post.canonical_url || url)}">`,
+    `<meta name="author" content="${escapeHtml(AUTHOR)}">`,
     `<meta property="og:type" content="article">`,
+    `<meta property="og:site_name" content="${escapeHtml(AUTHOR)}">`,
+    `<meta property="og:locale" content="${lang === 'id' ? 'id_ID' : 'en_US'}">`,
     `<meta property="og:title" content="${escapeHtml(post.title)}">`,
     post.excerpt ? `<meta property="og:description" content="${escapeHtml(post.excerpt)}">` : '',
     `<meta property="og:url" content="${escapeHtml(url)}">`,
     cover ? `<meta property="og:image" content="${escapeHtml(cover)}">` : '',
+    cover ? `<meta property="og:image:alt" content="${escapeHtml(post.title)}">` : '',
+    `<meta property="article:author" content="${escapeHtml(SITE)}/">`,
     post.published_at ? `<meta property="article:published_time" content="${escapeHtml(post.published_at)}">` : '',
+    post.updated_at ? `<meta property="article:modified_time" content="${escapeHtml(post.updated_at)}">` : '',
     `<meta name="twitter:card" content="${cover ? 'summary_large_image' : 'summary'}">`,
     `<meta name="twitter:title" content="${escapeHtml(post.title)}">`,
     post.excerpt ? `<meta name="twitter:description" content="${escapeHtml(post.excerpt)}">` : '',
     cover ? `<meta name="twitter:image" content="${escapeHtml(cover)}">` : '',
+    cover ? `<meta name="twitter:image:alt" content="${escapeHtml(post.title)}">` : '',
     `<script type="application/ld+json">${JSON.stringify(ld)}</script>`,
+    `<script type="application/ld+json">${JSON.stringify(breadcrumbs)}</script>`,
   ].filter(Boolean).join('\n');
 
   const origin = post.canonical_url
@@ -214,7 +243,7 @@ function render(post, slug, recs = []) {
     and it helps me say what I actually meant.</p>
   </article>${renderRecs(recs)}`;
 
-  return page({ title, head, body });
+  return page({ title, head, body, lang });
 }
 
 export default async function handler(req, res) {
@@ -229,7 +258,7 @@ export default async function handler(req, res) {
   try {
     const rows = await posts(
       `?slug=eq.${encodeURIComponent(slug)}&published=is.true` +
-      `&select=title,excerpt,body,published_at,updated_at,canonical_url,source,cover_url&limit=1`
+      `&select=title,excerpt,body,published_at,updated_at,canonical_url,source,cover_url,lang&limit=1`
     );
 
     // No published post at this address. It may still be a draft the owner is
