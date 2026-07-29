@@ -222,7 +222,7 @@ function render(post, slug, recs = []) {
     cover ? `<meta property="og:image" content="${escapeHtml(social)}">` : '',
     cover ? `<meta property="og:image:alt" content="${escapeHtml(post.title)}">` : '',
     cover ? `<meta property="og:image:width" content="1200">` : '',
-    cover ? `<meta property="og:image:height" content="630">` : '',
+    cover ? `<meta property="og:image:height" content="800">` : '',
     `<meta property="article:author" content="${escapeHtml(SITE)}/">`,
     post.published_at ? `<meta property="article:published_time" content="${escapeHtml(post.published_at)}">` : '',
     post.updated_at ? `<meta property="article:modified_time" content="${escapeHtml(post.updated_at)}">` : '',
