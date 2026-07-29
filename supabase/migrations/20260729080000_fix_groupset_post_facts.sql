@@ -1,16 +1,18 @@
--- Blog post: "Half My Bike Budget Went to the Groupset. I Regret It."
+-- Three claims in this post had the two groupsets the wrong way round:
 --
--- The third of the bike posts, and the one that answers the first: the build
--- post established the groupset as 51% of the bike's value, so the title picks
--- that number up. Published as written — flowing prose with no section headings,
--- which is how it was sent.
+--   * the stiff hood that tore was the Sensah, not the GRX
+--   * the hood imported from China was the Sensah, not the GRX
+--   * the GRX is the smooth one; the Sensah is the one with a different,
+--     more mechanical character
+--
+-- Corrected as sent. The argument is unchanged and, if anything, firmer: the
+-- GRX really is better and easier to live with — the post's point is that it
+-- still did not earn the premium. Paragraphs 1, 5 and 6 are untouched.
 
-insert into public.posts (slug, title, excerpt, body, published, published_at)
-values (
-  'half-my-bike-budget-went-to-the-groupset',
-  'Half My Bike Budget Went to the Groupset. I Regret It.',
-  'The GRX 820 is smoother, more refined, and far easier to find parts for — I understand why people like it. But next to a Sensah Empire Pro at a fraction of the price, I still do not think it earned the premium.',
-  $body$One thing I kind of regret is putting so much money into building a high-end GRX 820 groupset instead of just focusing on more affordable bikes.
+update public.posts
+set
+  excerpt = 'The GRX 820 is smoother, more refined, and far easier to find parts for — I understand why people like it. But next to a Sensah Empire Pro at a fraction of the price, I still do not think it earned the premium.',
+  body = $body$One thing I kind of regret is putting so much money into building a high-end GRX 820 groupset instead of just focusing on more affordable bikes.
 
 Ironically, I don't regret my Camp SR3D build with the Sensah Empire Pro 12-speed groupset at all. It has been surprisingly good. The GRX 820 is great — smooth and refined, and I understand why many people like it. The Sensah has a different character to it, and feels more mechanical. But for me personally, I don't think the GRX is worth the price premium.
 
@@ -20,11 +22,5 @@ Another thing that surprised me was the hood cover itself. The material feels mo
 
 In the end, I had to remove almost everything: the handlebar tape, the shifter, and even disconnect the shift cable just to fit a new hood cover. It turned what should have been a simple maintenance job into something much more time-consuming.
 
-I'm not saying the GRX 820 is a bad groupset. It isn't. It has its own strengths and it's built for a different purpose. I just don't think it gave me enough additional value compared to much cheaper options. Looking back, I should have stuck with a Chinese groupset and put the difference toward other upgrades, or even another bike.$body$,
-  true,
-  '2026-07-29T11:00:00+08:00'
-);
-
-update public.posts
-set cover_url = 'https://doniwirawan.xyz/images/blog/cover-groupset-regret.svg'
+I'm not saying the GRX 820 is a bad groupset. It isn't. It has its own strengths and it's built for a different purpose. I just don't think it gave me enough additional value compared to much cheaper options. Looking back, I should have stuck with a Chinese groupset and put the difference toward other upgrades, or even another bike.$body$
 where slug = 'half-my-bike-budget-went-to-the-groupset';
