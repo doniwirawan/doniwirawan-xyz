@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Half My Bike Budget Went to the Groupset. I Regret It.">
+  <defs>
+    <linearGradient id="bgRegret" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#160f0d"/>
+      <stop offset="1" stop-color="#0b0807"/>
+    </linearGradient>
+    <linearGradient id="clayRegret" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e8927b"/>
+      <stop offset="1" stop-color="#bf5238"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bgRegret)"/>
+
+  <!-- What it cost, against what it added. The long bar is the money; the short
+       one is the difference it actually made. That gap is the whole post. -->
+  <g>
+    <rect x="120" y="140" width="760" height="30" rx="7" fill="url(#clayRegret)" opacity="0.95"/>
+    <rect x="120" y="200" width="150" height="30" rx="7" fill="url(#clayRegret)" opacity="0.35"/>
+  </g>
+
+  <!-- A shifter hood in outline: the part that tore, and the afternoon it cost -->
+  <g transform="translate(1012 196)" opacity="0.9">
+    <path d="M-30 62 C -40 6, -22 -46, 10 -60 C 38 -72, 52 -48, 46 -18 C 40 12, 18 44, 6 62 Z"
+          fill="none" stroke="url(#clayRegret)" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M-16 40 C -22 6, -10 -26, 8 -34" fill="none" stroke="#d67b60" stroke-width="5"
+          stroke-linecap="round" opacity="0.55"/>
+  </g>
+
+  <text x="120" y="446" fill="#f7efeb"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="76" font-weight="800" letter-spacing="-2">Half My Bike Budget</text>
+  <text x="120" y="530" fill="#f7efeb"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="76" font-weight="800" letter-spacing="-2">Went to the Groupset</text>
+
+  <text x="122" y="610" fill="#e8927b"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="42" font-weight="700" letter-spacing="-1">I would not do it again.</text>
+</svg>
