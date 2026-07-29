@@ -193,6 +193,9 @@ const db = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 const el = (id) => document.getElementById(id);
 const login = el('login'), editor = el('editor'), list = el('list');
 
+// slug -> title, so the Views tab can name a post instead of showing its path.
+const postTitles = new Map();
+
 const slugify = (s) => s.toLowerCase().trim()
   .replace(/[^a-z0-9\s-]/g, '')
   .replace(/\s+/g, '-')
@@ -253,6 +256,9 @@ async function render() {
     list.textContent = 'Could not load posts: ' + error.message;
     return;
   }
+
+  postTitles.clear();
+  data.forEach((p) => postTitles.set(p.slug, p.title));
 
   renderStats(data);
   renderInbox();
@@ -461,6 +467,128 @@ function renderStats(posts) {
 
 // Views. The rpc is security definer and re-checks the admin email, so this
 // only ever returns anything for the signed-in owner.
+
+// Sorting happens here rather than in the query: the result is one row per
+// page, so re-sorting is instant and does not need another round trip.
+let viewRows = [];
+let viewSort = { key: 'views', dir: 'desc' };
+
+const VIEW_COLUMNS = [
+  { key: 'page', label: 'Page', align: 'left' },
+  { key: 'views', label: 'Views', align: 'right' },
+  { key: 'last_viewed', label: 'Last seen', align: 'right' },
+];
+
+function sortViewRows() {
+  const { key, dir } = viewSort;
+  const sign = dir === 'asc' ? 1 : -1;
+
+  viewRows.sort((a, b) => {
+    if (key === 'views') return sign * (Number(a.views) - Number(b.views));
+    if (key === 'last_viewed') {
+      return sign * (new Date(a.last_viewed) - new Date(b.last_viewed));
+    }
+    // Page sorts by what is actually on screen, title or path, not the raw path.
+    return sign * viewLabel(a).localeCompare(viewLabel(b), undefined, { numeric: true });
+  });
+}
+
+function viewLabel(row) {
+  return (row.slug && postTitles.get(row.slug)) || row.path;
+}
+
+function renderViewTable() {
+  const table = document.createElement('table');
+  table.className = 'views-table';
+
+  const thead = document.createElement('thead');
+  const hr = document.createElement('tr');
+
+  VIEW_COLUMNS.forEach((col) => {
+    const th = document.createElement('th');
+    th.className = 'sortable align-' + col.align;
+    const active = viewSort.key === col.key;
+    th.setAttribute('aria-sort', active
+      ? (viewSort.dir === 'asc' ? 'ascending' : 'descending')
+      : 'none');
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'sort-btn' + (active ? ' is-active' : '');
+    button.textContent = col.label;
+
+    const caret = document.createElement('span');
+    caret.className = 'sort-caret';
+    caret.textContent = active ? (viewSort.dir === 'asc' ? '↑' : '↓') : '↕';
+    button.append(caret);
+
+    button.onclick = () => {
+      if (viewSort.key === col.key) {
+        viewSort.dir = viewSort.dir === 'asc' ? 'desc' : 'asc';
+      } else {
+        // Text reads best A–Z; numbers and dates read best biggest-first.
+        viewSort = { key: col.key, dir: col.key === 'page' ? 'asc' : 'desc' };
+      }
+      sortViewRows();
+      const fresh = renderViewTable();
+      table.replaceWith(fresh);
+    };
+
+    th.append(button);
+    hr.append(th);
+  });
+
+  thead.append(hr);
+  table.append(thead);
+
+  const most = Math.max(...viewRows.map((r) => Number(r.views)), 1);
+  const tbody = document.createElement('tbody');
+
+  viewRows.forEach((row) => {
+    const tr = document.createElement('tr');
+
+    const page = document.createElement('td');
+    const a = document.createElement('a');
+    a.href = row.path;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.className = 'view-title';
+    a.textContent = viewLabel(row);
+    page.append(a);
+
+    // Only worth showing the path separately when the title replaced it.
+    if (row.slug && postTitles.get(row.slug)) {
+      const sub = document.createElement('span');
+      sub.className = 'view-path';
+      sub.textContent = row.path;
+      page.append(sub);
+    }
+
+    const views = document.createElement('td');
+    views.className = 'align-right';
+    // A bar behind the number turns a column of figures into a shape you can
+    // read at a glance.
+    const bar = document.createElement('span');
+    bar.className = 'view-bar';
+    bar.style.width = (Number(row.views) / most * 100) + '%';
+    const count = document.createElement('span');
+    count.className = 'view-count';
+    count.textContent = Number(row.views).toLocaleString();
+    views.append(bar, count);
+
+    const seen = document.createElement('td');
+    seen.className = 'align-right view-seen';
+    seen.textContent = new Date(row.last_viewed).toLocaleDateString('en-GB',
+      { day: 'numeric', month: 'short', year: 'numeric' });
+
+    tr.append(page, views, seen);
+    tbody.append(tr);
+  });
+
+  table.append(tbody);
+  return table;
+}
+
 async function renderViews() {
   const box = el('views');
   const days = Number(el('views-days').value);
@@ -479,13 +607,16 @@ async function renderViews() {
     return;
   }
 
-  const total = data.reduce((n, r) => n + Number(r.views), 0);
-  const posts = data.filter((r) => r.slug);
+  viewRows = data.slice();
+  sortViewRows();
+
+  const total = viewRows.reduce((n, r) => n + Number(r.views), 0);
+  const posts = viewRows.filter((r) => r.slug);
 
   const head = document.createElement('div');
   head.className = 'stats';
   [['Views', total.toLocaleString()],
-   ['Pages', data.length],
+   ['Pages', viewRows.length],
    ['Post views', posts.reduce((n, r) => n + Number(r.views), 0).toLocaleString()]]
     .forEach(([label, value]) => {
       const tile = document.createElement('div');
@@ -500,35 +631,7 @@ async function renderViews() {
       head.append(tile);
     });
 
-  const table = document.createElement('table');
-  table.className = 'views-table';
-  table.innerHTML = '<thead><tr><th>Page</th><th>Views</th><th>Last seen</th></tr></thead>';
-  const tbody = document.createElement('tbody');
-
-  data.forEach((row) => {
-    const tr = document.createElement('tr');
-
-    const td = document.createElement('td');
-    const a = document.createElement('a');
-    a.href = row.path;
-    a.target = '_blank';
-    a.rel = 'noopener';
-    a.textContent = row.path;
-    td.append(a);
-
-    const views = document.createElement('td');
-    views.textContent = Number(row.views).toLocaleString();
-
-    const seen = document.createElement('td');
-    seen.textContent = new Date(row.last_viewed).toLocaleDateString('en-GB',
-      { day: 'numeric', month: 'short', year: 'numeric' });
-
-    tr.append(td, views, seen);
-    tbody.append(tr);
-  });
-
-  table.append(tbody);
-  box.replaceChildren(head, table);
+  box.replaceChildren(head, renderViewTable());
 }
 
 function showTab(id) {
