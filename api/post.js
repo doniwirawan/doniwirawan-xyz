@@ -88,7 +88,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="/js/nav.js"></script>
 <script src="/js/config.js"></script>
 <script defer src="/js/views.js"></script>
-<script defer src="/js/table-sort.js"></script>`,
+<script defer src="/js/tables.js"></script>`,
 };
 
 const page = ({ title, head = '', body }) => `<!DOCTYPE html>
