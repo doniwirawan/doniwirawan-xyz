@@ -7,7 +7,7 @@ insert into public.posts (slug, title, excerpt, body, published, published_at)
 values (
   'building-my-dream-gravel-bike',
   'Building My Dream Gravel Bike From Scratch (and Every Rupiah I Spent)',
-  'I wanted to understand every component rather than buy a bike off the shelf, so I built one from parts — and bought the tools to service it myself. Here is the full Rp25.3 million breakdown, and the part of the bill that surprised me.',
+  'I wanted to understand every component rather than buy a bike off the shelf, so I built one from parts — and bought the tools to service it myself. Here is the full Rp25.5 million breakdown, and the part of the bill that surprised me.',
   $body$For years, I wanted to build a bicycle instead of buying one off the shelf. I wanted to understand every component, assemble it myself, and have the tools to maintain it without relying on a bike shop.
 
 This project became much more than buying a bike. It became a complete home workshop.
