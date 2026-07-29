@@ -532,7 +532,7 @@ img, svg, video { max-width: 100%; }
 
 /* One measure, one hue — bar length already encodes the size, so tinting by
    value would spend the colour channel on information twice. */
-.chart { --chart-name: 190px; }
+.chart { --chart-name: 215px; }
 .chart-plot { display: grid; gap: 4px; }
 .chart-row {
   position: relative; display: grid; align-items: center; gap: 14px;
@@ -541,9 +541,11 @@ img, svg, video { max-width: 100%; }
 }
 .chart-row:hover, .chart-row:focus-visible { background: var(--surface); outline: none; }
 .chart-row:focus-visible { box-shadow: 0 0 0 2px var(--accent); }
+/* Component names wrap rather than truncate — an ellipsis hides exactly the
+   detail that tells two similar parts apart. */
 .chart-name {
   font-size: 13px; color: var(--muted); text-align: right;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  line-height: 1.35; overflow-wrap: break-word;
 }
 .chart-track { position: relative; display: flex; align-items: center; gap: 10px; min-height: 24px; }
 .chart-fill {
