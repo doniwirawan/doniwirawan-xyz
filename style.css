@@ -1,14 +1,41 @@
+/* Dark is the default. An inline script in every page's head stamps
+   data-theme on <html> before first paint, so there is no flash. */
 :root {
   --bg: #0b0c0e;
   --surface: #141619;
   --surface-2: #1b1e23;
+  --surface-3: #22262c;
   --border: #262a30;
+  --border-strong: #363c45;
   --text: #eceef1;
+  --text-soft: #cfd3d9;
   --muted: #8b929c;
   --accent: #5b8cff;
+  --accent-hover: #4a7bf0;
   --accent-soft: rgba(91, 140, 255, .12);
+  --nav-bg: rgba(11, 12, 14, .82);
+  --overlay-bg: rgba(11, 12, 14, .92);
   --radius: 16px;
   --max: 940px;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --surface: #f7f8fa;
+  --surface-2: #eef0f4;
+  --surface-3: #e3e7ed;
+  --border: #dfe3e9;
+  --border-strong: #c3cad4;
+  --text: #14161a;
+  --text-soft: #3d434c;
+  --muted: #5f6773;
+  --accent: #2f5fd0;
+  --accent-hover: #244cae;
+  --accent-soft: rgba(47, 95, 208, .10);
+  --nav-bg: rgba(255, 255, 255, .82);
+  --overlay-bg: rgba(255, 255, 255, .92);
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
@@ -27,7 +54,7 @@ a:hover { text-decoration: underline; }
 /* ── nav ── */
 .nav {
   position: sticky; top: 0; z-index: 10;
-  background: rgba(11, 12, 14, .82);
+  background: var(--nav-bg);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
 }
@@ -55,9 +82,24 @@ a:hover { text-decoration: underline; }
 .nav-toggle .close, .nav-toggle[aria-expanded="true"] .open { display: none; }
 .nav-toggle[aria-expanded="true"] .close { display: block; }
 .nav-name:hover { text-decoration: none; }
-.nav-links { display: flex; gap: 20px; font-size: 14px; }
+/* The buttons sit after the links in the bar but before them in the markup,
+   so the hamburger stays next to the panel it opens. */
+.nav-links { display: flex; gap: 20px; font-size: 14px; margin-left: auto; order: 2; }
 .nav-links a { color: var(--muted); }
 .nav-links a:hover { color: var(--text); text-decoration: none; }
+.nav-actions { display: flex; align-items: center; gap: 10px; flex: 0 0 auto; order: 3; margin-left: 18px; }
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; padding: 0; cursor: pointer;
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 9px; color: var(--muted);
+}
+.theme-toggle:hover { background: var(--surface-2); color: var(--text); }
+.theme-toggle svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+/* Show the icon for the theme the button switches you to. */
+.theme-toggle .to-dark { display: none; }
+:root[data-theme="light"] .theme-toggle .to-dark { display: block; }
+:root[data-theme="light"] .theme-toggle .to-light { display: none; }
 
 /* ── hero ── */
 .hero { padding-top: 84px; padding-bottom: 56px; }
@@ -79,9 +121,9 @@ a:hover { text-decoration: underline; }
   border: 1px solid var(--border); background: var(--surface-2); color: var(--text);
   transition: border-color .15s, background .15s;
 }
-.btn:hover { text-decoration: none; border-color: #3a4049; background: #22262c; }
+.btn:hover { text-decoration: none; border-color: var(--border-strong); background: var(--surface-3); }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-.btn.primary:hover { background: #4a7bf0; border-color: #4a7bf0; }
+.btn.primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
 .btn svg { width: 15px; height: 15px; fill: currentColor; }
 
 /* ── sections ── */
@@ -120,7 +162,7 @@ a:hover { text-decoration: underline; }
   border-radius: 12px; padding: 14px 16px; color: var(--text);
   transition: border-color .15s, transform .15s;
 }
-.site-card:hover { text-decoration: none; border-color: #363c45; transform: translateY(-2px); }
+.site-card:hover { text-decoration: none; border-color: var(--border-strong); transform: translateY(-2px); }
 .site-logo {
   flex: 0 0 auto; width: 36px; height: 36px; border-radius: 9px;
   background: #fff; padding: 4px; border: 1px solid var(--border); object-fit: contain;
@@ -136,7 +178,7 @@ a:hover { text-decoration: underline; }
   border-radius: var(--radius); padding: 24px;
   transition: border-color .15s, transform .15s;
 }
-.app-card:hover { border-color: #363c45; transform: translateY(-2px); }
+.app-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
 .app-logo {
   flex: 0 0 auto; width: 56px; height: 56px; border-radius: 13px;
   background: #fff; padding: 6px; border: 1px solid var(--border); object-fit: contain;
@@ -168,7 +210,7 @@ a:hover { text-decoration: underline; }
   border-radius: 12px; padding: 14px; color: var(--text);
   transition: border-color .15s, transform .15s;
 }
-.book:hover { text-decoration: none; border-color: #363c45; transform: translateY(-2px); }
+.book:hover { text-decoration: none; border-color: var(--border-strong); transform: translateY(-2px); }
 .book.is-current { border-left: 3px solid var(--accent); }
 .book-cover {
   flex: 0 0 auto; width: 54px; aspect-ratio: 2 / 3; object-fit: cover;
@@ -203,7 +245,7 @@ a:hover { text-decoration: underline; }
   border-top: 1px solid var(--border); letter-spacing: -.3px;
 }
 .doc h3 { font-size: 15px; margin: 24px 0 8px; }
-.doc p, .doc li { font-size: 14.5px; color: #cfd3d9; }
+.doc p, .doc li { font-size: 14.5px; color: var(--text-soft); }
 .doc ul { padding-left: 20px; }
 .callout {
   background: var(--surface); border: 1px solid var(--border);
@@ -221,7 +263,7 @@ a:hover { text-decoration: underline; }
   border-radius: var(--radius); overflow: hidden;
   color: var(--text); transition: border-color .15s, transform .15s;
 }
-.post-card:hover { text-decoration: none; border-color: #363c45; transform: translateY(-2px); }
+.post-card:hover { text-decoration: none; border-color: var(--border-strong); transform: translateY(-2px); }
 /* The grid needs every card the same height, so covers crop to a uniform 3:2.
    `cover` crops but never stretches, so proportions stay true. */
 .post-cover {
@@ -244,7 +286,7 @@ a:hover { text-decoration: underline; }
   background: var(--surface); margin: 24px auto 32px 0;
 }
 
-.post-body { font-size: 17px; line-height: 1.75; color: #cfd3d9; max-width: 680px; }
+.post-body { font-size: 17px; line-height: 1.75; color: var(--text-soft); max-width: 680px; }
 .post-body > :first-child { margin-top: 0; }
 .post-body p { margin: 0 0 20px; }
 .post-body h2 { font-size: 22px; border: 0; padding-top: 0; margin: 40px 0 12px; color: var(--text); }
@@ -307,7 +349,7 @@ a:hover { text-decoration: underline; }
 .save-bar {
   position: sticky; bottom: 0; z-index: 5;
   display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-  background: rgba(11, 12, 14, .92); backdrop-filter: blur(8px);
+  background: var(--overlay-bg); backdrop-filter: blur(8px);
   border-top: 1px solid var(--border);
   padding: 12px 0; margin-top: 4px;
 }
@@ -360,7 +402,7 @@ a:hover { text-decoration: underline; }
 .EasyMDEContainer .editor-statusbar { color: var(--muted); font-size: 12px; }
 .EasyMDEContainer .editor-preview,
 .EasyMDEContainer .editor-preview-side {
-  background: var(--bg); color: #cfd3d9; border-color: var(--border);
+  background: var(--bg); color: var(--text-soft); border-color: var(--border);
 }
 .EasyMDEContainer .editor-preview img,
 .EasyMDEContainer .editor-preview-side img { max-width: 100%; border-radius: 8px; }
@@ -392,7 +434,7 @@ a:hover { text-decoration: underline; }
 .msg-mail { color: var(--accent); }
 .msg-when { color: var(--muted); margin-left: auto; }
 .msg-head .btn { padding: 5px 10px; cursor: pointer; }
-.msg-body { margin: 0; font-size: 14.5px; color: #cfd3d9; white-space: pre-wrap; }
+.msg-body { margin: 0; font-size: 14.5px; color: var(--text-soft); white-space: pre-wrap; }
 
 .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 24px 0 8px; }
 .stats[hidden] { display: none; }
