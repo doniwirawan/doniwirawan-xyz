@@ -45,7 +45,7 @@ This project became much more than buying a bike. It became a complete home work
 | GPS/Light Mount | 156,618 |
 | Miscellaneous Small Parts | 880,110 |
 
-**Estimated Total Bike Cost: Rp23,056,292**
+**Estimated Total Bike Cost: Rp23,231,292**
 
 ## Wheelset Breakdown
 
@@ -94,10 +94,10 @@ These tools will continue to be useful long after this bike build, making future
 
 | Category | Cost (IDR) |
 | --- | ---: |
-| Bike Components | 23,056,292 |
+| Bike Components | 23,231,292 |
 | Workshop Tools | 2,258,216 |
 
-**Grand Total: Rp25,314,508**
+**Grand Total: Rp25,489,508**
 
 ## What I Learned
 
