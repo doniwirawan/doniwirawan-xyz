@@ -3,3 +3,6 @@ node_modules
 
 # Chrome profile the archive script creates
 archive/.chrome-profile/
+
+# Supabase CLI local state
+supabase/.temp/
