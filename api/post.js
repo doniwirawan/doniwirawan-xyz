@@ -105,7 +105,30 @@ const fmt = (d) => new Date(d).toLocaleDateString('en-GB', {
   day: 'numeric', month: 'long', year: 'numeric',
 });
 
-function render(post, slug) {
+// Three other posts to read next. Mirrors the card markup the blog index builds,
+// so both pages share the same styles.
+function renderRecs(recs) {
+  if (!recs.length) return '';
+
+  const cards = recs.map((rec) => `
+      <a class="post-card" href="/blog/${escapeHtml(rec.slug)}">
+        <img class="post-cover" src="${escapeHtml(rec.cover_url || '/images/icon.png')}" alt="" loading="lazy">
+        <div class="post-card-text">
+          <h3>${escapeHtml(rec.title)}</h3>
+          <p class="post-date">${rec.published_at ? escapeHtml(fmt(rec.published_at)) : ''}</p>
+          ${rec.excerpt ? `<p class="post-excerpt">${escapeHtml(rec.excerpt)}</p>` : ''}
+        </div>
+      </a>`).join('');
+
+  return `
+  <section class="post-recs">
+    <h2>Read next</h2>
+    <div class="posts-grid">${cards}
+    </div>
+  </section>`;
+}
+
+function render(post, slug, recs = []) {
   const url = `${SITE}/blog/${slug}`;
   const title = `${post.title} — ${AUTHOR}`;
   const cover = post.cover_url || '';
@@ -166,7 +189,10 @@ function render(post, slug) {
     ${cover && !heroIsDuplicate ? `<img class="post-hero" src="${escapeHtml(cover)}" alt="">` : ''}
     <div class="post-body">${article}</div>
     ${origin}
-  </article>`;
+    <p class="post-note">How this was written: the thinking, the opinions and the first
+    draft are mine. I use AI to tighten the English afterwards — it is my third language,
+    and it helps me say what I actually meant.</p>
+  </article>${renderRecs(recs)}`;
 
   return page({ title, head, body });
 }
@@ -193,8 +219,15 @@ export default async function handler(req, res) {
       return res.status(200).send(shell());
     }
 
+    // The recommendations are a nicety — if that query fails, ship the post anyway.
+    const recs = await posts(
+      `?published=is.true&slug=neq.${encodeURIComponent(slug)}` +
+      `&select=slug,title,excerpt,published_at,cover_url` +
+      `&order=published_at.desc&limit=3`
+    ).catch(() => []);
+
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=86400');
-    return res.status(200).send(render(rows[0], slug));
+    return res.status(200).send(render(rows[0], slug, recs));
   } catch (err) {
     // Supabase is unreachable. Degrade to what the site did before: let the
     // browser try. Never cache a failure.

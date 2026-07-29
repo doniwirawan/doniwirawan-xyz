@@ -255,11 +255,14 @@ a:hover { text-decoration: underline; }
 .post-body hr { border: 0; border-top: 1px solid var(--border); margin: 36px 0; }
 .post-body li { margin-bottom: 6px; }
 
-.post-origin {
+.post-origin, .post-note {
   max-width: 680px; margin: 40px 0 0; padding-top: 20px;
   border-top: 1px solid var(--border);
   font-size: 14px; color: var(--muted);
 }
+.post-origin + .post-note { margin-top: 12px; padding-top: 0; border-top: 0; }
+.post-recs { margin-top: 52px; padding-top: 28px; border-top: 1px solid var(--border); }
+.post-recs h2 { margin: 0 0 18px; font-size: 18px; letter-spacing: -.2px; }
 .post-body img { max-width: 100%; border-radius: 10px; }
 .post-body pre {
   background: var(--surface); border: 1px solid var(--border);
