@@ -85,7 +85,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 <script defer src="/_vercel/insights/script.js"></script>
-<script src="/js/nav.js"></script>`,
+<script src="/js/nav.js"></script>
+<script src="/js/config.js"></script>
+<script defer src="/js/views.js"></script>`,
 };
 
 const page = ({ title, head = '', body }) => `<!DOCTYPE html>

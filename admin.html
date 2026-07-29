@@ -92,6 +92,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button class="tab" id="tab-inbox" role="tab" aria-selected="false" aria-controls="panel-inbox">
         Inbox <span class="app-tag" id="unread" hidden></span>
       </button>
+      <button class="tab" id="tab-views" role="tab" aria-selected="false" aria-controls="panel-views">Views</button>
     </div>
 
     <div class="tab-panel" id="panel-write" role="tabpanel" aria-labelledby="tab-write">
@@ -148,6 +149,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="tab-panel" id="panel-inbox" role="tabpanel" aria-labelledby="tab-inbox" hidden>
       <div id="inbox"></div>
+    </div>
+
+    <div class="tab-panel" id="panel-views" role="tabpanel" aria-labelledby="tab-views" hidden>
+      <div class="views-range">
+        <label class="check">Period
+          <select id="views-days">
+            <option value="7">Last 7 days</option>
+            <option value="30" selected>Last 30 days</option>
+            <option value="90">Last 90 days</option>
+            <option value="3650">All time</option>
+          </select>
+        </label>
+      </div>
+      <div id="views"></div>
     </div>
 
   </section>
@@ -441,7 +456,79 @@ function renderStats(posts) {
   }));
 
   document.getElementById('stats-note').textContent =
-    'These count what is in the database. Page views and visitors are not stored here — they live in Vercel Web Analytics.';
+    'Content counts come from the posts table. Views are recorded by js/views.js into page_views — see the Views tab. Vercel Web Analytics still runs alongside it.';
+}
+
+// Views. The rpc is security definer and re-checks the admin email, so this
+// only ever returns anything for the signed-in owner.
+async function renderViews() {
+  const box = el('views');
+  const days = Number(el('views-days').value);
+  box.textContent = 'Loading…';
+
+  const { data, error } = await db.rpc('view_summary', { p_days: days });
+
+  if (error) {
+    box.textContent = error.message.includes('view_summary')
+      ? 'The view_summary function is not in the database yet — run supabase/migrations/20260729010000_page_views.sql.'
+      : 'Could not load views: ' + error.message;
+    return;
+  }
+  if (!data || !data.length) {
+    box.innerHTML = '<p class="prose">No views recorded in this period yet.</p>';
+    return;
+  }
+
+  const total = data.reduce((n, r) => n + Number(r.views), 0);
+  const posts = data.filter((r) => r.slug);
+
+  const head = document.createElement('div');
+  head.className = 'stats';
+  [['Views', total.toLocaleString()],
+   ['Pages', data.length],
+   ['Post views', posts.reduce((n, r) => n + Number(r.views), 0).toLocaleString()]]
+    .forEach(([label, value]) => {
+      const tile = document.createElement('div');
+      tile.className = 'stat';
+      const v = document.createElement('span');
+      v.className = 'stat-value';
+      v.textContent = value;
+      const l = document.createElement('span');
+      l.className = 'stat-label';
+      l.textContent = label;
+      tile.append(v, l);
+      head.append(tile);
+    });
+
+  const table = document.createElement('table');
+  table.className = 'views-table';
+  table.innerHTML = '<thead><tr><th>Page</th><th>Views</th><th>Last seen</th></tr></thead>';
+  const tbody = document.createElement('tbody');
+
+  data.forEach((row) => {
+    const tr = document.createElement('tr');
+
+    const td = document.createElement('td');
+    const a = document.createElement('a');
+    a.href = row.path;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = row.path;
+    td.append(a);
+
+    const views = document.createElement('td');
+    views.textContent = Number(row.views).toLocaleString();
+
+    const seen = document.createElement('td');
+    seen.textContent = new Date(row.last_viewed).toLocaleDateString('en-GB',
+      { day: 'numeric', month: 'short', year: 'numeric' });
+
+    tr.append(td, views, seen);
+    tbody.append(tr);
+  });
+
+  table.append(tbody);
+  box.replaceChildren(head, table);
 }
 
 function showTab(id) {
@@ -453,8 +540,14 @@ function showTab(id) {
   });
 }
 document.querySelectorAll('.tab').forEach((t) => {
-  t.onclick = () => showTab(t.id);
+  t.onclick = () => {
+    showTab(t.id);
+    // Loaded on demand rather than on sign-in: it is an extra query, and most
+    // visits to this page are to write something, not to read numbers.
+    if (t.id === 'tab-views') renderViews();
+  };
 });
+el('views-days').onchange = renderViews;
 
 async function load(id) {
   const { data, error } = await db.from('posts').select('*').eq('id', id).single();

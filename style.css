@@ -303,6 +303,24 @@ a:hover { text-decoration: underline; }
   font-size: 14px; color: var(--muted);
 }
 .post-origin + .post-note { margin-top: 12px; padding-top: 0; border-top: 0; }
+/* ── admin views ── */
+.views-range { margin: 0 0 18px; }
+.views-range select {
+  font: inherit; font-size: 14px; margin-left: 8px; padding: 7px 10px;
+  background: var(--surface-2); color: var(--text);
+  border: 1px solid var(--border); border-radius: 9px;
+}
+.views-table { width: 100%; border-collapse: collapse; margin-top: 22px; font-size: 14.5px; }
+.views-table th, .views-table td {
+  padding: 10px 12px 10px 0; text-align: left; border-bottom: 1px solid var(--border);
+}
+.views-table th {
+  font-size: 12px; text-transform: uppercase; letter-spacing: .8px;
+  color: var(--muted); font-weight: 700;
+}
+.views-table td:nth-child(2), .views-table th:nth-child(2) { text-align: right; white-space: nowrap; }
+.views-table td:last-child, .views-table th:last-child { text-align: right; white-space: nowrap; padding-right: 0; }
+
 .post-recs { margin-top: 52px; padding-top: 28px; border-top: 1px solid var(--border); }
 .post-recs h2 { margin: 0 0 18px; font-size: 18px; letter-spacing: -.2px; }
 .post-body img { max-width: 100%; border-radius: 10px; }
@@ -462,6 +480,23 @@ a:hover { text-decoration: underline; }
 /* Nothing should ever push the page sideways. */
 img, svg, video { max-width: 100%; }
 .post-body pre, .post-body table { max-width: 100%; overflow-x: auto; }
+/* Tables carry real content in the build-cost posts, so give them borders and
+   room. display:block is what actually lets a wide one scroll on a phone. */
+.post-body table {
+  display: block; width: max-content; border-collapse: collapse;
+  margin: 24px 0; font-size: 15px;
+}
+.post-body th, .post-body td {
+  padding: 9px 16px 9px 0; text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.post-body th {
+  font-size: 12px; text-transform: uppercase; letter-spacing: .8px;
+  color: var(--muted); font-weight: 700;
+}
+.post-body td:last-child, .post-body th:last-child { padding-right: 0; }
+/* Markdown's `---:` alignment lands here; money reads better right-aligned. */
+.post-body th[align="right"], .post-body td[align="right"] { text-align: right; }
 
 @media (max-width: 760px) {
   .wrap, .nav-inner { padding-left: 24px; padding-right: 24px; }
