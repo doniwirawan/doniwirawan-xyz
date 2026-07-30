@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Aman Nggak Connect Strava ke Aplikasi?">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a1710"/><stop offset="1" stop-color="#050b07"/></linearGradient>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ee0a0"/><stop offset="1" stop-color="#2a8f56"/></linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+<g transform="translate(180 200)">
+    <rect x="0" y="-6" width="150" height="120" rx="18" fill="none" stroke="url(#g)" stroke-width="11"/>
+    <path d="M28 -6 V -46 a 47 47 0 0 1 94 0 V -6" fill="none" stroke="url(#g)" stroke-width="11" stroke-linecap="round"/>
+    <circle cx="75" cy="48" r="15" fill="#7ee0a0"/>
+    <path d="M230 54 H 372 M348 32 L372 54 L348 76" fill="none" stroke="#7ee0a0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+    <rect x="410" y="-6" width="150" height="120" rx="18" fill="none" stroke="#7ee0a0" stroke-width="7" stroke-dasharray="14 12" opacity="0.45"/>
+    <path d="M452 44 L520 44 M486 24 L486 74" stroke="#7ee0a0" stroke-width="7" stroke-linecap="round" opacity="0.3"/>
+  </g>
+  <text x="120" y="500" fill="#f4f2fa" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif" font-size="76" font-weight="800" letter-spacing="-2">Aman Nggak Connect</text>
+  <text x="120" y="584" fill="#f4f2fa" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif" font-size="76" font-weight="800" letter-spacing="-2">Strava ke Aplikasi?</text>
+  <text x="122" y="664" fill="#7ee0a0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif" font-size="42" font-weight="700" letter-spacing="-1">Ke mana data Anda pergi setelah itu.</text>
+</svg>

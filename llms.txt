@@ -41,6 +41,7 @@ and in [bikefit-research-ranges.md](https://github.com/doniwirawan/bike-fit-anal
 - [Ukuran Sepeda Sesuai Tinggi Badan](https://doniwirawan.xyz/blog/ukuran-sepeda-sesuai-tinggi-badan): frame sizing before fitting — why height alone is the wrong input, what inseam and stack/reach tell you instead, and which sizing mistakes can still be fixed after purchase.
 - [Pantat Sakit Saat Bersepeda](https://doniwirawan.xyz/blog/pantat-sakit-saat-bersepeda): saddle soreness — what is normal adaptation and what is not, measuring sit-bone width, why a softer saddle makes it worse, and why numbness is treated separately.
 - [Posisi Cleat Sepeda yang Benar](https://doniwirawan.xyz/blog/posisi-cleat-sepeda-yang-benar): the three cleat axes (fore-aft, rotation, lateral), and the honest note that this is the one part of a fit a side-on camera cannot check at all.
+- [Bike Fit untuk Road, Gravel, dan MTB](https://doniwirawan.xyz/blog/bike-fit-road-gravel-mtb): which parts of a fit carry across bikes (saddle height, cleats) and which do not (everything in front of you), and why the torso target differs by bike type. TT/tri positions fall outside these ranges entirely.
 
 Two corrections these posts make to advice that circulates widely: measured-while-
 pedalling angles run about 8 degrees higher than static goniometer numbers, so the
@@ -59,9 +60,17 @@ Written by the author of Ascent, in Indonesian.
 - [Eddington Number Bersepeda](https://doniwirawan.xyz/blog/eddington-number-bersepeda): the largest E for which you have ridden at least E km on E separate days — a consistency measure that a few big rides cannot inflate, how to compute it, and why it gets harder to raise.
 - [Cara Membuat Story Strava](https://doniwirawan.xyz/blog/cara-membuat-story-strava): exporting a 1080x1920 activity card with chosen layout, colours and stats, including transparent backgrounds to place over your own photo.
 
-Ascent runs entirely in the browser: activity data is fetched by the visitor's
-own browser directly from the Strava API and never passes through a server of
-the author's.
+- [Aman Nggak Menyambungkan Strava ke Aplikasi Pihak Ketiga?](https://doniwirawan.xyz/blog/aman-connect-strava-ke-aplikasi-pihak-ketiga): what the OAuth scopes mean, five questions for judging any third-party Strava app, how to revoke access at strava.com/settings/apps, and Ascent answered against that same checklist.
+- [Konsistensi Bersepeda](https://doniwirawan.xyz/blog/konsistensi-bersepeda-heatmap-streak): reading a calendar heatmap and a map heatmap, what active-days-per-week tells you that monthly distance hides, and why streaks punish rest days.
+- [Segment, PR, KOM, dan Local Legend di Strava](https://doniwirawan.xyz/blog/segment-pr-kom-strava): what each term means (Local Legend rewards frequency, not speed), why segment leaderboards control for nothing, and why your own PR is the useful number.
+- [Kadens Bersepeda yang Ideal](https://doniwirawan.xyz/blog/kadens-bersepeda-yang-ideal): the trade-off cadence actually makes between joint load and cardiovascular load, and why the widely-quoted 90 rpm is an observation of professionals rather than a settled optimum.
+
+Precise note on where Ascent's data goes, since the posts are careful about it:
+activity data is fetched by the visitor's own browser directly from the Strava
+API and never passes through the author's server. The one exception is the OAuth
+code-for-token exchange, which goes through a stateless function because the
+Strava client secret cannot ship to a browser; it stores nothing. Tokens and the
+activity cache live in the visitor's own localStorage.
 
 ## Other work
 
