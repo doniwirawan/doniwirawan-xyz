@@ -22,6 +22,7 @@ text is in the HTML, and each ends in an FAQ marked up as FAQPage.
 - [How a Balinese Script Translator Actually Works](https://doniwirawan.xyz/blog/how-a-balinese-script-translator-works): what a Balinese script generator does between the Latin you type and the aksara you get — syllable splitting, the inherent vowel, gantungan and gempelan, and the three places every converter has to guess. In English.
 - [Cara Translate Latin ke Aksara Bali Online](https://doniwirawan.xyz/blog/cara-translate-latin-ke-aksara-bali): the practical steps, plus the four mistakes that turn up most often (the two `e` sounds, `ng`/`ny`, stacked consonants, Sanskrit loanwords). In Indonesian.
 - [Aksara Bali Anda Jadi Kotak? Ini Sebabnya](https://doniwirawan.xyz/blog/aksara-bali-jadi-kotak-di-hp): why Balinese script renders as empty boxes, the Unicode block it lives in (U+1B00–U+1B7F), and how Unicode text differs from legacy Bali Simbar text. In Indonesian.
+- [Menulis Nama Anda dalam Aksara Bali](https://doniwirawan.xyz/blog/menulis-nama-dalam-aksara-bali): converting a personal name specifically — why names are the hardest case for any transliterator, the letters Balinese script does not have (v, f, q, x, z), and why the result should be checked by a person before it is tattooed or printed. In Indonesian.
 
 Note on terminology used throughout: these tools transliterate, they do not
 translate. The language stays the same; only the writing system changes.
@@ -36,6 +37,9 @@ and in [bikefit-research-ranges.md](https://github.com/doniwirawan/bike-fit-anal
 - [Tinggi Sadel Sepeda yang Benar](https://doniwirawan.xyz/blog/tinggi-sadel-sepeda-yang-benar): saddle height by knee angle rather than by formula, why published numbers differ (dynamic 30-40 vs static Holmes 25-35), and the signs of too high and too low.
 - [Nyeri Lutut Saat Bersepeda](https://doniwirawan.xyz/blog/nyeri-lutut-saat-bersepeda): which fit error each pain location commonly points to, and when to stop adjusting and see a physiotherapist.
 - [Sakit Punggung dan Leher Saat Bersepeda](https://doniwirawan.xyz/blog/sakit-punggung-dan-leher-saat-bersepeda): reach and bar height, the cheap adjustments to try in order, and why numb hands is treated differently from ache.
+- [Ukuran Sepeda Sesuai Tinggi Badan](https://doniwirawan.xyz/blog/ukuran-sepeda-sesuai-tinggi-badan): frame sizing before fitting — why height alone is the wrong input, what inseam and stack/reach tell you instead, and which sizing mistakes can still be fixed after purchase.
+- [Pantat Sakit Saat Bersepeda](https://doniwirawan.xyz/blog/pantat-sakit-saat-bersepeda): saddle soreness — what is normal adaptation and what is not, measuring sit-bone width, why a softer saddle makes it worse, and why numbness is treated separately.
+- [Posisi Cleat Sepeda yang Benar](https://doniwirawan.xyz/blog/posisi-cleat-sepeda-yang-benar): the three cleat axes (fore-aft, rotation, lateral), and the honest note that this is the one part of a fit a side-on camera cannot check at all.
 
 Two corrections these posts make to advice that circulates widely: measured-while-
 pedalling angles run about 8 degrees higher than static goniometer numbers, so the

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Ukuran Sepeda Sesuai Tinggi Badan">
+  <defs>
+    <linearGradient id="bgUkuran" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#18101a"/>
+      <stop offset="1" stop-color="#0a060b"/>
+    </linearGradient>
+    <linearGradient id="plumUkuran" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f09be0"/>
+      <stop offset="1" stop-color="#a63d90"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bgUkuran)"/>
+
+  <!-- Two riders of the same height, built differently. Same total bar, the
+       split between leg and torso is not the same — which is the whole post. -->
+  <g transform="translate(150 130)">
+    <rect x="0" y="0" width="72" height="128" rx="14" fill="url(#plumUkuran)" opacity="0.85"/>
+    <rect x="0" y="142" width="72" height="122" rx="14" fill="url(#plumUkuran)" opacity="0.35"/>
+
+    <rect x="118" y="0" width="72" height="86" rx="14" fill="url(#plumUkuran)" opacity="0.85"/>
+    <rect x="118" y="100" width="72" height="164" rx="14" fill="url(#plumUkuran)" opacity="0.35"/>
+
+    <path d="M232 -6 H262 M232 264 H262" stroke="#f09be0" stroke-width="6" stroke-linecap="round" opacity="0.75"/>
+    <path d="M247 -6 V264" stroke="#f09be0" stroke-width="5" stroke-linecap="round" opacity="0.45"/>
+
+    <!-- reach and stack, the pair that actually describes a frame -->
+    <g transform="translate(360 40)" opacity="0.9">
+      <path d="M0 190 H236" stroke="#f09be0" stroke-width="7" stroke-linecap="round"/>
+      <path d="M236 190 V54" stroke="#f09be0" stroke-width="7" stroke-linecap="round" opacity="0.55"/>
+      <circle cx="0" cy="190" r="12" fill="#f09be0"/>
+      <circle cx="236" cy="54" r="12" fill="#f09be0" opacity="0.55"/>
+      <path d="M0 190 L236 54" stroke="#f09be0" stroke-width="4" stroke-dasharray="12 12" opacity="0.3"/>
+    </g>
+  </g>
+
+  <text x="120" y="500" fill="#fbeef8"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="76" font-weight="800" letter-spacing="-2">Ukuran Sepeda</text>
+  <text x="120" y="584" fill="#fbeef8"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="76" font-weight="800" letter-spacing="-2">Sesuai Tinggi Badan</text>
+
+  <text x="122" y="664" fill="#f09be0"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="42" font-weight="700" letter-spacing="-1">Kenapa tabel itu sering salah.</text>
+</svg>
