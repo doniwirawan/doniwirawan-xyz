@@ -148,6 +148,37 @@ function renderRecs(recs) {
   </section>`;
 }
 
+// A post that ends in an "## FAQ" section gets its questions marked up as
+// questions. Google can show them, and the answer engines — which quote a
+// paragraph and cite it — have an unambiguous question to match against instead
+// of a heading they have to guess the shape of.
+function faqEntities(md) {
+  const lines = (md || '').split('\n');
+  const start = lines.findIndex((l) => /^##\s+FAQ\s*$/i.test(l));
+  if (start === -1) return null;
+
+  const items = [];
+  for (let i = start + 1; i < lines.length && !/^##\s/.test(lines[i]); i++) {
+    const heading = lines[i].match(/^###\s+(.+)/);
+    if (!heading) continue;
+
+    const answer = [];
+    for (let j = i + 1; j < lines.length && !/^#{2,3}\s/.test(lines[j]); j++) {
+      answer.push(lines[j]);
+    }
+    const text = answer.join('\n').trim();
+    if (!text) continue;
+
+    items.push({
+      '@type': 'Question',
+      name: heading[1].trim(),
+      acceptedAnswer: { '@type': 'Answer', text: marked.parse(text) },
+    });
+  }
+
+  return items.length ? items : null;
+}
+
 function render(post, slug, recs = []) {
   const url = `${SITE}/blog/${slug}`;
   const title = `${post.title} — ${AUTHOR}`;
@@ -208,6 +239,8 @@ function render(post, slug, recs = []) {
     ],
   };
 
+  const faq = faqEntities(post.body);
+
   const head = [
     post.excerpt ? `<meta name="description" content="${escapeHtml(post.excerpt)}">` : '',
     // A post that ran somewhere else first should credit that copy as the original.
@@ -233,6 +266,12 @@ function render(post, slug, recs = []) {
     cover ? `<meta name="twitter:image:alt" content="${escapeHtml(post.title)}">` : '',
     `<script type="application/ld+json">${JSON.stringify(ld)}</script>`,
     `<script type="application/ld+json">${JSON.stringify(breadcrumbs)}</script>`,
+    faq ? `<script type="application/ld+json">${JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: lang,
+      mainEntity: faq,
+    })}</script>` : '',
   ].filter(Boolean).join('\n');
 
   const origin = post.canonical_url

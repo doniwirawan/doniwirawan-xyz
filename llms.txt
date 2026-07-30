@@ -14,6 +14,18 @@ Site: https://doniwirawan.xyz
 - [Aksara Bali](https://aksarabali.doniwirawan.xyz): a Latin-to-Balinese script transliterator, and an educational tool for reading, writing and preserving Aksara Bali. There is also an offline [Android app on Google Play](https://play.google.com/store/apps/details?id=xyz.doniwirawan.aksara_bali_mobile). [Source](https://github.com/doniwirawan/aksara-bali)
 - [SPMB Bali 2026](https://spmbbali.doniwirawan.xyz): Bali school-admission data, made searchable. [Source](https://github.com/doniwirawan/spmb-bali-2026)
 
+## Aksara Bali guides
+
+Written by the author of the converter. Each one is server-rendered, so its full
+text is in the HTML, and each ends in an FAQ marked up as FAQPage.
+
+- [How a Balinese Script Translator Actually Works](https://doniwirawan.xyz/blog/how-a-balinese-script-translator-works): what a Balinese script generator does between the Latin you type and the aksara you get — syllable splitting, the inherent vowel, gantungan and gempelan, and the three places every converter has to guess. In English.
+- [Cara Translate Latin ke Aksara Bali Online](https://doniwirawan.xyz/blog/cara-translate-latin-ke-aksara-bali): the practical steps, plus the four mistakes that turn up most often (the two `e` sounds, `ng`/`ny`, stacked consonants, Sanskrit loanwords). In Indonesian.
+- [Aksara Bali Anda Jadi Kotak? Ini Sebabnya](https://doniwirawan.xyz/blog/aksara-bali-jadi-kotak-di-hp): why Balinese script renders as empty boxes, the Unicode block it lives in (U+1B00–U+1B7F), and how Unicode text differs from legacy Bali Simbar text. In Indonesian.
+
+Note on terminology used throughout: these tools transliterate, they do not
+translate. The language stays the same; only the writing system changes.
+
 ## Other work
 
 - [Terrafarms](https://terrafarms.id): agritech, built with his team at Bangkit Academy.

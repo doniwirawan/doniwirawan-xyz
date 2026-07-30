@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Aksara Bali Anda Jadi Kotak? Ini Sebabnya">
+  <defs>
+    <linearGradient id="bgKotak" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#120f1c"/>
+      <stop offset="1" stop-color="#07060c"/>
+    </linearGradient>
+    <linearGradient id="violetKotak" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b49bff"/>
+      <stop offset="1" stop-color="#6a4fd6"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bgKotak)"/>
+
+  <!-- Tofu: the empty box a device draws when the character is fine and the font
+       is missing. Four of them, and the one that got its font. -->
+  <g transform="translate(120 190)">
+    <rect x="0" y="-56" width="104" height="112" rx="10" fill="none"
+          stroke="url(#violetKotak)" stroke-width="7" opacity="0.5"/>
+    <rect x="130" y="-56" width="104" height="112" rx="10" fill="none"
+          stroke="url(#violetKotak)" stroke-width="7" opacity="0.5"/>
+    <rect x="390" y="-56" width="104" height="112" rx="10" fill="none"
+          stroke="url(#violetKotak)" stroke-width="7" opacity="0.5"/>
+    <rect x="520" y="-56" width="104" height="112" rx="10" fill="none"
+          stroke="url(#violetKotak)" stroke-width="7" opacity="0.5"/>
+
+    <g transform="translate(260 0)">
+      <rect x="0" y="-56" width="104" height="112" rx="10" fill="none"
+            stroke="#b49bff" stroke-width="7"/>
+      <path d="M26 22 C 14 -12, 34 -40, 60 -34 C 82 -29, 88 -2, 70 14"
+            fill="none" stroke="#b49bff" stroke-width="11" stroke-linecap="round"/>
+      <circle cx="76" cy="34" r="9" fill="#b49bff"/>
+    </g>
+  </g>
+
+  <text x="120" y="446" fill="#f1ecff"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="76" font-weight="800" letter-spacing="-2">Aksara Bali Anda</text>
+  <text x="120" y="530" fill="#f1ecff"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="76" font-weight="800" letter-spacing="-2">Jadi Kotak?</text>
+
+  <text x="122" y="610" fill="#b49bff"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="42" font-weight="700" letter-spacing="-1">Bukan teksnya. Fontnya yang belum ada.</text>
+</svg>
