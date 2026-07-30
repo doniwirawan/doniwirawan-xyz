@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Cara Membaca Data Strava Anda">
+  <defs>
+    <linearGradient id="bgStrava" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#08121c"/>
+      <stop offset="1" stop-color="#04080d"/>
+    </linearGradient>
+    <linearGradient id="skyStrava" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#74c8ff"/>
+      <stop offset="1" stop-color="#1f6fc4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bgStrava)"/>
+
+  <!-- A trace with one number pulled out of it. The post is about which of the
+       many numbers on a ride is the one worth looking at. -->
+  <g transform="translate(150 210)">
+    <path d="M0 120 L54 92 L104 132 L154 60 L206 96 L258 30 L310 74 L362 18 L414 58 L470 6"
+          fill="none" stroke="url(#skyStrava)" stroke-width="9"
+          stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+    <circle cx="258" cy="30" r="17" fill="#74c8ff"/>
+    <circle cx="258" cy="30" r="34" fill="none" stroke="#74c8ff" stroke-width="5" opacity="0.4"/>
+    <path d="M258 30 V -46 H 386" fill="none" stroke="#74c8ff" stroke-width="5"
+          stroke-dasharray="10 10" stroke-linecap="round" opacity="0.5"/>
+
+    <rect x="0" y="176" width="182" height="14" rx="7" fill="url(#skyStrava)" opacity="0.85"/>
+    <rect x="0" y="208" width="122" height="14" rx="7" fill="url(#skyStrava)" opacity="0.3"/>
+    <rect x="0" y="240" width="150" height="14" rx="7" fill="url(#skyStrava)" opacity="0.3"/>
+  </g>
+
+  <text x="120" y="500" fill="#e8f5ff"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="76" font-weight="800" letter-spacing="-2">Cara Membaca</text>
+  <text x="120" y="584" fill="#e8f5ff"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="76" font-weight="800" letter-spacing="-2">Data Strava Anda</text>
+
+  <text x="122" y="664" fill="#74c8ff"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="42" font-weight="700" letter-spacing="-1">Angka mana yang sebenarnya penting.</text>
+</svg>

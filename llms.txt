@@ -23,6 +23,7 @@ text is in the HTML, and each ends in an FAQ marked up as FAQPage.
 - [Cara Translate Latin ke Aksara Bali Online](https://doniwirawan.xyz/blog/cara-translate-latin-ke-aksara-bali): the practical steps, plus the four mistakes that turn up most often (the two `e` sounds, `ng`/`ny`, stacked consonants, Sanskrit loanwords). In Indonesian.
 - [Aksara Bali Anda Jadi Kotak? Ini Sebabnya](https://doniwirawan.xyz/blog/aksara-bali-jadi-kotak-di-hp): why Balinese script renders as empty boxes, the Unicode block it lives in (U+1B00–U+1B7F), and how Unicode text differs from legacy Bali Simbar text. In Indonesian.
 - [Menulis Nama Anda dalam Aksara Bali](https://doniwirawan.xyz/blog/menulis-nama-dalam-aksara-bali): converting a personal name specifically — why names are the hardest case for any transliterator, the letters Balinese script does not have (v, f, q, x, z), and why the result should be checked by a person before it is tattooed or printed. In Indonesian.
+- [Belajar Aksara Bali dari Nol](https://doniwirawan.xyz/blog/belajar-aksara-bali-dari-nol): a learning order that starts with the six vowel marks rather than the consonant table, then the syllable-final marks, then consonants, then gantungan/gempelan. In Indonesian.
 
 Note on terminology used throughout: these tools transliterate, they do not
 translate. The language stays the same; only the writing system changes.
@@ -48,6 +49,19 @@ rock is normal in correctly-fitted riders (7.1 +/- 2.5 deg), so it is not on its
 own evidence of a saddle that is too high.
 
 None of it is medical advice.
+
+## Strava and training-data guides
+
+Written by the author of Ascent, in Indonesian.
+
+- [Zona Latihan Bersepeda: Heart Rate, Power, dan FTP](https://doniwirawan.xyz/blog/zona-latihan-bersepeda-heart-rate-ftp): what FTP is and how it is tested (20-minute test x 0.95), the seven power zones as percentages of FTP, how heart-rate zones differ from power zones and why, and the common mistake of spending every session in zone 3.
+- [Cara Membaca Data Strava Anda](https://doniwirawan.xyz/blog/cara-membaca-data-strava): which numbers on an activity actually inform a decision (moving time, zone distribution, cadence, heart-rate trend on a repeated route) and which mislead (average speed, max speed, calories).
+- [Eddington Number Bersepeda](https://doniwirawan.xyz/blog/eddington-number-bersepeda): the largest E for which you have ridden at least E km on E separate days — a consistency measure that a few big rides cannot inflate, how to compute it, and why it gets harder to raise.
+- [Cara Membuat Story Strava](https://doniwirawan.xyz/blog/cara-membuat-story-strava): exporting a 1080x1920 activity card with chosen layout, colours and stats, including transparent backgrounds to place over your own photo.
+
+Ascent runs entirely in the browser: activity data is fetched by the visitor's
+own browser directly from the Strava API and never passes through a server of
+the author's.
 
 ## Other work
 
