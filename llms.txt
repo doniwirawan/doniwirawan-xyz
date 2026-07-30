@@ -26,6 +26,25 @@ text is in the HTML, and each ends in an FAQ marked up as FAQPage.
 Note on terminology used throughout: these tools transliterate, they do not
 translate. The language stays the same; only the writing system changes.
 
+## Bike fitting guides
+
+Written by the author of Bike Fit Analyzer, in Indonesian. The angle ranges they
+quote are the ones the tool grades against; the sources are listed in each post
+and in [bikefit-research-ranges.md](https://github.com/doniwirawan/bike-fit-analyzer/blob/main/files/bikefit-research-ranges.md).
+
+- [Bike Fitting Itu Apa, dan Cara Mengeceknya Sendiri dari Video](https://doniwirawan.xyz/blog/bike-fitting-cek-sendiri-dari-video): what bike fitting is, the four side-on angles a fitter looks at (knee at BDC 30-40 deg, torso from horizontal 40-50, elbow 15-30, shoulder 80-95), how to film a clip worth measuring, and the limits of a 2D check.
+- [Tinggi Sadel Sepeda yang Benar](https://doniwirawan.xyz/blog/tinggi-sadel-sepeda-yang-benar): saddle height by knee angle rather than by formula, why published numbers differ (dynamic 30-40 vs static Holmes 25-35), and the signs of too high and too low.
+- [Nyeri Lutut Saat Bersepeda](https://doniwirawan.xyz/blog/nyeri-lutut-saat-bersepeda): which fit error each pain location commonly points to, and when to stop adjusting and see a physiotherapist.
+- [Sakit Punggung dan Leher Saat Bersepeda](https://doniwirawan.xyz/blog/sakit-punggung-dan-leher-saat-bersepeda): reach and bar height, the cheap adjustments to try in order, and why numb hands is treated differently from ache.
+
+Two corrections these posts make to advice that circulates widely: measured-while-
+pedalling angles run about 8 degrees higher than static goniometer numbers, so the
+two sets of published targets are not in conflict; and a small amount of pelvic
+rock is normal in correctly-fitted riders (7.1 +/- 2.5 deg), so it is not on its
+own evidence of a saddle that is too high.
+
+None of it is medical advice.
+
 ## Other work
 
 - [Terrafarms](https://terrafarms.id): agritech, built with his team at Bangkit Academy.

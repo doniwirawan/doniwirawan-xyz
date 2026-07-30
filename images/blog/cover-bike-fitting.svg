@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Bike Fitting Itu Apa, dan Cara Mengeceknya Sendiri dari Video">
+  <defs>
+    <linearGradient id="bgFit" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a0d12"/>
+      <stop offset="1" stop-color="#0c0508"/>
+    </linearGradient>
+    <linearGradient id="roseFit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff8fa8"/>
+      <stop offset="1" stop-color="#c2405f"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bgFit)"/>
+
+  <!-- The measurement itself: two limb segments meeting at a joint, and the arc
+       between them. Everything in the post is one version of this picture. -->
+  <g transform="translate(150 130)">
+    <path d="M0 0 L150 128" fill="none" stroke="url(#roseFit)" stroke-width="14" stroke-linecap="round"/>
+    <path d="M150 128 L96 250" fill="none" stroke="url(#roseFit)" stroke-width="14" stroke-linecap="round"/>
+    <path d="M150 128 m -46 -39 a 61 61 0 0 0 -25 96" fill="none" stroke="#ff8fa8"
+          stroke-width="6" stroke-linecap="round" opacity="0.75"/>
+    <circle cx="150" cy="128" r="15" fill="#1a0d12" stroke="#ff8fa8" stroke-width="8"/>
+    <circle cx="0" cy="0" r="9" fill="#ff8fa8" opacity="0.6"/>
+    <circle cx="96" cy="250" r="9" fill="#ff8fa8" opacity="0.6"/>
+  </g>
+
+  <!-- Four readings, one per angle the tool grades -->
+  <g transform="translate(560 240)">
+    <rect x="0" y="-88" width="230" height="16" rx="8" fill="url(#roseFit)" opacity="0.85"/>
+    <rect x="0" y="-46" width="168" height="16" rx="8" fill="url(#roseFit)" opacity="0.6"/>
+    <rect x="0" y="-4" width="196" height="16" rx="8" fill="url(#roseFit)" opacity="0.45"/>
+    <rect x="0" y="38" width="132" height="16" rx="8" fill="url(#roseFit)" opacity="0.3"/>
+  </g>
+
+  <text x="120" y="500" fill="#fdeef1"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="76" font-weight="800" letter-spacing="-2">Bike Fitting Itu Apa</text>
+  <text x="120" y="584" fill="#fdeef1"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="76" font-weight="800" letter-spacing="-2">dan Cara Cek Sendiri</text>
+
+  <text x="122" y="664" fill="#ff8fa8"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif"
+        font-size="42" font-weight="700" letter-spacing="-1">Empat sudut, satu video dari samping.</text>
+</svg>
