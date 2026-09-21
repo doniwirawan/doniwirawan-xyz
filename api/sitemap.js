@@ -4,7 +4,7 @@
 // JavaScript has no links to follow and would never find a post. This gives it
 // the full list, generated from the same published rows the public can read.
 
-import { SITE, posts } from './_site.js';
+import { SITE, allPosts } from './_site.js';
 
 const PAGES = [
   { path: '/', priority: '1.0', changefreq: 'weekly' },
@@ -24,10 +24,7 @@ export default async function handler(req, res) {
   let entries = PAGES.map((p) => url({ loc: SITE + p.path, ...p }));
 
   try {
-    const rows = await posts(
-      '?published=is.true&select=slug,published_at,updated_at&order=published_at.desc'
-    );
-    entries = entries.concat(rows.map((p) => url({
+    entries = entries.concat(allPosts().map((p) => url({
       loc: `${SITE}/blog/${encodeURIComponent(p.slug)}`,
       lastmod: (p.updated_at || p.published_at || '').slice(0, 10) || undefined,
       changefreq: 'monthly',

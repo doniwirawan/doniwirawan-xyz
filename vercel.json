@@ -1,5 +1,10 @@
 {
   "cleanUrls": true,
+  "functions": {
+    "api/*.js": {
+      "includeFiles": "data/**"
+    }
+  },
   "rewrites": [
     { "source": "/terms", "destination": "/terms.html" },
     { "source": "/blog/:slug", "destination": "/api/post?slug=:slug" },

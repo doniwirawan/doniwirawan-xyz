@@ -1,16 +1,12 @@
 // Client-side post renderer.
 //
-// Published posts are server-rendered by /api/post, so this file does not run for
-// them. It is the fallback for everything the server cannot see: an admin's own
-// drafts (RLS hides those from the anonymous server fetch), and any moment when
-// Supabase is unreachable from the function. Same rendering, done in the browser
-// with the visitor's own session.
+// Posts are server-rendered by /api/post, so this file does not run for them. It
+// is the fallback for when that function could not read the posts file. Same
+// rendering, done in the browser against the same data/posts.json.
 
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { marked } from 'https://esm.sh/marked@12';
 import DOMPurify from 'https://esm.sh/dompurify@3';
 
-const db = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 const article = document.getElementById('post');
 const slug = decodeURIComponent(location.pathname.replace(/^\/blog\/?/, '').replace(/\/$/, ''));
 
@@ -21,15 +17,16 @@ const fmt = (d) => new Date(d).toLocaleDateString('en-GB', {
 if (!slug) {
   location.replace('/blog');
 } else {
-  // No published filter here on purpose: RLS decides. The public can only read
-  // published rows, while an admin session (set at /admin, same origin, so
-  // supabase-js reuses it) can also read its own drafts — which makes previewing
-  // a draft just work.
-  const { data, error } = await db
-    .from('posts')
-    .select('title, excerpt, body, published, published_at, canonical_url, source, cover_url')
-    .eq('slug', slug)
-    .maybeSingle();
+  // data/posts.json holds published posts only, so anything not in it is a 404.
+  let data = null;
+  let error = null;
+  try {
+    const r = await fetch('/data/posts.json');
+    if (!r.ok) throw new Error(`posts: ${r.status}`);
+    data = (await r.json()).find((p) => p.slug === slug) || null;
+  } catch (err) {
+    error = err;
+  }
 
   if (error) {
     article.innerHTML = '<p class="prose">Could not load this post right now.</p>';
@@ -64,18 +61,6 @@ if (!slug) {
     body.innerHTML = DOMPurify.sanitize(marked.parse(data.body || ''));
 
     const parts = [h1, date];
-
-    // Only an admin can see this at all — RLS hides drafts from everyone else.
-    if (!data.published) {
-      const flag = document.createElement('div');
-      flag.className = 'callout';
-      const p = document.createElement('p');
-      const strong = document.createElement('strong');
-      strong.textContent = 'Draft preview.';
-      p.append(strong, ' This post is not published. Nobody else can see it — you are seeing it because you are signed in.');
-      flag.append(p);
-      parts.push(flag);
-    }
 
     // When the cover was taken from the body's first image (imported posts, mostly),
     // showing it as a hero as well would print the same picture twice.

@@ -109,20 +109,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 <script src="/js/config.js"></script>
 <script type="module">
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-
-const db = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+// The list comes from data/posts-index.json, written when a post is published.
+// It carries no bodies, so this page stays small.
 const list = document.getElementById('posts');
 
 const fmt = (d) => new Date(d).toLocaleDateString('en-GB', {
   day: 'numeric', month: 'long', year: 'numeric'
 });
 
-const { data, error } = await db
-  .from('posts')
-  .select('slug, title, excerpt, published_at, source, cover_url')
-  .eq('published', true)
-  .order('published_at', { ascending: false });
+let data = null;
+let error = null;
+try {
+  const r = await fetch('/data/posts-index.json');
+  if (!r.ok) throw new Error(`posts-index: ${r.status}`);
+  data = await r.json();
+} catch (err) {
+  error = err;
+}
 
 if (error) {
   list.innerHTML = '<p class="prose">Could not load posts right now.</p>';

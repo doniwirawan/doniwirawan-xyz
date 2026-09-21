@@ -7,12 +7,12 @@
 // server-side and ships real HTML: title, description, Open Graph, JSON-LD, and
 // the article text itself.
 //
-// It only ever sees published posts (anonymous request, RLS decides). For a draft
-// — or if Supabase is unreachable — it falls back to the browser-rendered shell,
-// which is what the site did before, and which can use the admin's own session.
+// Posts come from data/posts.json, which ships with the site, so this never
+// depends on a database being awake. Only published posts are in that file; an
+// unknown slug falls back to the browser-rendered shell.
 
 import { marked } from 'marked';
-import { SITE, AUTHOR, posts, escapeHtml } from './_site.js';
+import { SITE, AUTHOR, postBySlug, otherPosts, escapeHtml } from './_site.js';
 
 const chrome = {
   head: `<meta charset="utf-8">
@@ -110,9 +110,9 @@ ${chrome.footer}
 </body>
 </html>`;
 
-// What the site did before this function existed: render in the browser. Drafts
-// need it (the server cannot see them), and it keeps the page working if Supabase
-// is down. Nothing here is worth indexing, so it says so.
+// What the site did before this function existed: render in the browser. Kept
+// for addresses this function has no post for. Nothing here is worth indexing,
+// so it says so.
 const shell = () => page({
   title: 'Blog — Doni Wirawan',
   head: `<meta name="robots" content="noindex">`,
@@ -302,30 +302,19 @@ export default async function handler(req, res) {
   }
 
   try {
-    const rows = await posts(
-      `?slug=eq.${encodeURIComponent(slug)}&published=is.true` +
-      `&select=title,excerpt,body,published_at,updated_at,canonical_url,source,cover_url,lang&limit=1`
-    );
+    const post = postBySlug(slug);
 
-    // No published post at this address. It may still be a draft the owner is
-    // previewing, so hand over to the browser, which has their session.
-    if (!rows.length) {
+    // No published post at this address.
+    if (!post) {
       res.setHeader('Cache-Control', 'no-store');
       return res.status(200).send(shell());
     }
 
-    // The recommendations are a nicety — if that query fails, ship the post anyway.
-    const recs = await posts(
-      `?published=is.true&slug=neq.${encodeURIComponent(slug)}` +
-      `&select=slug,title,excerpt,published_at,cover_url` +
-      `&order=published_at.desc&limit=3`
-    ).catch(() => []);
-
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=86400');
-    return res.status(200).send(render(rows[0], slug, recs));
+    return res.status(200).send(render(post, slug, otherPosts(slug)));
   } catch (err) {
-    // Supabase is unreachable. Degrade to what the site did before: let the
-    // browser try. Never cache a failure.
+    // The posts file could not be read. Degrade to what the site did before:
+    // let the browser try. Never cache a failure.
     console.error(err);
     res.setHeader('Cache-Control', 'no-store');
     return res.status(200).send(shell());

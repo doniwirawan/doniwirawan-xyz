@@ -1,0 +1,210 @@
+[
+  {
+    "slug": "segment-pr-kom-strava",
+    "title": "Segment, PR, KOM, dan Local Legend di Strava: Apa Bedanya",
+    "excerpt": "Papan peringkat segment adalah angka paling tidak bisa dipercaya di Strava, dan PR Anda sendiri adalah yang paling berguna. Apa arti masing-masing istilah, dan kenapa membandingkan diri dengan orang lain di sana sering menyesatkan.",
+    "published_at": "2026-07-31T07:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-segment-kom.svg"
+  },
+  {
+    "slug": "bike-fit-road-gravel-mtb",
+    "title": "Bike Fit untuk Road, Gravel, dan MTB: Apa yang Berubah dan Apa yang Tidak",
+    "excerpt": "Tinggi sadel Anda ditentukan kaki Anda, jadi ia hampir sama di semua sepeda. Yang berubah adalah bagian depan. Kenapa target sudut badan berbeda per jenis sepeda, dan apa yang bisa disalin antar sepeda.",
+    "published_at": "2026-07-31T06:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-fit-jenis-sepeda.svg"
+  },
+  {
+    "slug": "kadens-bersepeda-yang-ideal",
+    "title": "Kadens Bersepeda: Angka yang Ideal Itu Sebenarnya Angka Anda Sendiri",
+    "excerpt": "Semua orang mengutip 90 rpm. Penelitiannya jauh lebih berantakan dari itu. Apa yang benar-benar dipengaruhi kadens, kenapa kadens rendah membebani lutut, dan cara menemukan angka Anda tanpa memaksakan angka orang lain.",
+    "published_at": "2026-07-31T05:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-kadens.svg"
+  },
+  {
+    "slug": "konsistensi-bersepeda-heatmap-streak",
+    "title": "Konsistensi Bersepeda: Yang Ditunjukkan Heatmap dan Streak Anda",
+    "excerpt": "Empat perjalanan seminggu selama sebulan mengalahkan satu perjalanan raksasa, dan grafik setahun penuh menunjukkannya dalam sekali lihat. Cara membaca heatmap kalender, apa arti streak, dan kapan streak justru merugikan.",
+    "published_at": "2026-07-31T04:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-konsistensi.svg"
+  },
+  {
+    "slug": "aman-connect-strava-ke-aplikasi-pihak-ketiga",
+    "title": "Aman Nggak Menyambungkan Strava ke Aplikasi Pihak Ketiga?",
+    "excerpt": "Setiap aplikasi analitik Strava meminta akses ke seluruh riwayat aktivitas Anda, termasuk yang privat. Lima pertanyaan untuk menilai apakah sebuah aplikasi layak diberi akses itu, dan cara mencabutnya.",
+    "published_at": "2026-07-31T03:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-privasi-strava.svg"
+  },
+  {
+    "slug": "belajar-aksara-bali-dari-nol",
+    "title": "Belajar Aksara Bali dari Nol: Urutan yang Masuk Akal",
+    "excerpt": "Kebanyakan orang berhenti di minggu pertama karena mulai dari tabel aksara. Urutan belajar yang lebih masuk akal, apa saja yang sebenarnya perlu dikuasai, dan berapa lama sampai bisa membaca papan nama.",
+    "published_at": "2026-07-31T02:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-belajar-aksara.svg"
+  },
+  {
+    "slug": "cara-membuat-story-strava",
+    "title": "Cara Membuat Story Strava yang Tidak Membosankan",
+    "excerpt": "Gambar bagikan bawaan Strava selalu terlihat sama, dan tidak bisa diubah banyak. Cara membuat kartu aktivitas 1080x1920 dengan tata letak, warna, dan statistik pilihan Anda sendiri — termasuk latar transparan untuk ditempel di atas foto.",
+    "published_at": "2026-07-31T01:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-story-strava.svg"
+  },
+  {
+    "slug": "eddington-number-bersepeda",
+    "title": "Eddington Number: Angka yang Lebih Jujur daripada Total Jarak",
+    "excerpt": "Total jarak bisa dikarang oleh satu perjalanan heroik setahun sekali. Eddington number tidak bisa. Satu angka yang mengukur konsistensi, kenapa ia makin sulit dinaikkan, dan cara menghitungnya.",
+    "published_at": "2026-07-30T15:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-eddington.svg"
+  },
+  {
+    "slug": "cara-membaca-data-strava",
+    "title": "Cara Membaca Data Strava Anda (dan Angka yang Sebenarnya Penting)",
+    "excerpt": "Strava menampilkan puluhan angka per aktivitas, dan sebagian besar tidak memberi tahu apa pun yang berguna. Mana yang benar-benar penting, mana yang menyesatkan, dan apa yang tidak ditampilkan sama sekali.",
+    "published_at": "2026-07-30T14:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-baca-strava.svg"
+  },
+  {
+    "slug": "zona-latihan-bersepeda-heart-rate-ftp",
+    "title": "Zona Latihan Bersepeda: Heart Rate, Power, dan FTP",
+    "excerpt": "Zona adalah cara menerjemahkan angka mentah menjadi keputusan latihan. Bedanya zona heart rate dan zona power, cara menentukan FTP, dan kenapa hampir semua orang menghabiskan waktu di zona yang salah.",
+    "published_at": "2026-07-30T13:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-zona-latihan.svg"
+  },
+  {
+    "slug": "menulis-nama-dalam-aksara-bali",
+    "title": "Menulis Nama Anda dalam Aksara Bali",
+    "excerpt": "Mengetik nama ke konverter butuh sepuluh detik. Memastikan hasilnya benar butuh sedikit lebih lama — terutama kalau nama Anda mengandung huruf e, atau huruf yang tidak dimiliki aksara Bali sama sekali.",
+    "published_at": "2026-07-30T12:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-nama-aksara.svg"
+  },
+  {
+    "slug": "posisi-cleat-sepeda-yang-benar",
+    "title": "Posisi Cleat Sepeda yang Benar: Tiga Sumbu yang Perlu Disetel",
+    "excerpt": "Cleat punya tiga sumbu penyetelan, dan hampir semua orang hanya menyetel satu. Maju-mundur, rotasi, dan kiri-kanan — apa pengaruh masing-masing, dan kenapa ini satu-satunya bagian yang tidak bisa dicek dari video samping.",
+    "published_at": "2026-07-30T11:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-posisi-cleat.svg"
+  },
+  {
+    "slug": "pantat-sakit-saat-bersepeda",
+    "title": "Pantat Sakit Saat Bersepeda: Yang Normal, Yang Tidak, dan Cara Memperbaikinya",
+    "excerpt": "Pegal di minggu-minggu pertama itu wajar. Nyeri yang menetap, lecet, atau kebas tidak. Bedanya penting, dan sebagian besar solusinya bukan sadel yang lebih empuk.",
+    "published_at": "2026-07-30T10:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-pantat-sakit.svg"
+  },
+  {
+    "slug": "ukuran-sepeda-sesuai-tinggi-badan",
+    "title": "Ukuran Sepeda Sesuai Tinggi Badan (dan Kenapa Tabel Itu Sering Salah)",
+    "excerpt": "Tabel ukuran frame memberi Anda titik awal, bukan jawaban. Inseam lebih menentukan daripada tinggi badan, reach adalah satu-satunya hal yang tidak bisa diperbaiki setelah membeli, dan dua orang setinggi sama bisa butuh ukuran berbeda.",
+    "published_at": "2026-07-30T09:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-ukuran-sepeda.svg"
+  },
+  {
+    "slug": "sakit-punggung-dan-leher-saat-bersepeda",
+    "title": "Sakit Punggung dan Leher Saat Bersepeda: Biasanya Soal Jangkauan",
+    "excerpt": "Kalau punggung bawah dan leher Anda protes setelah satu jam, jangkauan ke setang biasanya tersangka pertama. Tiga sudut yang menunjukkannya, penyetelan yang murah untuk dicoba lebih dulu, dan bagian yang bukan salah sepeda.",
+    "published_at": "2026-07-30T08:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-punggung-leher.svg"
+  },
+  {
+    "slug": "nyeri-lutut-saat-bersepeda",
+    "title": "Nyeri Lutut Saat Bersepeda: Apa yang Biasanya Salah di Posisi Anda",
+    "excerpt": "Letak nyerinya menunjukkan arah penyetelan: depan lutut mengarah ke satu hal, belakang lutut ke hal lain. Panduan membaca petunjuk itu — dan batas jelas kapan berhenti menebak dan menemui fisioterapis.",
+    "published_at": "2026-07-30T07:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-nyeri-lutut.svg"
+  },
+  {
+    "slug": "tinggi-sadel-sepeda-yang-benar",
+    "title": "Tinggi Sadel Sepeda yang Benar: Cara Mengukur dan Tanda Kalau Salah",
+    "excerpt": "Rumus inseam memberi Anda titik awal, bukan jawaban. Yang menentukan adalah sudut lutut di titik terbawah kayuhan. Cara mengukurnya, tanda-tanda sadel terlalu tinggi dan terlalu rendah, dan cara menyetel tanpa kehilangan jejak.",
+    "published_at": "2026-07-30T06:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-tinggi-sadel.svg"
+  },
+  {
+    "slug": "bike-fitting-cek-sendiri-dari-video",
+    "title": "Bike Fitting Itu Apa, dan Cara Mengeceknya Sendiri dari Video",
+    "excerpt": "Bike fitting adalah menyesuaikan sepeda ke tubuh Anda, bukan sebaliknya. Empat sudut yang diukur seorang fitter, cara merekam video yang layak dibaca, dan batas jelas dari mengecek sendiri.",
+    "published_at": "2026-07-30T05:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-bike-fitting.svg"
+  },
+  {
+    "slug": "aksara-bali-jadi-kotak-di-hp",
+    "title": "Aksara Bali Anda Jadi Kotak? Ini Sebabnya",
+    "excerpt": "Kotak-kotak kosong itu bukan berarti teksnya rusak — perangkat Anda hanya belum punya fontnya. Penjelasan singkat soal Unicode, font warisan seperti Bali Simbar, dan cara memastikan tulisan Anda bertahan.",
+    "published_at": "2026-07-30T03:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-aksara-kotak.svg"
+  },
+  {
+    "slug": "cara-translate-latin-ke-aksara-bali",
+    "title": "Cara Translate Latin ke Aksara Bali Online",
+    "excerpt": "Panduan singkat mengubah tulisan Latin ke Aksara Bali lewat browser: langkahnya, empat kesalahan yang paling sering muncul, dan cara memeriksa hasilnya sebelum dipakai.",
+    "published_at": "2026-07-30T02:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-latin-ke-aksara.svg"
+  },
+  {
+    "slug": "how-a-balinese-script-translator-works",
+    "title": "How a Balinese Script Translator Actually Works",
+    "excerpt": "A Balinese script generator looks like one text box and a bit of magic. It is really a chain of small decisions about vowels, stacked consonants, and the sounds Latin cannot spell. Here is what happens between what you type and the aksara you get back.",
+    "published_at": "2026-07-30T01:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-script-translator.svg"
+  },
+  {
+    "slug": "half-my-bike-budget-went-to-the-groupset",
+    "title": "Half My Bike Budget Went to the Groupset. I Regret It.",
+    "excerpt": "The GRX 820 is smoother, more refined, and far easier to find parts for — I understand why people like it. But next to a Sensah Empire Pro at a fraction of the price, I still do not think it earned the premium.",
+    "published_at": "2026-07-29T03:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-groupset-regret.svg"
+  },
+  {
+    "slug": "the-hidden-cost-of-owning-a-bicycle",
+    "title": "The Hidden Cost of Owning a Bicycle",
+    "excerpt": "Ask what a bike costs and you get one number. After months of tracking every cycling purchase, I found the bike itself is only part of it — the rest hides in upgrades, maintenance, tools, shipping and the small parts you buy again and again.",
+    "published_at": "2026-07-29T02:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-hidden-cost-bicycle.svg"
+  },
+  {
+    "slug": "building-my-dream-gravel-bike",
+    "title": "Building My Dream Gravel Bike From Scratch (and Every Rupiah I Spent)",
+    "excerpt": "I wanted to understand every component rather than buy a bike off the shelf, so I built one from parts — and bought the tools to service it myself. Here is the full Rp25.5 million breakdown, and the part of the bill that surprised me.",
+    "published_at": "2026-07-29T01:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-gravel-bike.svg"
+  },
+  {
+    "slug": "tradisi-yang-bertahan-harus-berani-berubah",
+    "title": "Tradisi yang Bertahan Harus Berani Berubah",
+    "excerpt": "Banten kini bercampur plastik dan styrofoam, dan alam tak bisa menerima apa pun tanpa batas. Tradisi yang kuat bukan yang menolak perubahan, tetapi yang menjaga nilai intinya — termasuk membersihkan alam setelah ritual.",
+    "published_at": "2026-07-18T03:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-tradisi.svg"
+  },
+  {
+    "slug": "bali-tidak-kehabisan-tanah",
+    "title": "Bali Tidak Kehabisan Tanah. Kita Kehabisan Cara Berpikir.",
+    "excerpt": "Bali tidak kehabisan tanah — kita kehabisan cara berpikir. Kita terus membangun ke samping dan memakan sawah, padahal kita hidup di pulau yang tak bisa diperluas.",
+    "published_at": "2026-07-18T00:00:00.000Z",
+    "source": null,
+    "cover_url": "https://doniwirawan.xyz/images/blog/cover-bali-tanah.svg"
+  }
+]
