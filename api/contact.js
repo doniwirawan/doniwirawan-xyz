@@ -1,8 +1,9 @@
-// Contact form endpoint: store the message, then email it.
+// Contact form endpoint: store the message and email it.
 //
-// Storing comes first on purpose. If Resend is down or out of quota, the message
-// is still in the inbox at /admin — a missed notification is annoying, a lost
-// message is not acceptable.
+// Two independent places for the message to land, and either one is enough. The
+// database is the durable copy, the email is the one that reaches an inbox. A
+// message is only refused when both fail — losing one is not acceptable, but
+// neither is refusing a visitor because the database happens to be paused.
 //
 // Env (Vercel → Settings → Environment Variables):
 //   RESEND_API_KEY   secret; never ships to the browser
@@ -34,29 +35,33 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'That email address does not look right.' });
   }
 
-  // 1. Store it. This is the part that must not fail silently.
-  const stored = await fetch(SUPABASE_URL + '/rest/v1/messages', {
-    method: 'POST',
-    headers: {
-      apikey: SUPABASE_ANON_KEY,
-      Authorization: 'Bearer ' + SUPABASE_ANON_KEY,
-      'Content-Type': 'application/json',
-      Prefer: 'return=minimal',
-    },
-    body: JSON.stringify({ name: n, email: e, message: m }),
-  });
-
-  if (!stored.ok) {
-    const detail = await stored.text();
-    console.error('store failed', stored.status, detail);
-    return res.status(502).json({ error: 'Could not save your message.' });
+  // 1. Store it. Best effort: a paused or unreachable database must not cost a
+  // visitor their message when the email below can still deliver it.
+  let stored = false;
+  try {
+    const r = await fetch(SUPABASE_URL + '/rest/v1/messages', {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: 'Bearer ' + SUPABASE_ANON_KEY,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify({ name: n, email: e, message: m }),
+    });
+    stored = r.ok;
+    if (!r.ok) console.error('store failed', r.status, await r.text());
+  } catch (err) {
+    console.error('store threw', err);
   }
 
-  // 2. Notify. Best effort — the message is already safe.
+  // 2. Email it. Now the only copy if the store above failed.
   const { RESEND_API_KEY, CONTACT_TO } = process.env;
   if (!RESEND_API_KEY || !CONTACT_TO) {
-    console.warn('Resend is not configured; message stored but not emailed.');
-    return res.status(200).json({ ok: true, emailed: false });
+    console.warn('Resend is not configured; no email sent.');
+    return stored
+      ? res.status(200).json({ ok: true, stored: true, emailed: false })
+      : res.status(502).json({ error: 'Could not send your message.' });
   }
 
   try {
@@ -82,11 +87,16 @@ export default async function handler(req, res) {
     if (!r.ok) {
       const detail = await r.text();
       console.error('resend failed', r.status, detail);
-      return res.status(200).json({ ok: true, emailed: false });
+      // Nothing kept the message anywhere. Say so, so the visitor can retry.
+      return stored
+        ? res.status(200).json({ ok: true, stored: true, emailed: false })
+        : res.status(502).json({ error: 'Could not send your message.' });
     }
-    return res.status(200).json({ ok: true, emailed: true });
+    return res.status(200).json({ ok: true, stored, emailed: true });
   } catch (err) {
     console.error('resend threw', err);
-    return res.status(200).json({ ok: true, emailed: false });
+    return stored
+      ? res.status(200).json({ ok: true, stored: true, emailed: false })
+      : res.status(502).json({ error: 'Could not send your message.' });
   }
 }
