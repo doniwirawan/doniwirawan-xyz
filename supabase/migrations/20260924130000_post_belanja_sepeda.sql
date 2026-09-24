@@ -81,7 +81,7 @@ Di sinilah sebagian besar uang saya habis, dan jujur saja, sebagian besar tidak 
 | Sensor speed & cadence | sekitar Rp376 ribu | Menarik kalau Anda suka data. |
 | Bike computer | sekitar Rp3,9 juta | **Tunda.** HP di dudukan setang sudah cukup untuk awal. |
 | Wheelset | sekitar Rp2,8 juta | Terasa, tapi baru masuk akal setelah hal lain beres. |
-| Groupset (GRX 1x12) | sekitar Rp11,8 juta | Pengalaman saya ada di [tulisan soal groupset](/blog/half-my-bike-budget-went-to-the-groupset). |
+| Groupset (GRX 820, 1x12) | sekitar Rp11,8 juta | Pengalaman saya ada di [tulisan soal groupset](/blog/half-my-bike-budget-went-to-the-groupset). |
 
 Kalau harus memilih satu pelajaran dari tabel ini: **upgrade yang paling terasa justru yang paling murah** — bar tape, sadel yang cocok, celana bib yang bagus, dan posisi duduk yang benar. Yang mahal memberi selisih kecil, dan baru terasa kalau dasarnya sudah beres.
 
