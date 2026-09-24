@@ -44,8 +44,8 @@ Ini barang habis pakai. Harganya kecil, tapi datang lagi dan lagi.
 | Sikat pembersih rantai | sekitar Rp110 ribu | Sekali beli. |
 | Chain checker | sekitar Rp26 ribu | Sekali beli, tapi menyelamatkan cassette dan chainring. |
 | Kampas rem cakram | sekitar Rp85 ribu per pasang | Saat mulai menipis. |
-| Ban luar | Rp316–340 ribu per ban (700c) | Ban MTB 27,5" jauh lebih murah: Rp58–65 ribu. |
-| Ban dalam | Rp28–80 ribu | Belilah dua sekaligus. |
+| Ban luar | Rp316–340 ribu per ban | Road 700x28c sekitar Rp316 ribu, gravel 700x40c sekitar Rp340 ribu. Ban MTB 27,5" jauh lebih murah: Rp58–65 ribu. |
+| Ban dalam | Rp28–80 ribu | Belilah dua sekaligus, dan cocokkan ukurannya: ban dalam 23–32c tidak cocok untuk ban 40c. |
 | Grease | sekitar Rp59 ribu | Sekali beli, lama habisnya. |
 | Kabel dan housing | Rp14–73 ribu | Saat perpindahan gigi atau rem mulai berat. |
 
