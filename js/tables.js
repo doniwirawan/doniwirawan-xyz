@@ -11,7 +11,9 @@
 
   // "11,800,000" is a number. "Shimano GRX RX820" is not. Currency symbols and
   // thousands separators are stripped; anything left with a digit in it counts.
+  // A range ("Rp300–500 ribu") is not one number, so it does not count.
   function numeric(text) {
+    if (/\d\s*[–—-]\s*(?:Rp\s*)?\d/.test(text)) return null;
     var cleaned = text.replace(/[^0-9.,-]/g, '').replace(/,/g, '');
     if (!cleaned || !/[0-9]/.test(cleaned)) return null;
     var n = parseFloat(cleaned);
