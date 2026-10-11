@@ -530,10 +530,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="stats" id="strava" hidden></div>
 
-    <a class="strava-card" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">
-      <img class="card-dark" src="https://ascent-analytics.vercel.app/api/card?period=ytd&amp;theme=dark" alt="Riding stats this year, with distance by month" width="495" height="195" loading="lazy">
-      <img class="card-light" src="https://ascent-analytics.vercel.app/api/card?period=ytd&amp;theme=light" alt="Riding stats this year, with distance by month" width="495" height="195" loading="lazy">
-    </a>
+    <div class="strava-cards">
+      <a class="strava-card" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">
+        <img class="card-dark" src="https://ascent-analytics.vercel.app/api/card?type=calendar&amp;theme=dark" alt="A year of rides, km per day" width="495" height="195" loading="lazy">
+        <img class="card-light" src="https://ascent-analytics.vercel.app/api/card?type=calendar&amp;theme=light" alt="A year of rides, km per day" width="495" height="195" loading="lazy">
+      </a>
+      <a class="strava-card" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">
+        <img class="card-dark" src="https://ascent-analytics.vercel.app/api/card?type=latest&amp;theme=dark" alt="My latest ride" width="495" height="195" loading="lazy">
+        <img class="card-light" src="https://ascent-analytics.vercel.app/api/card?type=latest&amp;theme=light" alt="My latest ride" width="495" height="195" loading="lazy">
+      </a>
+      <a class="strava-card" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">
+        <img class="card-dark" src="https://ascent-analytics.vercel.app/api/card?type=fitness&amp;theme=dark" alt="Training form over the last 90 days" width="495" height="195" loading="lazy">
+        <img class="card-light" src="https://ascent-analytics.vercel.app/api/card?type=fitness&amp;theme=light" alt="Training form over the last 90 days" width="495" height="195" loading="lazy">
+      </a>
+      <a class="strava-card" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">
+        <img class="card-dark" src="https://ascent-analytics.vercel.app/api/card?type=bikes&amp;theme=dark" alt="All-time km on each bike" width="495" height="195" loading="lazy">
+        <img class="card-light" src="https://ascent-analytics.vercel.app/api/card?type=bikes&amp;theme=light" alt="All-time km on each bike" width="495" height="195" loading="lazy">
+      </a>
+    </div>
 
     <div class="photos">
       <img src="/images/cycling-1.jpg" alt="Riding a road bike on a tree-lined road in Bali" width="900" height="1125" loading="lazy">
@@ -722,12 +736,13 @@ fetch('https://ascent-analytics.vercel.app/api/stats')
     if (s.error) return Promise.reject(s.error);
     var n = function (x) { return Math.round(x).toLocaleString(); };
     var year = new Date().getFullYear();
+    var all = s.all_time || s.totals;
     var tiles = [
-      [n(s.ytd.distance_km) + ' km', 'Ridden in ' + year],
-      [(s.ytd.elevation_m / 8849).toFixed(1) + '×', 'Everests in ' + year],
-      [n(s.last_30_days.distance_km) + ' km', 'Last 30 days'],
-      [n(s.bests.longest_ride_km) + ' km', 'Longest ride'],
-      [n(s.bests.biggest_climb_m) + ' m', 'Biggest climb'],
+      ['🔥 ' + s.streak.weeks, 'Weeks in a row riding'],
+      ['🐷 ' + n(s.fun.babi_guling_this_year), 'Babi guling burned in ' + year],
+      [n(all.distance_km) + ' km', s.all_time ? 'Ridden all time' : 'Recent rides'],
+      [s.fun.everests + '×', 'Everest climbed'],
+      [s.fun.around_the_earth_pct + '%', 'Of the way around the Earth'],
     ];
     var box = document.getElementById('strava');
     box.replaceChildren.apply(box, tiles.map(function (t) {
