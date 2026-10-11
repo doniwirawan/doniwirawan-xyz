@@ -710,16 +710,19 @@ fetch('/api/reading')
   })
   .catch(function () { /* leave the section hidden if Goodreads is unreachable */ });
 
-// Strava totals, fetched from a serverless function so the token stays server-side.
-fetch('/api/strava')
+// Strava numbers from Ascent's public stats API (aggregates only — no routes, no GPS).
+fetch('https://ascent-analytics.vercel.app/api/stats')
   .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
   .then(function (s) {
+    if (s.error) return Promise.reject(s.error);
+    var n = function (x) { return Math.round(x).toLocaleString(); };
+    var year = new Date().getFullYear();
     var tiles = [
-      [s.km.toLocaleString() + ' km', 'Ridden'],
-      [s.everests, 'Everests climbed'],
-      [s.rides.toLocaleString(), 'Rides'],
-      [s.hours.toLocaleString() + ' h', 'In the saddle'],
-      [s.longestRideKm + ' km', 'Longest ride'],
+      [n(s.ytd.distance_km) + ' km', 'Ridden in ' + year],
+      [(s.ytd.elevation_m / 8849).toFixed(1) + '×', 'Everests in ' + year],
+      [n(s.last_30_days.distance_km) + ' km', 'Last 30 days'],
+      [n(s.bests.longest_ride_km) + ' km', 'Longest ride'],
+      [n(s.bests.biggest_climb_m) + ' m', 'Biggest climb'],
     ];
     var box = document.getElementById('strava');
     box.replaceChildren.apply(box, tiles.map(function (t) {
