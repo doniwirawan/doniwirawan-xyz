@@ -467,6 +467,10 @@ a:hover { text-decoration: underline; }
 
 .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 24px 0 8px; }
 .stats[hidden] { display: none; }
+.strava-card { display: block; max-width: 495px; margin: 16px 0 8px; }
+.strava-card img { display: block; width: 100%; height: auto; }
+.strava-card .card-light, [data-theme="light"] .strava-card .card-dark { display: none; }
+[data-theme="light"] .strava-card .card-light { display: block; }
 .stat {
   display: flex; flex-direction: column; gap: 2px;
   background: var(--surface); border: 1px solid var(--border);
