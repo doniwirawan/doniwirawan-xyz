@@ -15,7 +15,7 @@ Live at **https://doniwirawan.xyz**
 
 ## Work
 
-Products and company sites I build and maintain for Studio Five Media Group.
+Products and company sites I build and maintain for Studio Five Group.
 
 | Project | What it is | Live |
 |---|---|---|
