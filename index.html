@@ -23,18 +23,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="twitter:title" content="Doni Wirawan — web tools for cyclists, culture and data">
 <meta name="twitter:description" content="Free, privacy-first web tools: Ascent (Strava analytics), Bike Fit Analyzer, and an Aksara Bali transliterator.">
 <meta name="twitter:image" content="https://doniwirawan.xyz/images/portrait.jpg">
+<meta name="theme-color" content="#090b16">
 <link rel="icon" href="/images/icon.png">
 <link rel="apple-touch-icon" href="/images/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Balinese:wght@500&display=swap&text=%E1%AC%A4%E1%AD%80%E1%AC%A6%E1%AC%B6%E1%AC%AF%E1%AC%B6%E1%AC%AD%E1%AC%AF%E1%AC%A6%E1%AD%84">
+<link rel="preload" as="image" href="/images/portrait-cutout.webp" fetchpriority="high">
 <link rel="stylesheet" href="/style.css">
 <script>
 // Pick the theme before first paint so the page never flashes the wrong one.
+// The `motion` class lets motion.js own the intro; if motion.js has not taken
+// over within 2.5s (slow network, blocked script), everything shows as normal.
 (function () {
-  var t;
+  var d = document.documentElement, t;
   try { t = localStorage.getItem('theme'); } catch (e) { t = null; }
   if (t !== 'light' && t !== 'dark') {
     t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
   }
-  document.documentElement.setAttribute('data-theme', t);
+  d.setAttribute('data-theme', t);
+  if (window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    d.classList.add('motion');
+    setTimeout(function () { if (!window.__motion) d.classList.remove('motion'); }, 2500);
+  }
 })();
 </script>
 <script type="application/ld+json">
@@ -95,529 +107,499 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 </script>
 </head>
-<body>
+<body class="home">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3FBDCFQ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<nav class="nav">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
   <div class="nav-inner">
     <a class="nav-name" href="/">
-      <img class="nav-avatar" src="/images/avatar.png" alt="" width="26" height="26">
+      <img class="nav-avatar" src="/images/avatar.png" alt="" width="30" height="30">
       Doni Wirawan
     </a>
+    <nav class="nav-links" id="nav-links" aria-label="Main">
+      <a href="#apps">Apps</a>
+      <a href="#work">Work</a>
+      <a href="#cycling">Cycling</a>
+      <a href="/blog">Blog</a>
+      <a href="#about">About</a>
+      <a href="#connect">Connect</a>
+    </nav>
     <div class="nav-actions">
       <button class="theme-toggle" type="button" aria-label="Switch theme">
         <svg class="to-light" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         <svg class="to-dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       </button>
-    <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
-      <svg class="open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      <svg class="close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
+      <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+        <svg class="open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
-    <div class="nav-links" id="nav-links">
-      <a href="#projects">Projects</a>
-      <a href="#about">About</a>
-      <a href="/blog">Blog</a>
-      <a href="#cycling">Cycling</a>
-      <a href="#reading">Reading</a>
-      <a href="#connect">Connect</a>
-    </div>
-  </div>
-</nav>
-
-<header class="hero wrap">
-  <img class="avatar" src="/images/avatar.png" alt="Portrait of Doni Wirawan" width="80" height="80">
-  <h1>I build small, free web tools.</h1>
-  <p class="lead">
-    Three of them are live: a Strava analytics dashboard, a browser-based bike fit analyzer,
-    and a Latin-to-Balinese script transliterator. All of them run in your browser, all of them
-    are free, and none of them upload what you put into them.
-  </p>
-  <div class="hero-actions">
-    <a class="btn primary" href="#projects">See the apps</a>
-    <a class="btn" href="https://github.com/doniwirawan" target="_blank" rel="noopener">
-      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-      GitHub
-    </a>
-    <a class="btn" href="https://www.linkedin.com/in/doniwirawan/" target="_blank" rel="noopener">
-      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg>
-      LinkedIn
-    </a>
   </div>
 </header>
 
-<main>
-  <section class="section wrap" id="projects">
-    <h2>Projects</h2>
+<main id="main">
 
-    <div class="tabs" role="tablist">
-      <button class="tab is-active" id="tab-apps" role="tab" aria-selected="true" aria-controls="panel-apps">Apps</button>
-      <button class="tab" id="tab-work" role="tab" aria-selected="false" aria-controls="panel-work">Work</button>
+  <!-- 05:30 -->
+  <section class="hero" aria-labelledby="hero-name">
+    <div class="hero-sun" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <p class="hero-time stamp"><span class="wp-dot" aria-hidden="true"></span><time>05:30</time></p>
+      <div class="hero-copy">
+        <p class="hero-statement">I build small, free web tools.</p>
+        <p class="hero-lead">
+          Three of them are live: a Strava analytics dashboard, a browser-based bike fit analyzer,
+          and a Latin-to-Balinese script transliterator. All of them run in your browser, all of them
+          are free, and none of them upload what you put into them.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#apps">See the apps</a>
+          <a class="btn" href="https://github.com/doniwirawan" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+          <a class="btn" href="https://www.linkedin.com/in/doniwirawan/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+      <h1 class="hero-name display" id="hero-name">
+        <span class="line"><span>Doni</span></span>
+        <span class="line"><span>Wirawan</span></span>
+      </h1>
+      <p class="hero-aksara">
+        <span class="aksara" lang="ban" aria-hidden="true">ᬤᭀᬦᬶ​ᬯᬶᬭᬯᬦ᭄</span>
+        <span class="sr-only">Doni Wirawan, written in Aksara Bali.</span>
+        <span class="hero-odo stamp" id="odo" hidden><b data-odo></b> km ridden</span>
+      </p>
+      <img class="hero-portrait" src="/images/portrait-cutout.webp" alt="Portrait of Doni Wirawan" width="1400" height="1400" fetchpriority="high" decoding="async">
     </div>
+  </section>
 
-    <div class="tab-panel" id="panel-apps" role="tabpanel" aria-labelledby="tab-apps">
-    <p class="section-sub">Things I built because I wanted them to exist. The web tools are free and run client-side.</p>
-
-    <div class="apps">
-
-      <article class="app-card">
-        <img class="app-logo" src="/images/ascent-logo.png" alt="Ascent logo" width="56" height="56">
-        <div class="app-body">
-          <h3 class="app-name">Ascent <span class="app-tag">Strava</span></h3>
-          <p class="app-desc">
-            A personal Strava analytics dashboard: stats, charts, a ride heatmap, segment PRs, gear
-            tracking, trophies, and shareable 9:16 story cards for your rides. Connects to your own
-            Strava account with your permission — your tokens and activities stay in your browser.
-          </p>
-          <div class="app-links">
-            <a class="btn primary" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">Open Ascent</a>
-            <a class="btn" href="https://github.com/doniwirawan/Ascent-Strava-Dashboard" target="_blank" rel="noopener">Source</a>
-          </div>
+  <!-- 06:15 -->
+  <section class="leg" id="writing" aria-labelledby="writing-title">
+    <div class="wrap leg-inner">
+      <div class="route" aria-hidden="true"><div class="route-fill"></div></div>
+      <p class="waypoint stamp"><span class="wp-dot" aria-hidden="true"></span><time>06:15</time></p>
+      <header class="leg-head">
+        <h2 class="leg-title display" id="writing-title" data-split>Writing</h2>
+        <p class="leg-sub">Notes on the tools I build, cycling, and the occasional thing I got wrong.</p>
+      </header>
+      <div class="writing-grid" id="writing-grid" aria-busy="true">
+        <div class="post-feature" aria-hidden="true">
+          <div class="frame"><div class="skeleton" style="aspect-ratio:3/2"></div></div>
         </div>
-      </article>
-
-      <article class="app-card">
-        <img class="app-logo" src="/images/bikefit-logo.png" alt="Bike Fit Analyzer logo" width="56" height="56">
-        <div class="app-body">
-          <h3 class="app-name">Bike Fit Analyzer <span class="app-tag">Cycling</span></h3>
-          <p class="app-desc">
-            Upload a side-on video of yourself pedalling and get automatic joint-angle analysis
-            (knee, hip, back) graded against bike-fitting research, to help you fine-tune saddle
-            height and reach. The video is analyzed on your device and never uploaded. It is not a
-            professional bike fit and not medical advice.
-          </p>
-          <div class="app-links">
-            <a class="btn primary" href="https://bikefit.doniwirawan.xyz" target="_blank" rel="noopener">Open Bike Fit</a>
-            <a class="btn" href="https://github.com/doniwirawan/bike-fit-analyzer" target="_blank" rel="noopener">Source</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="app-card">
-        <img class="app-logo" src="/images/spmb-logo.svg" alt="SPMB Bali logo" width="56" height="56">
-        <div class="app-body">
-          <h3 class="app-name">SPMB Bali 2026 <span class="app-tag">Data</span></h3>
-          <p class="app-desc">
-            An analysis of the academic-track entry scores at all 88 public high schools across
-            Bali's nine districts, ranked into tiers so a student can see where they realistically
-            stand. It also makes the regional gap hard to look away from — the distance between
-            Denpasar's schools and those on the outer islands is not small.
-          </p>
-          <div class="app-links">
-            <a class="btn primary" href="https://spmbbali.doniwirawan.xyz" target="_blank" rel="noopener">Open SPMB Bali</a>
-            <a class="btn" href="https://github.com/doniwirawan/spmb-bali-2026" target="_blank" rel="noopener">Source</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="app-card">
-        <img class="app-logo" src="/images/terrafarms-logo.svg" alt="Terrafarms logo" width="56" height="56">
-        <div class="app-body">
-          <h3 class="app-name">Terrafarms <span class="app-tag">Agritech</span></h3>
-          <p class="app-desc">
-            An AI and IoT platform for Indonesian farmers: soil analysis, crop recommendations,
-            plant disease detection, real-time nutrition monitoring, and a route to market for seed
-            and fertiliser supply. Built with a team, out of the conviction that smallholders deserve
-            the same decision-making tools that large operations already have.
-          </p>
-          <div class="app-links">
-            <a class="btn primary" href="https://terrafarms.id" target="_blank" rel="noopener">Open Terrafarms</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="app-card">
-        <img class="app-logo" src="/images/aksarabali-logo.png" alt="Aksara Bali logo" width="56" height="56">
-        <div class="app-body">
-          <h3 class="app-name">Aksara Bali <span class="app-tag">Culture</span></h3>
-          <p class="app-desc">
-            Converts Latin text into Balinese script in real time, with Sanskrit support and V=W
-            equivalency — an educational tool for reading, writing and preserving Aksara Bali.
-          </p>
-          <div class="app-links">
-            <a class="btn primary" href="https://aksarabali.doniwirawan.xyz" target="_blank" rel="noopener">Open Aksara Bali</a>
-            <a class="btn" href="https://play.google.com/store/apps/details?id=xyz.doniwirawan.aksara_bali_mobile" target="_blank" rel="noopener">Android app</a>
-            <a class="btn" href="https://github.com/doniwirawan/aksara-bali" target="_blank" rel="noopener">Source</a>
-          </div>
-        </div>
-      </article>
-
+        <ul class="post-list" aria-hidden="true">
+          <li><span class="skeleton" style="display:block;height:64px;margin:16px 0"></span></li>
+          <li><span class="skeleton" style="display:block;height:64px;margin:16px 0"></span></li>
+          <li><span class="skeleton" style="display:block;height:64px;margin:16px 0"></span></li>
+        </ul>
+      </div>
     </div>
+  </section>
+
+  <!-- Older links point at #projects; this keeps them landing on the apps. -->
+  <div id="projects">
+
+  <!-- 07:00 -->
+  <section class="leg" id="apps" aria-labelledby="apps-title">
+    <div class="wrap leg-inner">
+      <div class="route" aria-hidden="true"><div class="route-fill"></div></div>
+      <p class="waypoint stamp"><span class="wp-dot" aria-hidden="true"></span><time>07:00</time></p>
+      <header class="leg-head">
+        <h2 class="leg-title display" id="apps-title" data-split>Apps</h2>
+        <p class="leg-sub">Things I built because I wanted them to exist. The web tools are free and run client-side.</p>
+      </header>
+
+      <div class="app-list">
+
+        <article class="app" data-reveal>
+          <a class="app-media" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img src="/images/blog/ascent/overview.png" alt="" width="1360" height="840" loading="lazy" data-parallax>
+          </a>
+          <div class="app-text">
+            <p class="app-index stamp"><span class="num">01</span> Strava</p>
+            <h3 class="app-name display">Ascent</h3>
+            <p class="app-desc">
+              A personal Strava analytics dashboard: stats, charts, a ride heatmap, segment PRs, gear
+              tracking, trophies, and shareable 9:16 story cards for your rides. Connects to your own
+              Strava account with your permission — your tokens and activities stay in your browser.
+            </p>
+            <div class="app-links">
+              <a class="btn primary" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">Open Ascent</a>
+              <a class="btn" href="https://github.com/doniwirawan/Ascent-Strava-Dashboard" target="_blank" rel="noopener">Source</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app" data-reveal>
+          <a class="app-media app-plate" href="https://bikefit.doniwirawan.xyz" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img src="/images/bikefit-logo.png" alt="" width="256" height="256" loading="lazy">
+          </a>
+          <div class="app-text">
+            <p class="app-index stamp"><span class="num">02</span> Cycling</p>
+            <h3 class="app-name display">Bike Fit Analyzer</h3>
+            <p class="app-desc">
+              Upload a side-on video of yourself pedalling and get automatic joint-angle analysis
+              (knee, hip, back) graded against bike-fitting research, to help you fine-tune saddle
+              height and reach. The video is analyzed on your device and never uploaded. It is not a
+              professional bike fit and not medical advice.
+            </p>
+            <div class="app-links">
+              <a class="btn primary" href="https://bikefit.doniwirawan.xyz" target="_blank" rel="noopener">Open Bike Fit</a>
+              <a class="btn" href="https://github.com/doniwirawan/bike-fit-analyzer" target="_blank" rel="noopener">Source</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app" data-reveal>
+          <a class="app-media" href="https://aksarabali.doniwirawan.xyz" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img src="/images/shot-aksara.jpg" alt="" width="1200" height="720" loading="lazy" style="object-position:center" data-parallax>
+          </a>
+          <div class="app-text">
+            <p class="app-index stamp"><span class="num">03</span> Culture</p>
+            <h3 class="app-name display">Aksara Bali</h3>
+            <p class="app-desc">
+              Converts Latin text into Balinese script in real time, with Sanskrit support and V=W
+              equivalency — an educational tool for reading, writing and preserving Aksara Bali.
+            </p>
+            <div class="app-links">
+              <a class="btn primary" href="https://aksarabali.doniwirawan.xyz" target="_blank" rel="noopener">Open Aksara Bali</a>
+              <a class="btn" href="https://play.google.com/store/apps/details?id=xyz.doniwirawan.aksara_bali_mobile" target="_blank" rel="noopener">Android app</a>
+              <a class="btn" href="https://github.com/doniwirawan/aksara-bali" target="_blank" rel="noopener">Source</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app" data-reveal>
+          <a class="app-media app-plate" href="https://spmbbali.doniwirawan.xyz" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img src="/images/spmb-logo.svg" alt="" width="256" height="256" loading="lazy">
+          </a>
+          <div class="app-text">
+            <p class="app-index stamp"><span class="num">04</span> Data</p>
+            <h3 class="app-name display">SPMB Bali 2026</h3>
+            <p class="app-desc">
+              An analysis of the academic-track entry scores at all 88 public high schools across
+              Bali's nine districts, ranked into tiers so a student can see where they realistically
+              stand. It also makes the regional gap hard to look away from — the distance between
+              Denpasar's schools and those on the outer islands is not small.
+            </p>
+            <div class="app-links">
+              <a class="btn primary" href="https://spmbbali.doniwirawan.xyz" target="_blank" rel="noopener">Open SPMB Bali</a>
+              <a class="btn" href="https://github.com/doniwirawan/spmb-bali-2026" target="_blank" rel="noopener">Source</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app" data-reveal>
+          <a class="app-media" href="https://terrafarms.id" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img src="/images/shot-terrafarms.jpg" alt="" width="1200" height="628" loading="lazy" style="object-position:center" data-parallax>
+          </a>
+          <div class="app-text">
+            <p class="app-index stamp"><span class="num">05</span> Agritech</p>
+            <h3 class="app-name display">Terrafarms</h3>
+            <p class="app-desc">
+              An AI and IoT platform for Indonesian farmers: soil analysis, crop recommendations,
+              plant disease detection, real-time nutrition monitoring, and a route to market for seed
+              and fertiliser supply. Built with a team, out of the conviction that smallholders deserve
+              the same decision-making tools that large operations already have.
+            </p>
+            <div class="app-links">
+              <a class="btn primary" href="https://terrafarms.id" target="_blank" rel="noopener">Open Terrafarms</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
     </div>
+  </section>
 
-    <div class="tab-panel" id="panel-work" role="tabpanel" aria-labelledby="tab-work" hidden>
-    <p class="section-sub">
-      I am the person behind the web side of Studio Five Media Group — the products below, and the
-      sites for each of the group's companies, which I build and keep running.
-    </p>
+  <!-- 08:30 -->
+  <section class="leg" id="work" aria-labelledby="work-title">
+    <div class="wrap leg-inner">
+      <div class="route" aria-hidden="true"><div class="route-fill"></div></div>
+      <p class="waypoint stamp"><span class="wp-dot" aria-hidden="true"></span><time>08:30</time></p>
+      <header class="leg-head">
+        <h2 class="leg-title display" id="work-title" data-split>Work</h2>
+        <p class="leg-sub">
+          I am the person behind the web side of Studio Five Media Group — the products below, and the
+          sites for each of the group's companies, which I build and keep running.
+        </p>
+      </header>
 
-    <h3 class="group-title">Products</h3>
+      <h3 class="group-title stamp">Products</h3>
+      <div class="products">
 
-    <div class="apps">
-
-      <article class="app-card">
-        <img class="app-logo" src="/images/studiofive-logo.png" alt="Studio Five logo" width="56" height="56">
-        <div class="app-body">
-          <h3 class="app-name">Studio Five Suite <span class="app-tag">Studio Five</span></h3>
-          <p class="app-desc">
+        <article class="product" data-reveal>
+          <div class="product-head">
+            <img src="/images/studiofive-logo.png" alt="Studio Five logo" width="44" height="44" loading="lazy">
+            <h4>Studio Five Suite</h4>
+          </div>
+          <p>
             A wedding planning dashboard for couples: checklists, contracts, payment tracking, vendor
             management and a deliverables tracker, all in one place instead of scattered across email
             and spreadsheets.
           </p>
-          <div class="app-links">
-            <a class="btn primary" href="https://suite.studiofiveweddings.com" target="_blank" rel="noopener">Open Suite</a>
-          </div>
-        </div>
-      </article>
+          <a class="btn" href="https://suite.studiofiveweddings.com" target="_blank" rel="noopener">Open Suite</a>
+        </article>
 
-      <article class="app-card">
-        <img class="app-logo" src="/images/studiofive-logo.png" alt="Studio Five logo" width="56" height="56">
-        <div class="app-body">
-          <h3 class="app-name">Deliverables Tracker <span class="app-tag">Studio Five</span></h3>
-          <p class="app-desc">
+        <article class="product" data-reveal>
+          <div class="product-head">
+            <img src="/images/studiofive-logo.png" alt="Studio Five logo" width="44" height="44" loading="lazy">
+            <h4>Deliverables Tracker</h4>
+          </div>
+          <p>
             A client portal that answers the question every couple asks after the wedding: where are
             my photos? Clients sign in with their email and see live editing progress, the production
             stage each deliverable is in, and estimated delivery dates — which cut a lot of status
             emails out of the studio's week.
           </p>
-          <div class="app-links">
-            <a class="btn primary" href="https://tracker.studiofiveweddings.com" target="_blank" rel="noopener">Open Tracker</a>
-          </div>
-        </div>
-      </article>
+          <a class="btn" href="https://tracker.studiofiveweddings.com" target="_blank" rel="noopener">Open Tracker</a>
+        </article>
 
-      <article class="app-card">
-        <img class="app-logo" src="/images/studiofive-logo.png" alt="Studio Five logo" width="56" height="56">
-        <div class="app-body">
-          <h3 class="app-name">Chapter5 <span class="app-tag">Studio Five</span></h3>
-          <p class="app-desc">
+        <article class="product" data-reveal>
+          <div class="product-head">
+            <img src="/images/studiofive-logo.png" alt="Studio Five logo" width="44" height="44" loading="lazy">
+            <h4>Chapter5</h4>
+          </div>
+          <p>
             A wedding website builder for Singapore couples — RSVPs, guest lists, galleries and gift
             registries behind one link. It ships with 37 templates, including themes for Malay,
             Chinese, Indian, Sikh, Eurasian and Peranakan weddings.
           </p>
-          <div class="app-links">
-            <a class="btn primary" href="https://chapter5.studiofiveweddings.com" target="_blank" rel="noopener">Open Chapter5</a>
-          </div>
-        </div>
-      </article>
+          <a class="btn" href="https://chapter5.studiofiveweddings.com" target="_blank" rel="noopener">Open Chapter5</a>
+        </article>
 
-      <article class="app-card">
-        <img class="app-logo" src="/images/beforethewin-logo.svg" alt="Before The Win Summit logo" width="56" height="56">
-        <div class="app-body">
-          <h3 class="app-name">Before The Win Summit <span class="app-tag">Event</span></h3>
-          <p class="app-desc">
+        <article class="product" data-reveal>
+          <div class="product-head">
+            <img src="/images/beforethewin-logo.svg" alt="Before The Win Summit logo" width="44" height="44" loading="lazy">
+            <h4>Before The Win Summit</h4>
+          </div>
+          <p>
             The site for a one-day business summit in Singapore for founders and operators, built
             around the speaker lineup and ticket sales.
           </p>
-          <div class="app-links">
-            <a class="btn primary" href="https://www.beforethewinsummit.com/" target="_blank" rel="noopener">Visit site</a>
+          <a class="btn" href="https://www.beforethewinsummit.com/" target="_blank" rel="noopener">Visit site</a>
+        </article>
+
+      </div>
+
+      <h3 class="group-title stamp">Sites I build and maintain</h3>
+      <ul class="sites-index">
+        <li><a class="site-row" href="https://studiofive.group" target="_blank" rel="noopener"><img src="/images/s5group-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">Studio Five Group</span><span class="site-desc">The group site tying all of the companies below together</span><span class="site-domain"><span>studiofive.group</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://studiofiveweddings.com" target="_blank" rel="noopener"><img src="/images/studiofive-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">Studio Five Weddings</span><span class="site-desc">Wedding photography and film</span><span class="site-domain"><span>studiofiveweddings.com</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://studiofivespaces.com" target="_blank" rel="noopener"><img src="/images/spaces-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">Studio Five Spaces</span><span class="site-desc">24/7 photo, video and podcast studio rental in Singapore</span><span class="site-domain"><span>studiofivespaces.com</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://studiofivecorp.com" target="_blank" rel="noopener"><img src="/images/s5corp-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">Studio Five Corp</span><span class="site-desc">Corporate media agency — video, photo, design, web</span><span class="site-domain"><span>studiofivecorp.com</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://studiofivepixels.com" target="_blank" rel="noopener"><img src="/images/s5pixels-logo.jpg" alt="" width="36" height="36" loading="lazy"><span class="site-name">Studio Five Pixels</span><span class="site-desc">Family, maternity, graduation and corporate portraits</span><span class="site-domain"><span>studiofivepixels.com</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://straitsbunkering.com" target="_blank" rel="noopener"><img src="/images/straits-logo.jpg" alt="" width="36" height="36" loading="lazy"><span class="site-name">Straits Bunkering</span><span class="site-desc">Marine fuel supply across Singapore and Malaysian waters</span><span class="site-domain"><span>straitsbunkering.com</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://straitsbunkering.ae" target="_blank" rel="noopener"><img src="/images/straits-ae-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">Straits Bunkering DMCC</span><span class="site-desc">The Dubai arm, serving vessels across the Gulf</span><span class="site-domain"><span>straitsbunkering.ae</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://printhouse.com.sg" target="_blank" rel="noopener"><img src="/images/printhouse-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">Printhouse</span><span class="site-desc">Online printing — cards, brochures, albums, canvas</span><span class="site-domain"><span>printhouse.com.sg</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://enghuaco.com" target="_blank" rel="noopener"><img src="/images/enghua-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">Eng Hua</span><span class="site-desc">Singapore bunkering company, supplying marine fuel since 1969</span><span class="site-domain"><span>enghuaco.com</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://siriusoilinternational.com" target="_blank" rel="noopener"><img src="/images/sirius-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">Sirius Oil International</span><span class="site-desc">Marine fuel logistics, chartering and vessel management</span><span class="site-domain"><span>siriusoilinternational.com</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://azfiananuar.com" target="_blank" rel="noopener"><img src="/images/azfian-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">Azfian Anuar</span><span class="site-desc">Portfolio for a documentary and corporate photographer</span><span class="site-domain"><span>azfiananuar.com</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://www.muslimownedsg.com/" target="_blank" rel="noopener"><img src="/images/muslimowned-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">Muslim-Owned Enterprise</span><span class="site-desc">Directory of Muslim-owned businesses in Singapore, by the Singapore Malay Chamber of Commerce &amp; Industry</span><span class="site-domain"><span>muslimownedsg.com</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://mycired.org" target="_blank" rel="noopener"><img src="/images/cired-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">CIRED Malaysia</span><span class="site-desc">The Malaysia chapter of CIRED, the international conference on electricity distribution</span><span class="site-domain"><span>mycired.org</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://sabhindoconsulting.com/" target="_blank" rel="noopener"><img src="/images/sabhindo-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">Sabhindo Consulting</span><span class="site-desc">Business licensing and regulatory compliance for companies operating in Indonesia</span><span class="site-domain"><span>sabhindoconsulting.com</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://udianasilverclass.id" target="_blank" rel="noopener"><img src="/images/udiana-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">Udiana Silver Class</span><span class="site-desc">Silver jewellery making workshops in Celuk, Bali</span><span class="site-domain"><span>udianasilverclass.id</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://emasestate.com" target="_blank" rel="noopener"><img src="/images/emasestate-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">Emas Estate</span><span class="site-desc">Boutique agency for villa, land and hotel investment in Bali</span><span class="site-domain"><span>emasestate.com</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+        <li><a class="site-row" href="https://vastbali.com" target="_blank" rel="noopener"><img src="/images/vastbali-logo.png" alt="" width="36" height="36" loading="lazy"><span class="site-name">Vast Bali</span><span class="site-desc">Project management for real estate development across Bali</span><span class="site-domain"><span>vastbali.com</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  </div>
+
+  <!-- 10:00 -->
+  <section class="leg" id="cycling" aria-labelledby="cycling-title">
+    <div class="wrap leg-inner">
+      <div class="route" aria-hidden="true"><div class="route-fill"></div></div>
+      <p class="waypoint stamp"><span class="wp-dot" aria-hidden="true"></span><time>10:00</time></p>
+      <header class="leg-head">
+        <h2 class="leg-title display" id="cycling-title" data-split>Cycling</h2>
+        <p class="leg-sub">The reason two of these apps exist.</p>
+      </header>
+
+      <div class="ride-stats" id="strava" aria-busy="true" aria-live="polite">
+        <div class="ride-stat is-hero"><span class="v"><span class="skeleton"></span></span><span class="l">Ridden all time</span></div>
+        <div class="ride-stat"><span class="v"><span class="skeleton"></span></span><span class="l">🔥 Weeks in a row riding</span></div>
+        <div class="ride-stat"><span class="v"><span class="skeleton"></span></span><span class="l">🐷 Babi guling burned this year</span></div>
+        <div class="ride-stat"><span class="v"><span class="skeleton"></span></span><span class="l">Everest climbed</span></div>
+        <div class="ride-stat"><span class="v"><span class="skeleton"></span></span><span class="l">Of the way around the Earth</span></div>
+      </div>
+
+      <div class="ride-grid">
+        <div class="ride-prose">
+          <p class="prose">
+            I ride road and gravel around Bali — early mornings, long climbs, and the odd sprint for a
+            segment I have no business chasing. It is where I do my best thinking, and it is also where
+            most of my ideas for tools come from.
+          </p>
+          <p class="prose">
+            <a href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">Ascent</a>
+            started because I wanted to see my own Strava data the way I actually think about it. The
+            <a href="https://bikefit.doniwirawan.xyz" target="_blank" rel="noopener">Bike Fit Analyzer</a>
+            started because I kept fiddling with my saddle height and wanted numbers instead of guesses.
+            If you ride too, both of them are free — and I would genuinely like to know what they get wrong.
+          </p>
+          <div class="app-links" style="margin-top:28px">
+            <a class="btn primary" href="https://www.strava.com/athletes/124436743" target="_blank" rel="noopener">Follow on Strava</a>
           </div>
         </div>
-      </article>
+        <div class="photos">
+          <figure><img src="/images/cycling-1.jpg" alt="Riding a road bike on a tree-lined road in Bali" width="900" height="1125" loading="lazy" data-speed="-6"></figure>
+          <figure><img src="/images/cycling-2.jpg" alt="On a gravel bike, throwing a peace sign at the camera" width="900" height="1125" loading="lazy" data-speed="10"></figure>
+          <figure><img src="/images/cycling-3.jpg" alt="Riding out of the saddle on a morning road ride" width="900" height="1125" loading="lazy" data-speed="-2"></figure>
+        </div>
+      </div>
 
-    </div>
-
-    <h3 class="group-title">Sites I build and maintain</h3>
-
-    <div class="sites">
-
-      <a class="site-card" href="https://studiofive.group" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/s5group-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Studio Five Group</span>
-          <span class="site-desc">The group site tying all of the companies below together</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://studiofiveweddings.com" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/studiofive-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Studio Five Weddings</span>
-          <span class="site-desc">Wedding photography and film</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://studiofivespaces.com" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/spaces-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Studio Five Spaces</span>
-          <span class="site-desc">24/7 photo, video and podcast studio rental in Singapore</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://studiofivecorp.com" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/s5corp-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Studio Five Corp</span>
-          <span class="site-desc">Corporate media agency — video, photo, design, web</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://studiofivepixels.com" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/s5pixels-logo.jpg" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Studio Five Pixels</span>
-          <span class="site-desc">Family, maternity, graduation and corporate portraits</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://straitsbunkering.com" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/straits-logo.jpg" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Straits Bunkering</span>
-          <span class="site-desc">Marine fuel supply across Singapore and Malaysian waters</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://straitsbunkering.ae" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/straits-ae-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Straits Bunkering DMCC</span>
-          <span class="site-desc">The Dubai arm, serving vessels across the Gulf</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://printhouse.com.sg" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/printhouse-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Printhouse</span>
-          <span class="site-desc">Online printing — cards, brochures, albums, canvas</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://enghuaco.com" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/enghua-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Eng Hua</span>
-          <span class="site-desc">Singapore bunkering company, supplying marine fuel since 1969</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://siriusoilinternational.com" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/sirius-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Sirius Oil International</span>
-          <span class="site-desc">Marine fuel logistics, chartering and vessel management</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://azfiananuar.com" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/azfian-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Azfian Anuar</span>
-          <span class="site-desc">Portfolio for a documentary and corporate photographer</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://www.muslimownedsg.com/" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/muslimowned-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Muslim-Owned Enterprise</span>
-          <span class="site-desc">Directory of Muslim-owned businesses in Singapore, by the Singapore Malay Chamber of Commerce &amp; Industry</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://mycired.org" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/cired-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">CIRED Malaysia</span>
-          <span class="site-desc">The Malaysia chapter of CIRED, the international conference on electricity distribution</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://sabhindoconsulting.com/" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/sabhindo-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Sabhindo Consulting</span>
-          <span class="site-desc">Business licensing and regulatory compliance for companies operating in Indonesia</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://udianasilverclass.id" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/udiana-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Udiana Silver Class</span>
-          <span class="site-desc">Silver jewellery making workshops in Celuk, Bali</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://emasestate.com" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/emasestate-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Emas Estate</span>
-          <span class="site-desc">Boutique agency for villa, land and hotel investment in Bali</span>
-        </span>
-      </a>
-
-      <a class="site-card" href="https://vastbali.com" target="_blank" rel="noopener">
-        <img class="site-logo" src="/images/vastbali-logo.png" alt="" width="36" height="36" loading="lazy">
-        <span>
-          <span class="site-name">Vast Bali</span>
-          <span class="site-desc">Project management for real estate development across Bali</span>
-        </span>
-      </a>
-
-    </div>
-    </div>
-  </section>
-
-  <section class="section wrap" id="about">
-    <h2>About</h2>
-    <p class="section-sub">The short version.</p>
-
-    <div class="about">
-      <img class="about-photo" src="/images/portrait.jpg" alt="Portrait of Doni Wirawan" width="600" height="600" loading="lazy">
-      <div>
-        <p class="prose">
-          I am Doni Wirawan. I am the person behind the web side of
-          <a href="https://studiofive.group" target="_blank" rel="noopener">Studio Five Group</a>:
-          the planning dashboards, delivery trackers and website builder its wedding clients use,
-          and the sites for each company in the group —
-          <a href="https://studiofiveweddings.com" target="_blank" rel="noopener">Weddings</a>,
-          <a href="https://studiofivespaces.com" target="_blank" rel="noopener">Spaces</a>,
-          <a href="https://studiofivecorp.com" target="_blank" rel="noopener">Corp</a>,
-          <a href="https://studiofivepixels.com" target="_blank" rel="noopener">Pixels</a> and
-          <a href="https://printhouse.com.sg" target="_blank" rel="noopener">Printhouse</a> — along
-          with the marine fuel side:
-          <a href="https://straitsbunkering.com" target="_blank" rel="noopener">Straits Bunkering</a>
-          in Singapore and <a href="https://straitsbunkering.ae" target="_blank" rel="noopener">Dubai</a>,
-          <a href="https://enghuaco.com" target="_blank" rel="noopener">Eng Hua</a> and
-          <a href="https://siriusoilinternational.com" target="_blank" rel="noopener">Sirius Oil</a>.
-          I build them, and I keep them running.
-        </p>
-        <p class="prose">
-          Before that I graduated from <a href="https://id.wikipedia.org/wiki/Bangkit_Academy" target="_blank" rel="noopener"><strong>Bangkit Academy</strong></a> — the career-readiness
-          programme led by Google and backed by GoTo, Tokopedia and Traveloka — where
-          my team and I built <a href="https://terrafarms.id" target="_blank" rel="noopener">Terrafarms</a> —
-          an AI and IoT platform that gives farmers soil analysis, crop recommendations and disease
-          detection. I also <strong>founded the <a href="https://instiki.ac.id/2022/11/19/google-developer-student-clubs-instiki-sukses-gelar-road-to-devfest-gain-knowledge-for-your-future-it-career/" target="_blank" rel="noopener">Google Developer Student Club at INSTIKI</a></strong> and
-          led it as its first chapter lead, which is still the thing I am proudest of: it outlived my
-          involvement, which is the only real test of whether you built something or just ran it.
-        </p>
-        <p class="prose">
-          The rest of the time I build small free tools for the things I care about: my own riding
-          data with <a href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">Ascent</a>,
-          my own bike fit with <a href="https://bikefit.doniwirawan.xyz" target="_blank" rel="noopener">Bike Fit Analyzer</a>,
-          and the Balinese script I grew up around with
-          <a href="https://aksarabali.doniwirawan.xyz" target="_blank" rel="noopener">Aksara Bali</a>.
-          They all run in the browser, they are all free, and none of them upload what you put into
-          them. That is a deliberate choice, not a limitation — I would rather ship something small
-          that respects you than something big that does not.
-        </p>
+      <h3 class="group-title stamp">Live from Ascent</h3>
+      <div class="strava-cards">
+        <a class="strava-card" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">
+          <img class="card-dark" src="https://ascent-analytics.vercel.app/api/card?type=calendar&amp;theme=dark" alt="A year of rides, km per day" width="495" height="195" loading="lazy">
+          <img class="card-light" src="https://ascent-analytics.vercel.app/api/card?type=calendar&amp;theme=light" alt="A year of rides, km per day" width="495" height="195" loading="lazy">
+        </a>
+        <a class="strava-card" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">
+          <img class="card-dark" src="https://ascent-analytics.vercel.app/api/card?type=latest&amp;theme=dark" alt="My latest ride" width="495" height="195" loading="lazy">
+          <img class="card-light" src="https://ascent-analytics.vercel.app/api/card?type=latest&amp;theme=light" alt="My latest ride" width="495" height="195" loading="lazy">
+        </a>
+        <a class="strava-card" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">
+          <img class="card-dark" src="https://ascent-analytics.vercel.app/api/card?type=fitness&amp;theme=dark" alt="Training form over the last 90 days" width="495" height="195" loading="lazy">
+          <img class="card-light" src="https://ascent-analytics.vercel.app/api/card?type=fitness&amp;theme=light" alt="Training form over the last 90 days" width="495" height="195" loading="lazy">
+        </a>
+        <a class="strava-card" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">
+          <img class="card-dark" src="https://ascent-analytics.vercel.app/api/card?type=bikes&amp;theme=dark" alt="All-time km on each bike" width="495" height="195" loading="lazy">
+          <img class="card-light" src="https://ascent-analytics.vercel.app/api/card?type=bikes&amp;theme=light" alt="All-time km on each bike" width="495" height="195" loading="lazy">
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="section wrap" id="cycling">
-    <h2>Cycling</h2>
-    <p class="section-sub">The reason two of these apps exist.</p>
-
-    <p class="prose">
-      I ride road and gravel around Bali — early mornings, long climbs, and the odd sprint for a
-      segment I have no business chasing. It is where I do my best thinking, and it is also where
-      most of my ideas for tools come from.
-    </p>
-    <p class="prose">
-      <a href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">Ascent</a>
-      started because I wanted to see my own Strava data the way I actually think about it. The
-      <a href="https://bikefit.doniwirawan.xyz" target="_blank" rel="noopener">Bike Fit Analyzer</a>
-      started because I kept fiddling with my saddle height and wanted numbers instead of guesses.
-      If you ride too, both of them are free — and I would genuinely like to know what they get wrong.
-    </p>
-
-    <div class="stats" id="strava" hidden></div>
-
-    <div class="strava-cards">
-      <a class="strava-card" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">
-        <img class="card-dark" src="https://ascent-analytics.vercel.app/api/card?type=calendar&amp;theme=dark" alt="A year of rides, km per day" width="495" height="195" loading="lazy">
-        <img class="card-light" src="https://ascent-analytics.vercel.app/api/card?type=calendar&amp;theme=light" alt="A year of rides, km per day" width="495" height="195" loading="lazy">
-      </a>
-      <a class="strava-card" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">
-        <img class="card-dark" src="https://ascent-analytics.vercel.app/api/card?type=latest&amp;theme=dark" alt="My latest ride" width="495" height="195" loading="lazy">
-        <img class="card-light" src="https://ascent-analytics.vercel.app/api/card?type=latest&amp;theme=light" alt="My latest ride" width="495" height="195" loading="lazy">
-      </a>
-      <a class="strava-card" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">
-        <img class="card-dark" src="https://ascent-analytics.vercel.app/api/card?type=fitness&amp;theme=dark" alt="Training form over the last 90 days" width="495" height="195" loading="lazy">
-        <img class="card-light" src="https://ascent-analytics.vercel.app/api/card?type=fitness&amp;theme=light" alt="Training form over the last 90 days" width="495" height="195" loading="lazy">
-      </a>
-      <a class="strava-card" href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">
-        <img class="card-dark" src="https://ascent-analytics.vercel.app/api/card?type=bikes&amp;theme=dark" alt="All-time km on each bike" width="495" height="195" loading="lazy">
-        <img class="card-light" src="https://ascent-analytics.vercel.app/api/card?type=bikes&amp;theme=light" alt="All-time km on each bike" width="495" height="195" loading="lazy">
-      </a>
-    </div>
-
-    <div class="photos">
-      <img src="/images/cycling-1.jpg" alt="Riding a road bike on a tree-lined road in Bali" width="900" height="1125" loading="lazy">
-      <img src="/images/cycling-2.jpg" alt="On a gravel bike, throwing a peace sign at the camera" width="900" height="1125" loading="lazy">
-      <img src="/images/cycling-3.jpg" alt="Riding out of the saddle on a morning road ride" width="900" height="1125" loading="lazy">
-    </div>
-
-    <div class="app-links">
-      <a class="btn" href="https://www.strava.com/athletes/124436743" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066M8.378 0L2.83 10.928h3.244L8.378 6.4l2.301 4.528h3.234z"/></svg>
-        Follow on Strava
-      </a>
+  <!-- 12:30. Hidden until Goodreads answers; there is nothing to show without it. -->
+  <section class="leg" id="reading" aria-labelledby="reading-title" hidden>
+    <div class="wrap leg-inner">
+      <div class="route" aria-hidden="true"><div class="route-fill"></div></div>
+      <p class="waypoint stamp"><span class="wp-dot" aria-hidden="true"></span><time>12:30</time></p>
+      <header class="leg-head">
+        <h2 class="leg-title display" id="reading-title" data-split>Reading</h2>
+        <p class="leg-sub">Pulled from my Goodreads shelves.</p>
+      </header>
+      <div id="now"></div>
+      <div class="books" id="books"></div>
     </div>
   </section>
 
-  <section class="section wrap" id="reading" hidden>
-    <h2>Reading</h2>
-    <p class="section-sub">Pulled from my Goodreads shelves.</p>
-    <div id="now"></div>
-    <div class="books" id="books"></div>
-  </section>
-
-  <section class="section wrap" id="connect">
-    <h2>Connect</h2>
-    <p class="section-sub">Say hello, or tell me what to fix.</p>
-
-    <form class="form contact" id="contact-form">
-      <label>Name<input type="text" id="c-name" maxlength="100" required></label>
-      <label>Email<input type="email" id="c-email" maxlength="200" required></label>
-      <label>Message<textarea id="c-message" rows="5" maxlength="5000" required></textarea></label>
-      <input type="text" id="c-website" class="trap" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn primary" type="submit">Send</button>
-      <p class="form-msg" id="c-msg"></p>
-    </form>
-
-    <details class="more elsewhere">
-      <summary>Find me elsewhere</summary>
-      <div class="app-links more-body">
-      <a class="btn" href="https://www.linkedin.com/in/doniwirawan" target="_blank" rel="noopener">
-        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg>
-        LinkedIn
-      </a>
-      <a class="btn" href="https://www.strava.com/athletes/124436743" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066M8.378 0L2.83 10.928h3.244L8.378 6.4l2.301 4.528h3.234z"/></svg>
-        Strava
-      </a>
-      <a class="btn" href="https://github.com/doniwirawan" target="_blank" rel="noopener">
-        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-        GitHub
-      </a>
-      <a class="btn" href="https://ko-fi.com/doniwirawan" target="_blank" rel="noopener">
-        <svg viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M1.5 3.5h9.75a3.5 3.5 0 0 1 0 7h-.6a3 3 0 0 1-2.9 2.25H4.5a3 3 0 0 1-3-3zM11 5.25v3.5h.25a1.75 1.75 0 0 0 0-3.5z"/></svg>
-        Ko-fi
-      </a>
+  <!-- 15:00 -->
+  <section class="leg" id="about" aria-labelledby="about-title">
+    <div class="wrap leg-inner">
+      <div class="route" aria-hidden="true"><div class="route-fill"></div></div>
+      <p class="waypoint stamp"><span class="wp-dot" aria-hidden="true"></span><time>15:00</time></p>
+      <header class="leg-head">
+        <h2 class="leg-title display" id="about-title" data-split>About</h2>
+        <p class="leg-sub">The short version.</p>
+      </header>
+      <div class="about-grid">
+        <blockquote class="pullquote" data-reveal>
+          <p style="margin:0">“It outlived my involvement, which is the only real test of whether you built something or just ran it.”</p>
+          <footer>On founding the Google Developer Student Club at INSTIKI</footer>
+        </blockquote>
+        <div>
+          <p class="prose">
+            I am Doni Wirawan. I am the person behind the web side of
+            <a href="https://studiofive.group" target="_blank" rel="noopener">Studio Five Group</a>:
+            the planning dashboards, delivery trackers and website builder its wedding clients use,
+            and the sites for each company in the group —
+            <a href="https://studiofiveweddings.com" target="_blank" rel="noopener">Weddings</a>,
+            <a href="https://studiofivespaces.com" target="_blank" rel="noopener">Spaces</a>,
+            <a href="https://studiofivecorp.com" target="_blank" rel="noopener">Corp</a>,
+            <a href="https://studiofivepixels.com" target="_blank" rel="noopener">Pixels</a> and
+            <a href="https://printhouse.com.sg" target="_blank" rel="noopener">Printhouse</a> — along
+            with the marine fuel side:
+            <a href="https://straitsbunkering.com" target="_blank" rel="noopener">Straits Bunkering</a>
+            in Singapore and <a href="https://straitsbunkering.ae" target="_blank" rel="noopener">Dubai</a>,
+            <a href="https://enghuaco.com" target="_blank" rel="noopener">Eng Hua</a> and
+            <a href="https://siriusoilinternational.com" target="_blank" rel="noopener">Sirius Oil</a>.
+            I build them, and I keep them running.
+          </p>
+          <p class="prose">
+            Before that I graduated from <a href="https://id.wikipedia.org/wiki/Bangkit_Academy" target="_blank" rel="noopener"><strong>Bangkit Academy</strong></a> — the career-readiness
+            programme led by Google and backed by GoTo, Tokopedia and Traveloka — where
+            my team and I built <a href="https://terrafarms.id" target="_blank" rel="noopener">Terrafarms</a> —
+            an AI and IoT platform that gives farmers soil analysis, crop recommendations and disease
+            detection. I also <strong>founded the <a href="https://instiki.ac.id/2022/11/19/google-developer-student-clubs-instiki-sukses-gelar-road-to-devfest-gain-knowledge-for-your-future-it-career/" target="_blank" rel="noopener">Google Developer Student Club at INSTIKI</a></strong> and
+            led it as its first chapter lead, which is still the thing I am proudest of: it outlived my
+            involvement, which is the only real test of whether you built something or just ran it.
+          </p>
+          <p class="prose">
+            The rest of the time I build small free tools for the things I care about: my own riding
+            data with <a href="https://ascent-analytics.doniwirawan.xyz" target="_blank" rel="noopener">Ascent</a>,
+            my own bike fit with <a href="https://bikefit.doniwirawan.xyz" target="_blank" rel="noopener">Bike Fit Analyzer</a>,
+            and the Balinese script I grew up around with
+            <a href="https://aksarabali.doniwirawan.xyz" target="_blank" rel="noopener">Aksara Bali</a>.
+            They all run in the browser, they are all free, and none of them upload what you put into
+            them. That is a deliberate choice, not a limitation — I would rather ship something small
+            that respects you than something big that does not.
+          </p>
+        </div>
       </div>
-    </details>
+    </div>
+  </section>
+
+  <!-- 17:45 -->
+  <section class="leg" id="connect" aria-labelledby="connect-title">
+    <div class="wrap leg-inner">
+      <div class="route" aria-hidden="true"><div class="route-fill"></div></div>
+      <p class="waypoint stamp"><span class="wp-dot" aria-hidden="true"></span><time>17:45</time></p>
+      <div class="connect-grid">
+        <div>
+          <header class="leg-head">
+            <h2 class="leg-title display" id="connect-title" data-split>Connect</h2>
+            <p class="leg-sub">Say hello, or tell me what to fix.</p>
+          </header>
+          <details class="more elsewhere">
+            <summary>Find me elsewhere</summary>
+            <div class="app-links more-body">
+              <a class="btn" href="https://www.linkedin.com/in/doniwirawan" target="_blank" rel="noopener">LinkedIn</a>
+              <a class="btn" href="https://www.strava.com/athletes/124436743" target="_blank" rel="noopener">Strava</a>
+              <a class="btn" href="https://github.com/doniwirawan" target="_blank" rel="noopener">GitHub</a>
+              <a class="btn" href="https://ko-fi.com/doniwirawan" target="_blank" rel="noopener">Ko-fi</a>
+            </div>
+          </details>
+        </div>
+
+        <form class="form contact" id="contact-form">
+          <label>Name<input type="text" id="c-name" name="name" maxlength="100" autocomplete="name" required></label>
+          <label>Email<input type="email" id="c-email" name="email" maxlength="200" autocomplete="email" required></label>
+          <label>Message<textarea id="c-message" name="message" rows="6" maxlength="5000" required></textarea></label>
+          <input type="text" id="c-website" class="trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn primary" type="submit">Send</button>
+          <p class="form-msg" id="c-msg" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
   </section>
 </main>
 
-<footer class="wrap footer">
-  <div>© <span id="yr">2026</span> Doni Wirawan</div>
-  <div class="footer-links">
-    <a href="/">Home</a>
-    <a href="/blog">Blog</a>
-    <a href="/terms">Terms</a>
-    <a href="/privacy">Privacy</a>
-    <a href="https://github.com/doniwirawan" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://www.linkedin.com/in/doniwirawan/" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://ko-fi.com/doniwirawan" target="_blank" rel="noopener">Ko-fi</a>
-    <a href="https://play.google.com/store/apps/details?id=xyz.doniwirawan.aksara_bali_mobile" target="_blank" rel="noopener">Aksara Bali on Google Play</a>
+<footer class="footer">
+  <div class="wrap">
+    <p class="footer-mark display" aria-hidden="true" data-footer-mark>Doni Wirawan</p>
+    <p class="aksara" lang="ban" aria-hidden="true">ᬤᭀᬦᬶ​ᬯᬶᬭᬯᬦ᭄</p>
+    <div class="footer-row">
+      <p>© <span id="yr">2026</span> Doni Wirawan</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/terms">Terms</a>
+        <a href="/privacy">Privacy</a>
+        <a href="https://github.com/doniwirawan" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/doniwirawan/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://ko-fi.com/doniwirawan" target="_blank" rel="noopener">Ko-fi</a>
+        <a href="https://play.google.com/store/apps/details?id=xyz.doniwirawan.aksara_bali_mobile" target="_blank" rel="noopener">Aksara Bali on Google Play</a>
+      </nav>
+    </div>
   </div>
 </footer>
 
@@ -625,19 +607,105 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
 
+var fmtDate = function (d) {
+  return new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+};
+
+// Latest writing, from the same index file the blog page reads.
+(function () {
+  var box = document.getElementById('writing-grid');
+
+  function fail(text) {
+    box.removeAttribute('aria-busy');
+    var p = document.createElement('p');
+    p.className = 'state-msg';
+    p.append(text + ' ');
+    var a = document.createElement('a');
+    a.href = '/blog';
+    a.textContent = 'Go to the blog';
+    p.append(a);
+    box.replaceChildren(p);
+  }
+
+  fetch('/data/posts-index.json')
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function (posts) {
+      if (!posts.length) return fail('No posts yet.');
+      var first = posts[0];
+
+      var feature = document.createElement('a');
+      feature.className = 'post-feature';
+      feature.href = '/blog/' + first.slug;
+      var frame = document.createElement('div');
+      frame.className = 'frame';
+      var img = document.createElement('img');
+      img.src = first.cover_url || '/images/icon.png';
+      img.alt = '';
+      img.width = 1200; img.height = 800;
+      img.loading = 'lazy';
+      img.onerror = function () { img.onerror = null; img.src = '/images/icon.png'; };
+      frame.append(img);
+      var h = document.createElement('h3');
+      h.textContent = first.title;
+      feature.append(frame, h);
+      if (first.excerpt) {
+        var ex = document.createElement('p');
+        ex.textContent = first.excerpt;
+        feature.append(ex);
+      }
+
+      var col = document.createElement('div');
+      var list = document.createElement('ul');
+      list.className = 'post-list';
+      posts.slice(1, 4).forEach(function (p) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = '/blog/' + p.slug;
+        var t = document.createElement('b');
+        t.textContent = p.title;
+        var d = document.createElement('span');
+        d.className = 'stamp';
+        d.textContent = p.published_at ? fmtDate(p.published_at) : '';
+        a.append(t, d);
+        li.append(a);
+        list.append(li);
+      });
+      var more = document.createElement('div');
+      more.className = 'post-list-more';
+      more.innerHTML = '<a class="btn" href="/blog">All ' + posts.length + ' posts</a>';
+      col.append(list, more);
+
+      box.replaceChildren(feature, col);
+      box.removeAttribute('aria-busy');
+      if (window.motion) window.motion.refresh();
+    })
+    .catch(function (err) {
+      console.error('posts-index:', err);
+      fail('Could not load the latest posts right now.');
+    });
+})();
+
 // Contact form. Anyone may insert a message; nobody can read them back — there is
 // no select policy for anon, so we must not ask Supabase to return the new row.
 (function () {
   var form = document.getElementById('contact-form');
   var msg = document.getElementById('c-msg');
+  var button = form.querySelector('button');
+
+  function say(text, kind) {
+    msg.textContent = text;
+    msg.classList.toggle('is-ok', kind === 'ok');
+    msg.classList.toggle('is-error', kind === 'error');
+  }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
     // Bots fill in every field they find, including the hidden one.
-    if (document.getElementById('c-website').value) { msg.textContent = 'Thanks.'; return; }
+    if (document.getElementById('c-website').value) { say('Thanks.', 'ok'); return; }
 
-    msg.textContent = 'Sending…';
+    say('Sending…');
+    button.disabled = true;
     fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -650,10 +718,12 @@ document.getElementById('yr').textContent = new Date().getFullYear();
     }).then(function (r) {
       if (!r.ok) return r.text().then(function (t) { throw new Error(r.status + ' ' + t); });
       form.reset();
-      msg.textContent = 'Sent. I will get back to you.';
+      say('Sent. I will get back to you.', 'ok');
     }).catch(function (err) {
       console.error('contact form:', err);
-      msg.textContent = 'That did not send. Email me instead: doniwirawan166@gmail.com';
+      say('That did not send. Email me instead: doniwirawan166@gmail.com', 'error');
+    }).finally(function () {
+      button.disabled = false;
     });
   });
 })();
@@ -679,6 +749,7 @@ fetch('/api/reading')
         img.className = 'book-cover';
         img.src = b.cover;
         img.alt = '';
+        img.width = 52; img.height = 78;
         img.loading = 'lazy';
         a.append(img);
       }
@@ -700,6 +771,7 @@ fetch('/api/reading')
         var st = document.createElement('span');
         st.className = 'book-stars';
         st.textContent = stars(b.rating);
+        st.setAttribute('aria-label', b.rating + ' out of 5 stars');
         meta.append(st);
       }
 
@@ -709,16 +781,16 @@ fetch('/api/reading')
 
     if (d.current.length) {
       var now = document.getElementById('now');
-      var label = document.createElement('p');
-      label.className = 'group-title';
+      var label = document.createElement('h3');
+      label.className = 'group-title stamp';
       label.textContent = 'Currently reading';
       var wrap = document.createElement('div');
       wrap.className = 'books';
       d.current.forEach(function (b) { wrap.append(card(b, true)); });
       now.append(label, wrap);
 
-      var done = document.createElement('p');
-      done.className = 'group-title';
+      var done = document.createElement('h3');
+      done.className = 'group-title stamp';
       done.textContent = 'Recently finished';
       now.append(done);
     }
@@ -726,54 +798,71 @@ fetch('/api/reading')
     var grid = document.getElementById('books');
     d.read.forEach(function (b) { grid.append(card(b, false)); });
     document.getElementById('reading').hidden = false;
+    if (window.motion) window.motion.refresh();
   })
   .catch(function () { /* leave the section hidden if Goodreads is unreachable */ });
 
 // Strava numbers from Ascent's public stats API (aggregates only — no routes, no GPS).
-fetch('https://ascent-analytics.vercel.app/api/stats')
-  .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
-  .then(function (s) {
-    if (s.error) return Promise.reject(s.error);
-    var n = function (x) { return Math.round(x).toLocaleString(); };
-    var year = new Date().getFullYear();
-    var all = s.all_time || s.totals;
-    var tiles = [
-      ['🔥 ' + s.streak.weeks, 'Weeks in a row riding'],
-      ['🐷 ' + n(s.fun.babi_guling_this_year), 'Babi guling burned in ' + year],
-      [n(all.distance_km) + ' km', s.all_time ? 'Ridden all time' : 'Recent rides'],
-      [s.fun.everests + '×', 'Everest climbed'],
-      [s.fun.around_the_earth_pct + '%', 'Of the way around the Earth'],
-    ];
-    var box = document.getElementById('strava');
-    box.replaceChildren.apply(box, tiles.map(function (t) {
-      var tile = document.createElement('div');
-      tile.className = 'stat';
-      var v = document.createElement('span');
-      v.className = 'stat-value';
-      v.textContent = t[0];
-      var l = document.createElement('span');
-      l.className = 'stat-label';
-      l.textContent = t[1];
-      tile.append(v, l);
-      return tile;
-    }));
-    box.hidden = false;
-  })
-  .catch(function () { /* leave the section hidden if Strava is unreachable */ });
+(function () {
+  var box = document.getElementById('strava');
 
-document.querySelectorAll('.tab').forEach(function (tab) {
-  tab.addEventListener('click', function () {
-    document.querySelectorAll('.tab').forEach(function (t) {
-      var selected = t === tab;
-      t.classList.toggle('is-active', selected);
-      t.setAttribute('aria-selected', selected);
-      document.getElementById(t.getAttribute('aria-controls')).hidden = !selected;
+  // Values are written as their final text, so the page is right without
+  // motion; motion.js only counts up to what is already there.
+  function setStat(tile, value, opts) {
+    var v = tile.querySelector('.v');
+    var decimals = opts.decimals || 0;
+    var text = value.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+    v.textContent = (opts.prefix || '') + text + (opts.suffix || '');
+    v.setAttribute('data-count', value);
+    v.setAttribute('data-decimals', decimals);
+    if (opts.prefix) v.setAttribute('data-prefix', opts.prefix);
+    if (opts.suffix) v.setAttribute('data-suffix', opts.suffix);
+    if (opts.label) tile.querySelector('.l').textContent = opts.label;
+  }
+
+  fetch('https://ascent-analytics.vercel.app/api/stats')
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function (s) {
+      if (s.error) return Promise.reject(s.error);
+      var year = new Date().getFullYear();
+      var all = s.all_time || s.totals;
+      var dec = function (x) { return Math.round(x) === x ? 0 : 1; };
+      var km = Math.round(all.distance_km);
+      var tiles = box.querySelectorAll('.ride-stat');
+
+      setStat(tiles[0], km, { suffix: ' km', label: s.all_time ? 'Ridden all time' : 'Recent rides' });
+      setStat(tiles[1], s.streak.weeks, {});
+      setStat(tiles[2], Math.round(s.fun.babi_guling_this_year), { label: '🐷 Babi guling burned in ' + year });
+      setStat(tiles[3], s.fun.everests, { suffix: '×', decimals: dec(s.fun.everests) });
+      setStat(tiles[4], s.fun.around_the_earth_pct, { suffix: '%', decimals: dec(s.fun.around_the_earth_pct) });
+      box.removeAttribute('aria-busy');
+
+      var odo = document.getElementById('odo');
+      var b = odo.querySelector('[data-odo]');
+      b.textContent = km.toLocaleString('en-US');
+      b.setAttribute('data-count', km);
+      odo.hidden = false;
+
+      if (window.motion) window.motion.counted(box.querySelectorAll('[data-count]'), odo);
+    })
+    .catch(function (err) {
+      console.error('ascent stats:', err);
+      box.removeAttribute('aria-busy');
+      var p = document.createElement('p');
+      p.className = 'state-msg';
+      p.style.padding = '20px 0';
+      p.innerHTML = 'The live ride numbers did not load just now. ' +
+        '<a href="https://www.strava.com/athletes/124436743" target="_blank" rel="noopener">See them on Strava</a>.';
+      box.replaceChildren(p);
     });
-  });
-});
+})();
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
 <script src="/js/nav.js"></script>
+<script src="/js/vendor/gsap.min.js" defer></script>
+<script src="/js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="/js/vendor/lenis.min.js" defer></script>
+<script src="/js/motion.js" defer></script>
 <script defer src="/js/views.js"></script>
 </body>
 </html>

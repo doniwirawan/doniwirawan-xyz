@@ -26,6 +26,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <link rel="icon" href="/images/icon.png">
 <link rel="apple-touch-icon" href="/images/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Balinese:wght@500&display=swap&text=%E1%AC%A4%E1%AD%80%E1%AC%A6%E1%AC%B6%E1%AC%AF%E1%AC%B6%E1%AC%AD%E1%AC%AF%E1%AC%A6%E1%AD%84">
 <link rel="stylesheet" href="/style.css">
 <script>
 // Pick the theme before first paint so the page never flashes the wrong one.
@@ -44,12 +48,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<nav class="nav">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
   <div class="nav-inner">
     <a class="nav-name" href="/">
-      <img class="nav-avatar" src="/images/avatar.png" alt="" width="26" height="26">
+      <img class="nav-avatar" src="/images/avatar.png" alt="" width="30" height="30">
       Doni Wirawan
     </a>
+    <nav class="nav-links" id="nav-links" aria-label="Main">
+      <a href="/#apps">Apps</a>
+      <a href="/#work">Work</a>
+      <a href="/#cycling">Cycling</a>
+      <a href="/blog">Blog</a>
+      <a href="/#about">About</a>
+      <a href="/#connect">Connect</a>
+    </nav>
     <div class="nav-actions">
       <button class="theme-toggle" type="button" aria-label="Switch theme">
         <svg class="to-light" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -60,26 +73,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <svg class="close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>
     </div>
-    <div class="nav-links" id="nav-links">
-      <a href="/#projects">Projects</a>
-      <a href="/#about">About</a>
-      <a href="/blog">Blog</a>
-      <a href="/#cycling">Cycling</a>
-      <a href="/#connect">Connect</a>
-    </div>
   </div>
-</nav>`,
+</header>`,
 
-  footer: `<footer class="wrap footer">
-  <div>© <span id="yr">2026</span> Doni Wirawan</div>
-  <div class="footer-links">
-    <a href="/">Home</a>
-    <a href="/blog">Blog</a>
-    <a href="/terms">Terms</a>
-    <a href="/privacy">Privacy</a>
-    <a href="https://github.com/doniwirawan" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://www.linkedin.com/in/doniwirawan/" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://ko-fi.com/doniwirawan" target="_blank" rel="noopener">Ko-fi</a>
+  footer: `<footer class="footer">
+  <div class="wrap">
+    <p class="footer-mark display" aria-hidden="true">Doni Wirawan</p>
+    <p class="aksara" lang="ban" aria-hidden="true">ᬤᭀᬦᬶ​ᬯᬶᬭᬯᬦ᭄</p>
+    <div class="footer-row">
+      <p>© <span id="yr">2026</span> Doni Wirawan</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/terms">Terms</a>
+        <a href="/privacy">Privacy</a>
+        <a href="https://github.com/doniwirawan" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/doniwirawan/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://ko-fi.com/doniwirawan" target="_blank" rel="noopener">Ko-fi</a>
+      </nav>
+    </div>
   </div>
 </footer>
 
@@ -101,9 +113,9 @@ ${head}
 <body>
 ${chrome.nav}
 
-<main class="wrap doc">
+<main id="main" class="doc">
 ${body}
-  <p style="margin-top:36px;"><a href="/blog">← All posts</a></p>
+  <p class="back-link"><a href="/blog">← All posts</a></p>
 </main>
 
 ${chrome.footer}
@@ -132,7 +144,7 @@ function renderRecs(recs) {
 
   const cards = recs.map((rec) => `
       <a class="post-card" href="/blog/${escapeHtml(rec.slug)}">
-        <img class="post-cover" src="${escapeHtml(rec.cover_url || '/images/icon.png')}" alt="" loading="lazy">
+        <div class="frame"><img class="post-cover" src="${escapeHtml(rec.cover_url || '/images/icon.png')}" alt="" width="1200" height="800" loading="lazy"></div>
         <div class="post-card-text">
           <h3>${escapeHtml(rec.title)}</h3>
           <p class="post-date">${rec.published_at ? escapeHtml(fmt(rec.published_at)) : ''}</p>
@@ -281,7 +293,7 @@ function render(post, slug, recs = []) {
   const body = `  <article id="post">
     <h1>${escapeHtml(post.title)}</h1>
     <p class="meta">${post.published_at ? escapeHtml(fmt(post.published_at)) : ''}</p>
-    ${cover && !heroIsDuplicate ? `<img class="post-hero" src="${escapeHtml(cover)}" alt="">` : ''}
+    ${cover && !heroIsDuplicate ? `<img class="post-hero" src="${escapeHtml(cover)}" alt="" width="1200" height="800" fetchpriority="high">` : ''}
     <div class="post-body">${article}</div>
     ${origin}
     <p class="post-note">How this was written: the thinking, the opinions and the first
