@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-N3FBDCFQ');</script>
 <!-- End Google Tag Manager -->
 <title>Privacy Policy — Doni Wirawan</title>
-<meta name="description" content="Privacy policy for doniwirawan.xyz and the apps: Ascent, Bike Fit Analyzer and Aksara Bali.">
+<meta name="description" content="Privacy policy for doniwirawan.xyz and the apps: Ascent, Bike Fit Analyzer, Racket and Aksara Bali.">
 <link rel="canonical" href="https://doniwirawan.xyz/privacy">
 <link rel="icon" href="/images/icon.png">
 <link rel="apple-touch-icon" href="/images/icon.png">
@@ -68,7 +68,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <main id="main" class="doc">
   <h1>Privacy Policy</h1>
-  <p class="meta">Last updated 13 July 2026 · Covers doniwirawan.xyz, Ascent, Bike Fit Analyzer and Aksara Bali</p>
+  <p class="meta">Last updated 20 November 2026 · Covers doniwirawan.xyz, Ascent, Bike Fit Analyzer, Racket and Aksara Bali</p>
 
   <div class="callout">
     <p>
@@ -81,7 +81,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <p>
     This policy explains what happens to data when you use <strong>doniwirawan.xyz</strong> or any of
-    the apps I build — Ascent, Bike Fit Analyzer and Aksara Bali (each an “App”). The rules of use
+    the apps I build — Ascent, Bike Fit Analyzer, Racket and Aksara Bali (each an “App”). The rules of use
     live separately, in the <a href="/terms">Terms of Use</a>.
   </p>
 
@@ -178,22 +178,57 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     Full text: <a href="https://bikefit.doniwirawan.xyz/privacy" target="_blank" rel="noopener">Bike Fit Privacy</a>
   </p>
 
-  <h2>6. Aksara Bali</h2>
+  <h2>6. Racket</h2>
+  <h3>Video analysis</h3>
+  <p>
+    Your video is never uploaded. It is decoded and analysed by your own browser, on your own
+    device, and the exported video is saved straight to your device. The analysis models are
+    downloaded once from racket.doniwirawan.xyz itself and kept in your browser's cache storage;
+    the analysis page has a button to delete them.
+  </p>
+  <h3>Live scores</h3>
+  <p>
+    When you keep a live score, the team names you enter and the list of points are published to a
+    topic on ntfy.sh, a public notification service, so that viewers can follow along. Anyone with
+    the viewer link, or who guesses the random topic name, can read them, and ntfy.sh keeps messages
+    for about 12 hours. Every update is signed with a key that stays in your browser's local
+    storage, so nobody else can change your score. The match itself is also kept in local storage
+    on the scorer's device.
+  </p>
+  <h3>Live video</h3>
+  <p>
+    Camera and microphone access are requested only when you press the button to broadcast. The
+    video goes directly from the scorer's device to each viewer's device (WebRTC); it does not pass
+    through or get stored on a server of mine. To set up that connection, the two devices exchange
+    short messages through ntfy.sh, and those messages contain each device's network addresses,
+    which therefore become visible to the other side and to ntfy.sh. A STUN server run by Google
+    (stun.l.google.com) helps each device find its public address and sees its IP address in doing
+    so.
+  </p>
+  <h3>Other</h3>
+  <p>
+    Racket has no accounts, no analytics and no advertising. Its pages load fonts from Google Fonts,
+    which sees your IP address and browser as any font request would. The spoken score uses your
+    browser's built-in speech, which on some browsers may use the browser maker's online voice
+    service.
+  </p>
+
+  <h2>7. Aksara Bali</h2>
   <p>
     The text you type is converted on your device. It is not sent to a server, it is not logged, and
     there are no accounts.
   </p>
 
-  <h2>7. Third parties</h2>
+  <h2>8. Third parties</h2>
   <p>
     The site and the Apps depend on third-party services — Strava's API, Google's MediaPipe,
-    jsDelivr, Google Tag Manager, Vercel hosting and analytics, and Supabase for the blog, contact
-    form and Ascent caching. Those services have their own privacy policies, which govern their own
+    jsDelivr, Google Tag Manager, Vercel hosting and analytics, Supabase for the blog, contact
+    form and Ascent caching, and for Racket, ntfy.sh, Google's STUN server and Google Fonts. Those services have their own privacy policies, which govern their own
     handling of any data they receive. I am not responsible for how third parties operate their
     services.
   </p>
 
-  <h2>8. Your rights</h2>
+  <h2>9. Your rights</h2>
   <p>
     Most of what the Apps hold about you is on your own device, so you can delete it yourself by
     clearing your browser storage, and you can revoke Ascent's access from inside Strava at any time.
@@ -202,19 +237,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="mailto:doniwirawan166@gmail.com">doniwirawan166@gmail.com</a>.
   </p>
 
-  <h2>9. Children</h2>
+  <h2>10. Children</h2>
   <p>
     These are not services aimed at children, and I do not knowingly collect anything from them.
   </p>
 
-  <h2>10. Changes</h2>
+  <h2>11. Changes</h2>
   <p>
     These are active projects, so this policy may change. The date at the top says when it last did.
     Where an individual App publishes its own, more detailed privacy policy, that document is the
     authoritative one for that App and prevails over this summary in the event of a conflict.
   </p>
 
-  <h2>11. Contact</h2>
+  <h2>12. Contact</h2>
   <p>
     Questions, corrections and privacy requests:
     <a href="mailto:doniwirawan166@gmail.com">doniwirawan166@gmail.com</a>, or open an issue on
